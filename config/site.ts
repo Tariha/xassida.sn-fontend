@@ -1,18 +1,20 @@
+import CustomIcon from "@/components/icons"
+
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
-  description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
-  mainNav: [
+  name: "Xassida.sn",
+  description: "Lire et ecouter les xassidas des differents tariha",
+  nav: [
     {
-      title: "Home",
+      title: "Acceuil",
       href: "/",
+      icon: CustomIcon({ name: "Home", size: 20, className: "text-vert" }),
+    },
+    {
+      title: "A Propos",
+      href: "/about",
+      icon: CustomIcon({ name: "Info", size: 20, className: "text-vert" }),
     },
   ],
-  links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
-  },
 }

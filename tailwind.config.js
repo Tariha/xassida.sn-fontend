@@ -13,10 +13,18 @@ module.exports = {
       },
     },
     extend: {
+      lineClamp: {
+         8: '8',
+        15: '15',
+      },
+      backgroundImage: {
+        'bismillah': "url('/images/background.jpg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        vert: "#2ca4ab",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -55,6 +63,11 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        keania: ["var(--font-keania)"],
+        hafs: ["var(--font-hafs)"],
+        scheherazade: ["var(--font-scheherazade)"],
+        amiri: ["var(--font-amiri)"],
+        lateef: ["var(--font-lateef)"]
       },
       keyframes: {
         "accordion-down": {
@@ -72,5 +85,8 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('@tailwindcss/typography'),
+  ],
 }

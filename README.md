@@ -1,22 +1,35 @@
-# next-template
+# Nom du Projet
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+## Description
+[Une brève description de votre projet ici]
 
-## Usage
+## Fonctionnalités
 
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
+- [Fonctionnalité 1]
+- [Fonctionnalité 2]
+- [Fonctionnalité 3]
+- ...
 
-## Features
+## Captures d'écran
+[Insérez ici quelques captures d'écran du projet pour montrer son apparence et son fonctionnement]
 
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Tailwind CSS class sorting, merging and linting.
+## Installation
 
-## License
+1. Clonez le projet : `git clone [lien du dépôt]`
+2. Installez les dépendances : `npm install`
 
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+## Utilisation
+
+[Expliquez comment utiliser le projet et ses principales fonctionnalités]
+
+## Contribuer
+
+[Expliquez comment les contributeurs peuvent participer à votre projet. Vous pouvez inclure des instructions sur la façon de signaler des problèmes, de soumettre des demandes de fonctionnalités, ou comment contribuer au code]
+
+## Auteurs
+
+[Listez les auteurs/contributeurs du projet]
+
+## Licence
+
+[Indiquez ici la licence du projet]
