@@ -7,7 +7,7 @@ export default function IndexPage() {
   return (
     <>
       <Banner />
-      <div className="container p-4">
+      <div className="container">
         <Tabs tabs={TABS.top} defaut="Historique" />
         <Separator />
         <Tabs tabs={TABS.bottom} defaut="Xassidas" />

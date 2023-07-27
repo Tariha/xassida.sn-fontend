@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     default: siteConfig.name,
     template: `%s - ${siteConfig.name}`,
   },
+  applicationName: "xassida.sn",
+  category: "technology",
   description: siteConfig.description,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
@@ -28,8 +30,20 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: "/icons/favicon.ico",
-    shortcut: "/icons/favicon-16x16.png",
+    shortcut: ["/icons/favicon-16x16.png", "/icons/favicon-32x32.png"],
     apple: "/icons/apple-touch-icon.png",
+    other: [
+      {
+        url: "/icons/android-chrome-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/icons/android-chrome-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
   },
 }
 
@@ -45,9 +59,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           // eslint-disable-next-line tailwindcss/classnames-order
           className={`
-            min-h-screen bg-background
-            font-sans
-            antialiased
+            font-sans text-sm
             ${fontSans.variable}
             ${keania.variable}
             ${Hafs.variable}
@@ -63,7 +75,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <Footer />
             </div>
             <Toaster />
-            {/* <TailwindIndicator /> */}
+            <TailwindIndicator />
           </ThemeProvider>
         </body>
       </html>

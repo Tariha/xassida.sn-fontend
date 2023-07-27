@@ -16,15 +16,15 @@ interface Props {
 
 const AuthorCard: React.FC<Props> = ({ data }) => (
   <Link href={`/author/${data.id}`} passHref>
-    <Card className="max-h-22 cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
+    <Card className="max-h-18 group cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
       <CardHeader className="p-3">
         <CardTitle className="flex items-center justify-center">
-          <Avatar className="h-20 w-20 md:h-32 md:w-32">
+          <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
             <AvatarImage src={data.picture} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </CardTitle>
-        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize md:text-base">
+        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize group-hover:text-vert">
           {unslugify(data.name)}
         </CardDescription>
       </CardHeader>

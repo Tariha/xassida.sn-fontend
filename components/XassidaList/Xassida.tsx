@@ -25,14 +25,12 @@ const XassidaVer: React.FC<Props> = ({ data }) => {
           <AvatarImage src={data.author.picture} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <h4 className="truncate text-xs font-medium md:text-sm">
+        <h4 className="truncate text-xs font-medium">
           {unslugify(data.author.name)}
         </h4>
       </div>
       <div className="space-y-1">
-        <p className="truncate text-xs font-bold md:text-sm">
-          {unslugify(data.name)}
-        </p>
+        <p className="truncate text-xs font-bold">{unslugify(data.name)}</p>
       </div>
       <div className="flex items-center justify-center rounded-md bg-gray-300 p-4 py-8 dark:bg-slate-700">
         <span translate="no" className="text-lg">
@@ -59,7 +57,7 @@ const XassidaHor: React.FC<Props> = ({ data }) => {
   return (
     <div
       onClick={onClick}
-      className="group relative flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-4 px-2 font-mono hover:border-0 hover:ring-1 hover:ring-[#2ca4ab]"
+      className="group relative flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-3 px-2 font-mono hover:border-0 hover:ring-1 hover:ring-[#2ca4ab]"
     >
       <div className="flex items-center space-x-2">
         <Avatar className="ring-[#2ca4ab] group-hover:ring-2">
@@ -67,7 +65,7 @@ const XassidaHor: React.FC<Props> = ({ data }) => {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>
-          <p className="truncate text-xs font-bold capitalize md:text-sm">
+          <p className="truncate text-xs font-bold capitalize">
             {unslugify(data.name)}
           </p>
           <span className="text-xs capitalize text-gray-500 group-hover:text-[#2ca4ab]">

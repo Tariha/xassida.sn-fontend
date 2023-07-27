@@ -7,10 +7,13 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: {
+        DEFAULT: '.8rem',
+        sm: '1rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      }
     },
     extend: {
       lineClamp: {

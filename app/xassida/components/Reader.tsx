@@ -42,7 +42,7 @@ const Reader = ({ xassida }: Props) => {
           </a>
         </div>
       </div>
-      <div className="container px-4 md:px-8">
+      <div className="container">
         <header className="flex flex-col items-center justify-center py-3">
           <h3 className="text-3xl capitalize">{unslugify(xassida.name)}</h3>
           <div className="relative h-[150px] w-[250px]">

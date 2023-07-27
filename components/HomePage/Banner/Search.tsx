@@ -24,7 +24,7 @@ const SearchCommand = () => {
           <Search className="text-gray-600" />
           <input
             placeholder="Qu'est ce que vous voulez lire ?"
-            className="md:text-md w-full cursor-pointer border-0 bg-transparent px-2 py-4 text-sm outline-none"
+            className="md:text-md w-full cursor-pointer border-0 bg-transparent px-2 py-6 text-sm outline-none"
           />
           <p className="whitespace-nowrap text-sm text-slate-600">
             Cliquer{" "}

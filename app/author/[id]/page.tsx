@@ -15,7 +15,7 @@ export default async function AuthorPage({ params }: Props) {
       <div>
         <Biography data={bio} />
       </div>
-      <div className="container p-4">
+      <div className="container">
         <h3 className="my-2 text-lg font-bold uppercase">Bibliographie</h3>
         <InfiniteList params={{ author }} />
       </div>

@@ -27,7 +27,7 @@ const NavigationDrawer = () => {
       </SheetTrigger>
       <SheetContent position="left" className="w-full md:max-w-sm">
         <SheetHeader>
-          <SheetTitle>Xassida.sn</SheetTitle>
+          <SheetTitle className="font-keania">Xassida.sn</SheetTitle>
           <Separator />
         </SheetHeader>
         <div className="mt-4 space-y-4">
