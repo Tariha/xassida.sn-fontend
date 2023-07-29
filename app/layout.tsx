@@ -7,6 +7,7 @@ import {
   Hafs,
   Lateef,
   Scheherazade,
+  Warsh,
   fontSans,
   keania,
 } from "@/lib/fonts"
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             ${fontSans.variable}
             ${keania.variable}
             ${Hafs.variable}
+            ${Warsh.variable}
             ${Scheherazade.variable}
             ${Lateef.variable}
             ${Amiri.variable}

@@ -49,7 +49,7 @@ const Reader = ({ xassida }: Props) => {
             <Bismillah />
           </div>
         </header>
-        <div className="font-amiri font-hafs font-lateef font-scheherazade">
+        <div className="font-amiri font-hafs font-lateef font-scheherazade font-warsh">
           <Virtuoso
             ref={virtuoso}
             useWindowScroll

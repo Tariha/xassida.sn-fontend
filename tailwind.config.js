@@ -68,6 +68,7 @@ module.exports = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         keania: ["var(--font-keania)"],
         hafs: ["var(--font-hafs)"],
+        warsh: ["var(--font-warsh)"],
         scheherazade: ["var(--font-scheherazade)"],
         amiri: ["var(--font-amiri)"],
         lateef: ["var(--font-lateef)"]

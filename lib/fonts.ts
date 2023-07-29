@@ -20,6 +20,12 @@ const Hafs = localFont({
   display: "swap",
 })
 
+const Warsh = localFont({
+  src: "../public/fonts/Warsh.otf",
+  variable: "--font-warsh",
+  display: "swap",
+})
+
 const Scheherazade = localFont({
   src: "../public/fonts/Scheherazade.ttf",
   variable: "--font-scheherazade",
@@ -27,15 +33,15 @@ const Scheherazade = localFont({
 })
 
 const Amiri = localFont({
-  src: "../public/fonts/amiri.ttf",
+  src: "../public/fonts/Amiri.ttf",
   variable: "--font-amiri",
   display: "swap",
 })
 
 const Lateef = localFont({
-  src: "../public/fonts/lateef.ttf",
+  src: "../public/fonts/Lateef.ttf",
   variable: "--font-lateef",
   display: "swap",
 })
 
-export { keania, fontSans, Hafs, Scheherazade, Amiri, Lateef }
+export { keania, fontSans, Hafs, Warsh, Scheherazade, Amiri, Lateef }

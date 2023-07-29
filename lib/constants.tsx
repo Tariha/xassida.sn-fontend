@@ -25,6 +25,7 @@ export const TARIHA = [
 
 export const FONTS = [
   { value: "font-hafs", label: "Hafs" },
+  { value: "font-warsh", label: "Warsh" },
   { value: "font-scheherazade", label: "Scheherazade" },
   { value: "font-amiri", label: "Amiri" },
   { value: "font-lateef", label: "Lateef" },
