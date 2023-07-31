@@ -24,6 +24,7 @@ const VerseSetting = () => {
     setTranslationFontScale,
     setTransliteration,
     setTranslation,
+    setTranslationLang,
   } = useStore(readerSelector)
   return (
     <div className="my-4 space-y-3">
@@ -48,7 +49,10 @@ const VerseSetting = () => {
       </div>
       <Separator />
       <SettingOption title="Langue Traduction" inline={true}>
-        <Select>
+        <Select
+          defaultValue={translationLang}
+          onValueChange={setTranslationLang}
+        >
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Traduction" />
           </SelectTrigger>

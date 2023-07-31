@@ -29,8 +29,13 @@ export interface Verse {
   number: number
   key: string
   text: string
+  transcription: string
   words: Word[]
-  translations: any[]
+  translations: {
+    lang: string
+    text: string
+    author: string
+  }
 }
 
 export interface Word {

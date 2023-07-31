@@ -14,9 +14,14 @@ interface Props {
 }
 
 const Chapter = ({ chap }: Props) => {
-  const { arabFontScale, arabFontFamily } = useStore(readerSelector)
+  const { arabFontScale, arabFontFamily, translationLang } =
+    useStore(readerSelector)
   const key = (ind: number, prevData: any) =>
-    getVerse({ prevData, params: { page: ind + 1 }, id: chap })
+    getVerse({
+      prevData,
+      params: { page: ind + 1, lang: translationLang },
+      id: chap,
+    })
   const { data, isLoading, size, setSize } = useSWRInfinite(key, fetcher)
 
   if (isLoading || !data) return <ChapterSkeleton count={5} />

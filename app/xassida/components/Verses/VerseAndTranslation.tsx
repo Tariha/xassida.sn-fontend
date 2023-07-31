@@ -33,14 +33,14 @@ const VerseAndTranslation: React.FC<Props> = ({ verse, font, last, more }) => {
       <div className="flex flex-row items-center justify-end gap-3 md:flex-col md:items-center md:justify-center">
         <span className="font-sans font-bold">{verse.key}</span>
         <Play size={18} />
-        <CopyVerse data={[verse.text, verse.translations[0]?.text]} />
+        <CopyVerse data={[verse.text, verse.translations?.text]} />
         <CopyLink />
       </div>
       <div className="flex-1 space-y-4 md:px-4">
         <VerseText verse={verse} font={font} />
         {translation && (
           <p className="font-sans" style={{ fontSize: translationFontScale }}>
-            {verse.translations[0]?.text}
+            {verse.translations?.text}
           </p>
         )}
       </div>
