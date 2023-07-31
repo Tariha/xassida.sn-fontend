@@ -24,7 +24,8 @@
 [![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield]][license-url]
 
-Ce projet est l'interface web de Xassida.sn. Technologie utilisée [next.js](https://nextjs.org/docs/getting-started), un framework populaire qui facilite la configuration d'une application React isomorphique. Nous le déployons automatiquement sur vercel avec une génération automatique des builds pour les pull requests.
+Ce projet est l'interface web de Xassida.sn. Technologie utilisée [next.js](https://nextjs.org/docs/getting-started), un framework populaire qui facilite la configuration d'une application React isomorphique. Nous le déployons automatiquement sur vercel avec une génération automatique des builds pour les pull requests. <br>
+Nous avons utilisé [shadcn/ui](https://ui.shadcn.com/), qui est une collection de composants réutilisables que vous pouvez copier-coller dans vos applications, avec tailwindcss pour styler l'application.
 
 ### Comment contribuer ?
 
