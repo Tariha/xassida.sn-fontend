@@ -5,6 +5,7 @@ const initialState = {
   transliteration: true,
   translation: true,
   translationLang: "fr",
+  wordByWord: false
 }
 
 export const readerStyleSlice = (set) => ({
@@ -16,9 +17,11 @@ export const readerStyleSlice = (set) => ({
   setTransliteration: (val) => set({ transliteration: val }),
   setTranslation: (val) => set({ translation: val }),
   setTranslationLang: (lang) => set({ translationLang: lang }),
+  setWordByWord: (val) => set({ wordByWord: val }),
 })
 
 export const readerSelector = (state) => ({
+  wordByWord: state.wordByWord,
   arabFontScale: state.arabFontScale,
   translationFontScale: state.translationFontScale,
   arabFontFamily: state.arabFontFamily,
@@ -32,4 +35,5 @@ export const readerSelector = (state) => ({
   setTransliteration: state.setTransliteration,
   setTranslation: state.setTranslation,
   setTranslationLang: state.setTranslationLang,
+  setWordByWord: state.setWordByWord,
 })

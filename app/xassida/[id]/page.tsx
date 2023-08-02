@@ -7,7 +7,9 @@ interface Props {
 }
 
 export default async function XassidaPage({ params }: Props) {
-  const data = await fetcher(getXassida({ id: params.id }))
+  const data = await fetcher(getXassida({ id: params.id }), {
+    cache: "no-store",
+  })
   return (
     <div>
       <Reader xassida={data} />

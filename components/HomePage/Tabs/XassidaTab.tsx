@@ -22,7 +22,9 @@ const XassidaTab = () => {
             name="Tariha"
             list={TARIHA}
             selected={params.author__tariha}
-            setSelected={(val) => setParams({ ...params, author__tariha: val })}
+            setSelected={(val) =>
+              setParams({ author__tariha: val, author: "" })
+            }
           />
         </div>
       </div>

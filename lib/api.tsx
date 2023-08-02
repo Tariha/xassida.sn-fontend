@@ -37,11 +37,11 @@ export const getAuthor = ({ id = "", params = {} }: Props) =>
 // url maker for author info
 export const getAuthorInfo = (id: number) => `${BASE_URL}authors/${id}/info/`
 
-export const fetcher = async function (endpoint: any) {
+export const fetcher = async function (endpoint: any, options: any) {
   if (typeof window !== "undefined" && !window.navigator.onLine) {
     throw new Error("Offline")
   }
-  const res = await fetch(endpoint)
+  const res = await fetch(endpoint, options)
   if (!res.ok || res.status === 500 || res.status === 404) {
     throw res
   }

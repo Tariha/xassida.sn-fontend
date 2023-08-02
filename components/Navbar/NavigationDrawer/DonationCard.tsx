@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -15,8 +14,8 @@ const DonationCard = () => (
     </CardHeader>
     <CardContent>
       <p>
-        Monthly donations help us improve Quran.com and sustain operations so we
-        focus less on fundraising and more on creating impact.
+        Monthly donations help us improve Xassida.sn and sustain operations so
+        we focus less on fundraising and more on creating impact.
       </p>
     </CardContent>
     <CardFooter>

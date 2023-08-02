@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react"
-import { readerSelector } from "@/zustand/slices/reader"
 import { useStore } from "@/zustand/store"
 
 import { LANG } from "@/lib/constants"
@@ -16,27 +15,40 @@ import { Separator } from "@/components/ui/separator"
 import { Slider } from "@/components/ui/slider"
 
 const VerseSetting = () => {
-  const {
-    translation,
-    translationLang,
-    transliteration,
-    translationFontScale,
-    setTranslationFontScale,
-    setTransliteration,
-    setTranslation,
-    setTranslationLang,
-  } = useStore(readerSelector)
+  const wordByWord = useStore((state) => state.wordByWord)
+  const translation = useStore((state) => state.translation)
+  const translationLang = useStore((state) => state.translationLang)
+  const transliteration = useStore((state) => state.transliteration)
+  const translationFontScale = useStore((state) => state.translationFontScale)
+  const setWordByWord = useStore((state) => state.setWordByWord)
+  const setTranslation = useStore((state) => state.setTranslation)
+  const setTransliteration = useStore((state) => state.setTransliteration)
+  const setTranslationLang = useStore((state) => state.setTranslationLang)
+  const setTranslationFontScale = useStore(
+    (state) => state.setTranslationFontScale
+  )
+
   return (
     <div className="my-4 space-y-3">
       <h3 className="text-md font-bold">Verset</h3>
       <div className="space-y-4 font-medium">
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            onCheckedChange={() => setTransliteration(!transliteration)}
-            checked={transliteration}
-            id="transcription"
-          />
-          <Label htmlFor="transcription">Transcription</Label>
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              onCheckedChange={() => setTransliteration(!transliteration)}
+              checked={transliteration}
+              id="transcription"
+            />
+            <Label htmlFor="transcription">Transcription</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              onCheckedChange={() => setWordByWord(!wordByWord)}
+              checked={wordByWord}
+              id="transcription"
+            />
+            <Label htmlFor="transcription">Mot par Mot</Label>
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox
