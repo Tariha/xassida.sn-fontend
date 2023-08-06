@@ -48,7 +48,12 @@ const VerseSetting = () => {
               disabled
               id="transcription"
             />
-            <Label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70" htmlFor="transcription">Mot par Mot</Label>
+            <Label
+              className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              htmlFor="transcription"
+            >
+              Mot par Mot
+            </Label>
           </div>
         </div>
         <div className="flex items-center space-x-2">

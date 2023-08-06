@@ -16,9 +16,12 @@ const VerseText: React.FC<Props> = ({ verse, font }) => {
     <div>
       <div
         dir="rtl"
-        className="flex flex-wrap gap-y-3 space-x-2 py-4 md:space-x-3"
+        //className="flex flex-wrap gap-y-3 space-x-2 py-4 md:space-x-3"
+        className="py-2 leading-relaxed"
         style={{ fontSize: font }}
       >
+        {verse.text}
+        {/* 
         {verse.words.map((word) => (
           <ArabWord
             key={word.position}
@@ -26,6 +29,7 @@ const VerseText: React.FC<Props> = ({ verse, font }) => {
             transliteration={transliteration && wordByWord}
           />
         ))}
+        */}
       </div>
       {transliteration && !wordByWord && (
         <div className="font-mono text-muted-foreground">
