@@ -27,7 +27,7 @@ const Reader = ({ xassida }: Props) => {
   return (
     <div>
       <div
-        className={`sticky bg-background shadow-md ${
+        className={`sticky bg-background shadow-md dark:bg-muted ${
           visible ? "top-[56px]" : "top-0"
         } z-30 flex w-full items-center justify-between p-1 px-4 transition duration-75 ease-in-out`}
       >
@@ -38,7 +38,7 @@ const Reader = ({ xassida }: Props) => {
             href={`${BASE_URL}pdf/${xassida.id}`}
             rel="noreferrer"
           >
-            <Download />
+            <Download size={20} />
           </a>
         </div>
       </div>

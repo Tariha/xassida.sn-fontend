@@ -12,6 +12,7 @@ import {
   keania,
 } from "@/lib/fonts"
 import { Toaster } from "@/components/ui/toaster"
+import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -71,13 +72,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           `}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen flex-col pb-12">
               <Navbar />
               <div className="flex-1">{children}</div>
               <Footer />
             </div>
             <Toaster />
-            <TailwindIndicator />
+            <AudioPlayer />
           </ThemeProvider>
         </body>
       </html>
