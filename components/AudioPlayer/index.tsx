@@ -61,7 +61,6 @@ const AudioPlayer = () => {
           style={{ display: "none" }}
           autoPlay
           preload="auto"
-          src="https://download.quranicaudio.com/qdc/saud_ash-shuraym/murattal/011.mp3"
           ref={audioPlayerRef}
           onDurationChange={onDurationChange}
           onTimeUpdate={onTimeUpdate}

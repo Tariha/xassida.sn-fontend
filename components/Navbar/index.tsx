@@ -37,7 +37,7 @@ const Navbar = () => {
     <div
       className={`${
         visible ? "translate-y-0" : "-translate-y-full"
-      } sticky inset-x-0 top-0 z-10 flex items-center justify-between bg-background p-4 shadow-md transition duration-100 ease-in-out dark:bg-muted`}
+      } sticky inset-x-0 top-0 z-10 flex items-center justify-between bg-background p-4 shadow-md animate-out slide-in-from-top duration-200 dark:bg-muted`}
     >
       <div className="flex items-center space-x-2 text-xl font-bold">
         <NavigationDrawer />

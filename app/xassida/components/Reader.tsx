@@ -1,16 +1,18 @@
 /* eslint-disable tailwindcss/no-contradicting-classname */
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Xassida } from "@/types"
+import { playerStore } from "@/zustand/playerStore"
 import { navbarSelector } from "@/zustand/slices/navbar"
 import { useStore } from "@/zustand/store"
-import { Download } from "lucide-react"
+import { Download, Pause, Play } from "lucide-react"
 import { Virtuoso } from "react-virtuoso"
 
 import { BASE_URL } from "@/lib/api"
-import { unslugify } from "@/lib/utils"
-import Bismillah from "@/components/Bismillah"
+import { cn, unslugify } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { BismillahVariant } from "@/components/Bismillah"
 
 import Chapter from "./Chapter"
 import ChapterSelect from "./ChapterSelect"
@@ -23,13 +25,21 @@ const Reader = ({ xassida }: Props) => {
   // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
+  const audioService = playerStore((store) => store)
+  const currentPlaying = audioService.isCurrentPlaying(xassida)
+
+  const handlePlay = () => {
+    if (currentPlaying) audioService.pause()
+    else audioService.playXassida(xassida)
+  }
 
   return (
     <div>
       <div
-        className={`sticky bg-background shadow-md dark:bg-muted ${
+        className={cn(
+          "animate sticky z-30 flex w-full items-center justify-between bg-background p-1 px-4 shadow-md duration-200 dark:bg-muted",
           visible ? "top-[56px]" : "top-0"
-        } z-30 flex w-full items-center justify-between p-1 px-4 transition duration-75 ease-in-out`}
+        )}
       >
         <ChapterSelect virtuoso={virtuoso} chapters={xassida.chapters} />
         <div>
@@ -44,9 +54,19 @@ const Reader = ({ xassida }: Props) => {
       </div>
       <div className="container">
         <header className="flex flex-col items-center justify-center py-3">
-          <h3 className="text-3xl capitalize">{unslugify(xassida.name)}</h3>
-          <div className="relative h-[150px] w-[250px]">
-            <Bismillah />
+          <h3 className="text-2xl capitalize">{unslugify(xassida.name)}</h3>
+          <div className="flex w-full flex-col items-center py-4">
+            <BismillahVariant />
+            <div className="flex w-full items-end justify-end pt-4">
+              <Button onClick={handlePlay} variant="outline">
+                {currentPlaying ? (
+                  <Pause className="mr-2 h-4 w-4" />
+                ) : (
+                  <Play className="mr-2 h-4 w-4" />
+                )}
+                <span>{currentPlaying ? "Arreter" : "Demarrer"} Audio</span>
+              </Button>
+            </div>
           </div>
         </header>
         <div className="font-amiri font-hafs font-lateef font-scheherazade font-warsh">

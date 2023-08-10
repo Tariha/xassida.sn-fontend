@@ -11,17 +11,18 @@ const AudioPlayerSlider = () => {
       <span className="absolute left-0 top-5 px-3 text-xs text-muted-foreground md:text-sm">
         {secondsFormatter(audioService.elapsed)}
       </span>
-      <div className="absolute inset-x-0 top-0">
+      <div className="absolute inset-0">
         <AudioSlider
           rangeColor="bg-gray-200 dark:bg-gray-700"
           value={[audioService.downloadProgress]}
           max={audioService.audioPlayer.duration}
         />
       </div>
-      <div className="absolute inset-x-0 top-0">
+      <div className="absolute inset-0">
         <AudioSlider
           showThumb
           trackColor="bg-transparent"
+          className="cursor-pointer"
           value={[audioService.elapsed]}
           max={audioService.audioPlayer.duration}
           onValueChange={(e: any) => {

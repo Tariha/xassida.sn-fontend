@@ -1,10 +1,11 @@
 import { create } from "zustand"
 
-import { AudioPlayerContext, SeekProps, SeekType } from "@/types/player"
+import { AudioPlayerContext, SeekType } from "@/types/player"
 
 const initialState = {
   audioPlayer: {} as HTMLAudioElement,
-  visible: true,
+  visible: false,
+  playing: false,
   xassida: null,
   reciterId: null,
   verseNumber: 0,
@@ -32,7 +33,7 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
     const player = get().audioPlayer
     player.paused ? player.play() : player.pause()
   },
-  seek: ({ type = SeekType.To, time }: SeekProps) => {
+  seek: ({ type = SeekType.To, time }) => {
     const player = get().audioPlayer
     if (type == SeekType.To) player.currentTime = time
     else {
@@ -43,10 +44,30 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
       player.currentTime = to
     }
   },
+  playXassida: (xassida) => {
+    set({ xassida })
+    get().setAudioSrc(
+      "https://download.quranicaudio.com/qdc/saud_ash-shuraym/murattal/011.mp3"
+    )
+  },
   // setters
   setAudioPlayer: (ref) => set({ audioPlayer: ref }),
-  setVisible: (val) => set({ visible: val }),
+  setAudioSrc: (src) => {
+    const player = get().audioPlayer
+    player.src = src
+    get().setVisible(true) // Set player to visible
+    player.play()
+  },
+  setVisible: (val) => {
+    if (val == false) get().pause()
+    set({ visible: val })
+  },
   setXassida: (data) => set({ xassida: data }),
+  isPlaying: () => !get().audioPlayer.paused,
+  isCurrentPlaying: (xassida) => {
+    const match = xassida.id == get().xassida?.id
+    return get().isPlaying() && match
+  },
   setReciterId: (id) => set({ reciterId: id }),
   setVerseNumber: (num) => set({ verseNumber: num }),
   setAudioData: (data) => set({ audioData: data }),
