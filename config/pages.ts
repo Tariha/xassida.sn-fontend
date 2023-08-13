@@ -8,3 +8,11 @@ export const about = {
           base de données complète des xassidas\
           ",
 }
+
+export const contribute = {
+  title : "The Quran transforms lives.\
+  Help us spread its light.",
+  subtitle: "Alhamdulillah, with your support, Quran.com has grown by 75% since last Ramadan,\
+   reaching 4 million monthly users.   Your donation will empower us to reach more people,\
+    continue to improve user experience, leverage AI, grow scholarly content and enable community reflection."
+}
