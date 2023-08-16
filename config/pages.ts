@@ -12,7 +12,8 @@ export const about = {
 export const contribute = {
   title : "The Quran transforms lives.\
   Help us spread its light.",
-  subtitle: "Alhamdulillah, with your support, Quran.com has grown by 75% since last Ramadan,\
-   reaching 4 million monthly users.   Your donation will empower us to reach more people,\
-    continue to improve user experience, leverage AI, grow scholarly content and enable community reflection."
+  subtitle: "<strong>Tout don que vous ferez par charité vous sera remplacé par votre Seigneur,\
+   le plus généreux des pourvoyeurs, </strong><em>Coran (34:39)</em>. Votre don nous permettra d'atteindre plus de personnes,\
+    de continuer à améliorer l'expérience utilisateur, de collecter plus de xassidas,\
+     d'accroître le contenu éducatif et de permettre à la communauté d'en profiter."
 }
