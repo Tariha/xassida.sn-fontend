@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react"
 import Link from "next/link"
 import { navbarSelector } from "@/zustand/slices/navbar"
 import { useStore } from "@/zustand/store"
-import { Github, Globe, Menu, Search, Settings } from "lucide-react"
+import { Github, Search } from "lucide-react"
 
 import useRouteChanged from "@/hooks/useRouteChanged"
 import useScrollDirection from "@/hooks/useScrollDirection"
@@ -13,8 +13,9 @@ import Command from "@/components/Command"
 
 import NavigationDrawer from "./NavigationDrawer"
 import SettingDrawer from "./SettingDrawer"
+import { AccountNavProps, UserAccount } from "./UserAccount"
 
-const Navbar = () => {
+const Navbar = ({ user }:AccountNavProps) => {
   const [open, setOpen] = useState(false)
   const { setVisible, visible } = useStore(navbarSelector)
 
@@ -62,6 +63,7 @@ const Navbar = () => {
           </DialogContent>
         </Dialog>
         <SettingDrawer />
+        { user && <UserAccount user={user}/> }
       </div>
     </div>
   )
