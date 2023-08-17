@@ -1,8 +1,9 @@
+import { signOut } from "next-auth/react"
+
 import { TABS } from "@/lib/constants"
 import { Separator } from "@/components/ui/separator"
 import Banner from "@/components/HomePage/Banner"
 import Tabs from "@/components/HomePage/Tabs"
-import { signOut } from "next-auth/react"
 
 export default function IndexPage() {
   return (

@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { DjangoUser } from "@/types/auth"
 import { signOut } from "next-auth/react"
 
+import { DjangoUser } from "@/types/auth"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,18 +11,16 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { UserAvatar } from "@/components/ui/user-avatar"
 
-export interface AccountNavProps{
-  user: Pick<DjangoUser, 'username' | 'image' | 'email' | 'name'>
+export interface AccountNavProps {
+  user: Pick<DjangoUser, "username" | "image" | "email" | "name">
 }
 
-export function UserAccount({ user }:AccountNavProps) {
+export function UserAccount({ user }: AccountNavProps) {
   const username = user.username || user.name
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <UserAvatar
-          user={{ name: username, image: user?.image || null }}
-        />
+        <UserAvatar user={{ name: username, image: user?.image || null }} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-background" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
@@ -45,7 +43,7 @@ export function UserAccount({ user }:AccountNavProps) {
           onSelect={(event) => {
             event.preventDefault()
             signOut({
-              callbackUrl: '/login',
+              callbackUrl: "/login",
             })
           }}
         >

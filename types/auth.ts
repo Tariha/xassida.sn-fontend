@@ -1,4 +1,4 @@
-import { User, TokenSet} from "next-auth";
+import { TokenSet, User } from "next-auth"
 
 export interface DjangoUser {
   pk: number
@@ -11,9 +11,9 @@ export interface DjangoUser {
 }
 
 export interface AuthenticatedUser extends User {
-  access: string,
-  refresh: string,
-  user: DjangoUser,
+  access: string
+  refresh: string
+  user: DjangoUser
 }
 
 export interface AuthToken extends TokenSet {

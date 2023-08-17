@@ -11,12 +11,12 @@ import {
   fontSans,
   keania,
 } from "@/lib/fonts"
+import { getCurrentUser } from "@/lib/session"
 import { Toaster } from "@/components/ui/toaster"
 import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
 import { ThemeProvider } from "@/components/theme-provider"
-import { getCurrentUser } from "@/lib/session"
 
 export const metadata: Metadata = {
   title: {
@@ -74,7 +74,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col pb-12">
-              <Navbar user={user}/>
+              <Navbar user={user} />
               <div className="flex-1">{children}</div>
               <Footer />
             </div>

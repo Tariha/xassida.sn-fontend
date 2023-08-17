@@ -15,7 +15,7 @@ import NavigationDrawer from "./NavigationDrawer"
 import SettingDrawer from "./SettingDrawer"
 import { AccountNavProps, UserAccount } from "./UserAccount"
 
-const Navbar = ({ user }:AccountNavProps) => {
+const Navbar = ({ user }: AccountNavProps) => {
   const [open, setOpen] = useState(false)
   const { setVisible, visible } = useStore(navbarSelector)
 
@@ -63,7 +63,7 @@ const Navbar = ({ user }:AccountNavProps) => {
           </DialogContent>
         </Dialog>
         <SettingDrawer />
-        { user && <UserAccount user={user}/> }
+        {user && <UserAccount user={user} />}
       </div>
     </div>
   )

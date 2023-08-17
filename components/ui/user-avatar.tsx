@@ -1,14 +1,15 @@
 import { AvatarProps } from "@radix-ui/react-avatar"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User } from "lucide-react"
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 type UserType = {
-    image?: string | null
-    name?: string | null
+  image?: string | null
+  name?: string | null
 }
 
 interface UserAvatarProps extends AvatarProps {
-    user:UserType
+  user: UserType
 }
 
 export function UserAvatar({ user, ...props }: UserAvatarProps) {
@@ -19,7 +20,7 @@ export function UserAvatar({ user, ...props }: UserAvatarProps) {
       ) : (
         <AvatarFallback>
           <span className="sr-only">{user.name}</span>
-          <User size={22}/>
+          <User size={22} />
         </AvatarFallback>
       )}
     </Avatar>
