@@ -1,18 +1,33 @@
 "use client"
 
+import { APIResponse } from "@/types"
 import useSWRInfinite from "swr/infinite"
 
-import { fetcher, getXassida } from "@/lib/api"
+import { fetcher } from "@/lib/api"
 import { flattenResult } from "@/lib/utils"
 
-import XassidaList from "./index"
+interface FunctionArgs {
+  id?: number | string
+  params?: any
+  prevData?: APIResponse | null
+}
 
-const InfiniteList = ({ params }: { params: any }) => {
+interface InfiniteListProps {
+  params: any
+  Component: React.ComponentType<React.ComponentProps<any>>
+  getFunction: (params: FunctionArgs) => string | null
+}
+
+const InfiniteList: React.FC<InfiniteListProps> = ({
+  params,
+  Component,
+  getFunction,
+}) => {
   const { data, error, isLoading, size, setSize } = useSWRInfinite(
     (ind, prevData) =>
-      getXassida({ prevData, params: { page: ind + 1, ...params } }),
+      getFunction({ prevData, params: { page: ind + 1, ...params } }),
     fetcher,
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: true }
   )
 
   const loadMore = () => setSize(size + 1)
@@ -23,7 +38,7 @@ const InfiniteList = ({ params }: { params: any }) => {
 
   return (
     <div>
-      <XassidaList data={flattened} />
+      <Component data={flattened} />
       {data && data[0]?.count != len && (
         <button
           className="border-b border-gray-500 font-bold"

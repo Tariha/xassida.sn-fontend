@@ -1,17 +1,15 @@
 "use client"
 
 import React, { useState } from "react"
-import { Author } from "@/types"
-import useSWRImmutable from "swr/immutable"
 
-import { getAuthor } from "@/lib/api"
+import { getReciter } from "@/lib/api"
 import { TARIHA } from "@/lib/constants"
-import AuthorList from "@/components/AuthorList"
+import ReciterList from "@/components/AuthorList/ReciterList"
 import InfiniteList from "@/components/InfiniteList"
 
 import { Filter } from "./MultiFilter"
 
-const AuthorTab = () => {
+const ReciterTab = () => {
   const [tariha, setTariha] = useState("tidjan")
   return (
     <div>
@@ -27,11 +25,11 @@ const AuthorTab = () => {
       </div>
       <InfiniteList
         params={{ tariha }}
-        getFunction={getAuthor}
-        Component={AuthorList}
+        getFunction={getReciter}
+        Component={ReciterList}
       />
     </div>
   )
 }
 
-export default React.memo(AuthorTab)
+export default React.memo(ReciterTab)

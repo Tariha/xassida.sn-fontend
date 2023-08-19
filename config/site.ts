@@ -9,12 +9,22 @@ export const siteConfig = {
     {
       title: "Acceuil",
       href: "/",
-      icon: CustomIcon({ name: "Home", size: 20, className: "text-vert" }),
+      icon: CustomIcon({ name: "Home", size: 16, className: "text-vert" }),
     },
     {
       title: "A Propos",
       href: "/about",
-      icon: CustomIcon({ name: "Info", size: 20, className: "text-vert" }),
+      icon: CustomIcon({ name: "Info", size: 18, className: "text-vert" }),
+    },
+    {
+      title: "Connexion",
+      href: "/login",
+      icon: CustomIcon({ name: "LogIn", size: 18, className: "text-vert" }),
+    },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      icon: CustomIcon({ name: "Settings2", size: 18, className: "text-vert" }),
     },
   ],
 }

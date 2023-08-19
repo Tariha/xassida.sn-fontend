@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
 import { signIn } from "next-auth/react"
@@ -24,7 +25,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const userAuthSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6).max(15),
+  password: z.string().min(4).max(15),
 })
 
 type FormData = z.infer<typeof userAuthSchema>
@@ -35,6 +36,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   })
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const searchParams = useSearchParams()
+  const router = useRouter()
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -42,8 +45,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const signInResult = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     })
 
     setIsLoading(false)
@@ -51,15 +53,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     if (signInResult?.error) {
       return toast({
         title: "Quelque chose s'est mal passé",
-        description: "Votre connexion a échoué, réeassayer",
+        description:
+          "Votre connexion a échoué, assurez vous d'avoir activer le compte",
         variant: "destructive",
       })
     }
 
-    return toast({
+    toast({
       title: "Connexion Réussie",
       description: "Vous êtes bien connecté",
     })
+
+    router.replace(searchParams?.get("from") || "/dashboard")
   }
 
   return (
@@ -81,6 +86,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         placeholder="sallalioune28@gmail.com"
                         autoCapitalize="none"
                         disabled={isLoading}
+                        autoComplete="email"
                       />
                     </FormControl>
                     <FormMessage />
@@ -101,6 +107,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         type="password"
                         placeholder="*******"
                         disabled={isLoading}
+                        autoComplete="current-password"
                       />
                     </FormControl>
                     <FormMessage />

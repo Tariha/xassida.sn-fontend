@@ -2,8 +2,10 @@
 
 import React, { useState } from "react"
 
+import { getXassida } from "@/lib/api"
 import { TARIHA } from "@/lib/constants"
-import InfiniteList from "@/components/XassidaList/InfiniteList"
+import InfiniteList from "@/components/InfiniteList"
+import XassidaList from "@/components/XassidaList"
 
 import { Filter, SubFilter } from "./MultiFilter"
 
@@ -28,7 +30,11 @@ const XassidaTab = () => {
           />
         </div>
       </div>
-      <InfiniteList params={params} />
+      <InfiniteList
+        params={params}
+        getFunction={getXassida}
+        Component={XassidaList}
+      />
     </div>
   )
 }

@@ -34,6 +34,14 @@ export function copyText(text: string[]) {
   }
 }
 
+export function toFormData(item: any) {
+  const form_data = new FormData()
+  for (let key in item) {
+    form_data.append(key, item[key])
+  }
+  return form_data
+}
+
 export const milliSecondsToSeconds = (milliSeconds: number): number =>
   milliSeconds / 1000
 export const secondsToMilliSeconds = (seconds: number): number => seconds * 1000

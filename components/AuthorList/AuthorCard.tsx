@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Author } from "@/types"
+import { Author, Reciter } from "@/types"
 
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -11,11 +11,12 @@ import {
 } from "@/components/ui/card"
 
 interface Props {
-  data: Author
+  data: Author | Reciter
+  link?: string
 }
 
-const AuthorCard: React.FC<Props> = ({ data }) => (
-  <Link href={`/author/${data.id}`} passHref>
+const AuthorCard: React.FC<Props> = ({ data, link = "author" }) => (
+  <Link href={`/${link}/${data.id}`} passHref>
     <Card className="max-h-18 group cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
       <CardHeader className="p-3">
         <CardTitle className="flex items-center justify-center">

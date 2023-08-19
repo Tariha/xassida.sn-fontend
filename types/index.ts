@@ -56,3 +56,11 @@ export interface Author {
     author: string
   }
 }
+
+export interface Reciter {
+  id: number
+  name: string
+  slug: string
+  picture: string
+  tariha: string
+}
