@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator"
 import ReciterTab from "@/components/HomePage/Tabs/ReciterTab"
 
-import ReciterModalForm from "./components/RecitateurForm/ReciterModalForm"
+import ReciterModalForm from "./components/RecitateurModalForm"
 
 export default function DashboardPage() {
   return (

@@ -1,7 +1,7 @@
 import Link from "next/link"
+import { UserObject } from "next-auth"
 import { signOut } from "next-auth/react"
 
-import { DjangoUser } from "@/types/auth"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,20 +12,19 @@ import {
 import { UserAvatar } from "@/components/ui/user-avatar"
 
 export interface AccountNavProps {
-  user: Pick<DjangoUser, "username" | "image" | "email" | "name">
+  user: UserObject | any
 }
 
 export function UserAccount({ user }: AccountNavProps) {
-  const username = user.username || user.name
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <UserAvatar user={{ name: username, image: user?.image || null }} />
+        <UserAvatar user={{ name: user.username }} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-background" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
-            {username && <p className="font-medium">{username}</p>}
+            {user.username && <p className="font-medium">{user.username}</p>}
             {user.email && (
               <p className="w-[200px] truncate text-sm text-muted-foreground">
                 {user.email}

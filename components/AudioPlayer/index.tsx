@@ -38,7 +38,7 @@ const AudioPlayer = () => {
 
   useEffect(() => {
     setAudioPlayer(audioPlayerRef.current)
-  }, [setAudioPlayer, audioPlayer])
+  }, [setAudioPlayer])
 
   const onDurationChange = () => {
     setDuration(audioPlayer.duration)

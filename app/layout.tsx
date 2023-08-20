@@ -11,12 +11,13 @@ import {
   fontSans,
   keania,
 } from "@/lib/fonts"
-import { getCurrentUser } from "@/lib/session"
 import { Toaster } from "@/components/ui/toaster"
 import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
 import { ThemeProvider } from "@/components/theme-provider"
+
+import { NextAuthProvider } from "./provider"
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +55,6 @@ interface RootLayoutProps {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-  const user: any = await getCurrentUser()
   return (
     <>
       <html lang="fr" suppressHydrationWarning>
@@ -73,13 +73,15 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           `}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col pb-12">
-              <Navbar user={user} />
-              <div className="flex-1">{children}</div>
-              <Footer />
-            </div>
-            <Toaster />
-            <AudioPlayer />
+            <NextAuthProvider>
+              <div className="relative flex min-h-screen flex-col pb-12">
+                <Navbar />
+                <div className="flex-1">{children}</div>
+                <Footer />
+              </div>
+              <Toaster />
+              <AudioPlayer />
+            </NextAuthProvider>
           </ThemeProvider>
         </body>
       </html>

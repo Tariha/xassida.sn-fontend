@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-contradicting-classname */
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { Xassida } from "@/types"
 import { playerStore } from "@/zustand/playerStore"
 import { navbarSelector } from "@/zustand/slices/navbar"
@@ -25,12 +25,14 @@ const Reader = ({ xassida }: Props) => {
   // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
+
+  const player_xass = { id: xassida.id, file: "" }
   const audioService = playerStore((store) => store)
-  const currentPlaying = audioService.isCurrentPlaying(xassida)
+  const currentPlaying = audioService.isCurrentPlaying(player_xass)
 
   const handlePlay = () => {
     if (currentPlaying) audioService.pause()
-    else audioService.playXassida(xassida)
+    else audioService.playXassida(player_xass)
   }
 
   return (

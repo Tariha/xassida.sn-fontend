@@ -64,3 +64,13 @@ export interface Reciter {
   picture: string
   tariha: string
 }
+
+export interface Audio {
+  id: number
+  reciter: number
+  xassida: number
+  reciter_info?: Reciter
+  xassida_info?: Xassida
+  file: string
+  duration?: number | null
+}

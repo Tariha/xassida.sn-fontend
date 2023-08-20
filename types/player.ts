@@ -1,4 +1,7 @@
-import { Xassida } from "."
+export type Xassida = {
+  id: number
+  file: string
+}
 
 export enum SeekType {
   Forward = "Forward",

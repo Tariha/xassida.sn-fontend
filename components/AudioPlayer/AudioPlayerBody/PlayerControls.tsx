@@ -1,4 +1,4 @@
-import { FastForward, MoreHorizontal, Play, X } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 
 import CloseButton from "./Buttons/CloseButton"
 import PlayPauseButton from "./Buttons/PlayPauseButton"

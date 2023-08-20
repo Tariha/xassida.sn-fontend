@@ -21,29 +21,30 @@ import {
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 
-import TarihaSelect from "./TarihaSelect"
+import ReciterSelect from "./ReciterSelect"
+import XassidaSelect from "./XassidaSelect"
 
 interface Props {
   setOpen: React.Dispatch<SetStateAction<boolean>>
 }
 
 const formSchema = z.object({
-  name: z.string().min(4),
-  picture: z.any(),
-  tariha: z.string().min(4),
+  reciter: z.number(),
+  xassida: z.number(),
+  file: z.any(),
 })
 
-async function postReciter(data: FormData) {
+async function postAudio(data: FormData) {
   const session: any = await getSession()
-  const resp = await fetcher(BASE_URL + "reciters/", {
+  const resp = await fetcher(BASE_URL + "audios/", {
     method: "POST",
     body: data,
-    headers: { Authorization: `Bearer ${session?.accessToken}` },
+    headers: { Authorization: `Bearer ${session?.access}` },
   })
   return resp
 }
 
-export default function ReciterForm({ setOpen }: Props) {
+export default function AudioForm({ setOpen }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,12 +53,15 @@ export default function ReciterForm({ setOpen }: Props) {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     const form_values = toFormData(data)
-    postReciter(form_values)
+    postAudio(form_values)
       .then(() => {
         setIsLoading(false)
         setOpen(false)
+        setIsLoading(false)
       })
       .catch((err) => {
+        setIsLoading(false)
+        console.log(err)
         return toast({
           title: "Quelque chose s'est mal passé",
           description: "",
@@ -69,44 +73,41 @@ export default function ReciterForm({ setOpen }: Props) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+        <div className="flex w-full justify-between pt-2">
+          <FormField
+            control={form.control}
+            name="reciter"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Recitateur</FormLabel>
+                <ReciterSelect field={field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="xassida"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Xassida</FormLabel>
+                <XassidaSelect field={field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
-          name="name"
+          name="file"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Prenom & Nom</FormLabel>
-              <FormControl>
-                <Input placeholder="Sam Mboup" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="tariha"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confrerie</FormLabel>
-              <TarihaSelect field={field} />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="picture"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Image</FormLabel>
+              <FormLabel>Fichier (mp3)</FormLabel>
               <FormControl>
                 <Input
                   type="file"
                   onChange={({ target }) =>
-                    form.setValue(
-                      "picture",
-                      target.files ? target.files[0] : null
-                    )
+                    form.setValue("file", target.files ? target.files[0] : null)
                   }
                 />
               </FormControl>
@@ -115,10 +116,10 @@ export default function ReciterForm({ setOpen }: Props) {
           )}
         />
         <div className="flex justify-center">
-          <button className={cn(buttonVariants())} disabled={isLoading}>
+          <Button className={cn(buttonVariants())} disabled={isLoading}>
             {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
             Soumettre
-          </button>
+          </Button>
         </div>
       </form>
     </Form>

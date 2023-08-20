@@ -40,6 +40,10 @@ export const getAuthorInfo = (id: number) => `${BASE_URL}authors/${id}/info/`
 export const getReciter = ({ id = "", params = {} }: Props) =>
   `${BASE_URL}reciters/${id}${makeParams(params)}`
 
+// url maker for audio
+export const getAudio = ({ id = "", params = {} }: Props) =>
+  `${BASE_URL}audios/${id}${makeParams(params)}`
+
 export const fetcher = async function (endpoint: any, options: any = null) {
   if (typeof window !== "undefined" && !window.navigator.onLine) {
     throw new Error("Offline")

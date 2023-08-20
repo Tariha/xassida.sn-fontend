@@ -2,14 +2,14 @@
 
 import React, { useState } from "react"
 
-import { getAuthor } from "@/lib/api"
+import { getAudio } from "@/lib/api"
 import { TARIHA } from "@/lib/constants"
-import AuthorList from "@/components/AuthorList"
+import AudioList from "@/components/AudioList"
 import InfiniteList from "@/components/InfiniteList"
 
 import { Filter } from "./MultiFilter"
 
-const AuthorTab = () => {
+const AudioTab = () => {
   const [tariha, setTariha] = useState("tidjan")
   return (
     <div>
@@ -24,12 +24,12 @@ const AuthorTab = () => {
         </div>
       </div>
       <InfiniteList
-        params={{ tariha }}
-        getFunction={getAuthor}
-        Component={AuthorList}
+        params={{ reciter__tariha: tariha }}
+        getFunction={getAudio}
+        Component={AudioList}
       />
     </div>
   )
 }
 
-export default React.memo(AuthorTab)
+export default React.memo(AudioTab)

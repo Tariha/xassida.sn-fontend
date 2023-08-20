@@ -5,6 +5,7 @@ import Link from "next/link"
 import { navbarSelector } from "@/zustand/slices/navbar"
 import { useStore } from "@/zustand/store"
 import { Github, Search } from "lucide-react"
+import { useSession } from "next-auth/react"
 
 import useRouteChanged from "@/hooks/useRouteChanged"
 import useScrollDirection from "@/hooks/useScrollDirection"
@@ -13,11 +14,12 @@ import Command from "@/components/Command"
 
 import NavigationDrawer from "./NavigationDrawer"
 import SettingDrawer from "./SettingDrawer"
-import { AccountNavProps, UserAccount } from "./UserAccount"
+import { UserAccount } from "./UserAccount"
 
-const Navbar = ({ user }: AccountNavProps) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false)
   const { setVisible, visible } = useStore(navbarSelector)
+  const { data } = useSession()
 
   useRouteChanged(() => {
     setOpen(false)
@@ -47,7 +49,7 @@ const Navbar = ({ user }: AccountNavProps) => {
         </Link>
       </div>
       <div className="flex items-center space-x-4 text-xl font-bold">
-        {user && <UserAccount user={user} />}
+        {data && <UserAccount user={data?.user} />}
         <a
           target="_blank"
           href="https://github.com/orgs/Tariha/repositories"

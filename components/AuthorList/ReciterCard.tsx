@@ -27,31 +27,29 @@ interface Props {
 }
 
 const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => (
-  <Link href={`/${link}/${data.id}`} passHref>
-    <Card className="max-h-18 group relative cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
-      <div className="absolute right-2 top-1">
-        <ReciterCardMenu id={data.id} />
-      </div>
-      <CardHeader className="p-3">
-        <CardTitle className="flex items-center justify-center">
-          <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
-            <AvatarImage src={data.picture} />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        </CardTitle>
-        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize group-hover:text-vert">
-          {unslugify(data.name)}
-        </CardDescription>
-      </CardHeader>
-    </Card>
-  </Link>
+  <Card className="max-h-18 group relative cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
+    <div className="absolute right-2 top-1">
+      <ReciterCardMenu id={data.id} />
+    </div>
+    <CardHeader className="p-3">
+      <CardTitle className="flex items-center justify-center">
+        <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
+          <AvatarImage src={data.picture} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </CardTitle>
+      <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize group-hover:text-vert">
+        {unslugify(data.name)}
+      </CardDescription>
+    </CardHeader>
+  </Card>
 )
 
 async function deleteReciter(id: number) {
   const session: any = await getSession()
   const resp = await fetch(`${BASE_URL}reciters/${id}`, {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${session?.accessToken}` },
+    headers: { Authorization: `Bearer ${session?.access}` },
     cache: "no-cache",
   })
   if (!resp.ok) throw new Error("Suppression échoué")

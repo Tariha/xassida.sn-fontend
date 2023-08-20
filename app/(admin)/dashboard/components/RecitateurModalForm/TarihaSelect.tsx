@@ -8,7 +8,11 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-const TarihaSelect = ({ field }: { field: any }) => {
+interface Props {
+  field: any
+}
+
+const TarihaSelect = ({ field }: Props) => {
   return (
     <Select onValueChange={field.onChange} defaultValue={field.value}>
       <FormControl>

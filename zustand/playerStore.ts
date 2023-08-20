@@ -45,10 +45,12 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
     }
   },
   playXassida: (xassida) => {
-    set({ xassida })
-    get().setAudioSrc(
-      "https://download.quranicaudio.com/qdc/saud_ash-shuraym/murattal/011.mp3"
-    )
+    if (get().isCurrentPlaying(xassida)) get().pause()
+    else if (get().audioPlayer.src == xassida.file) get().play()
+    else {
+      set({ xassida })
+      get().setAudioSrc(xassida.file)
+    }
   },
   // setters
   setAudioPlayer: (ref) => set({ audioPlayer: ref }),

@@ -15,14 +15,14 @@ type SeekButtonProps = {
 }
 
 const SeekButton = ({ type, isLoading }: SeekButtonProps) => {
-  const audioService = playerStore((state) => state)
+  const seek = playerStore((state) => state.seek)
   const seekType =
     type == SeekButtonType.Next ? SeekType.Forward : SeekType.Backward
   return (
     <TooltipButton
       variant="outline"
       tooltip={type == SeekButtonType.Prev ? "Precedent" : "Suivant"}
-      onClick={() => audioService.seek({ type: seekType, time: 10 })}
+      onClick={() => seek({ type: seekType, time: 10 })}
     >
       {type === SeekButtonType.Prev ? <Rewind /> : <FastForward />}
     </TooltipButton>
