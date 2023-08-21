@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -19,9 +21,11 @@ const DonationCard = () => (
       </p>
     </CardContent>
     <CardFooter>
-      <Button size="lg" className="text-md bg-vert hover:bg-vert/90">
-        Donate Monthly
-      </Button>
+      <Link href="/contribute" passHref>
+        <Button size="lg" className="text-md bg-vert hover:bg-vert/90">
+          Donate Monthly
+        </Button>
+      </Link>
     </CardFooter>
   </Card>
 )

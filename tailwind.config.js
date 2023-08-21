@@ -8,26 +8,37 @@ module.exports = {
     container: {
       center: true,
       padding: {
-        DEFAULT: '.8rem',
-        sm: '1rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
-      }
+        DEFAULT: ".8rem",
+        sm: "1rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
     },
     extend: {
       lineClamp: {
-         8: '8',
-        15: '15',
+        8: "8",
+        15: "15",
       },
       backgroundImage: {
-        'bismillah': "url('/images/background.jpg')",
+        bismillah: "url('/images/background.jpg')",
       },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        vert: "#2ca4ab",
+        vert: {
+          DEFAULT: "#2CA4AB",
+          50: "#00acc11f",
+          100: "#B7E9EC",
+          200: "#8EDDE2",
+          300: "#65D1D8",
+          400: "#3DC5CD",
+          500: "#2CA4AB",
+          600: "#24858B",
+          700: "#1B666A",
+          800: "#13474A",
+        },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -71,7 +82,7 @@ module.exports = {
         warsh: ["var(--font-warsh)"],
         scheherazade: ["var(--font-scheherazade)"],
         amiri: ["var(--font-amiri)"],
-        lateef: ["var(--font-lateef)"]
+        lateef: ["var(--font-lateef)"],
       },
       keyframes: {
         "accordion-down": {
@@ -89,8 +100,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 }
