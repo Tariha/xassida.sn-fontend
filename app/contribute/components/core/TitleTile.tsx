@@ -1,16 +1,22 @@
-import React from 'react'
+import React from "react"
 
 interface Props {
   title: string
   subtitle: string
 }
 
+// Ce composant est utilisé pour afficher le titre et le sous-titre
+// de la page de contribution.
+
 const TitleTile = ({ title, subtitle }: Props) => {
   return (
-    <div className="flex flex-col gap-4 mb-8">
-      <div className='text-4xl mb-6'>{title}</div>
-      <div dangerouslySetInnerHTML={{ __html: subtitle }}></div>
-    </div>
+    <>
+      <div className="mb-6 text-4xl">{title}</div>
+      <div
+        className="mb-8"
+        dangerouslySetInnerHTML={{ __html: subtitle }}
+      ></div>
+    </>
   )
 }
 

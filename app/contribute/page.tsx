@@ -1,19 +1,24 @@
 import React from "react"
-import TitleTile from "./components/core/TitleTile"
+
 import { contribute } from "@/config/pages"
-import DonationTile from "./components/contribution/DonationTile"
+
+import DonationForm from "./components/contribution/DonationForm"
+import TitleTile from "./components/core/TitleTile"
 
 export default function contibutionPage() {
   return (
     <>
       <div className="container mx-auto mt-12">
-        <div className="flex gap-8 p-4">
-          <div className="w-4/6 rounded-lg bg-muted px-4 py-8">
-            <TitleTile title={contribute.title} subtitle={contribute.subtitle} />
-            <DonationTile />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
+          <div className="col-span-1 rounded-lg bg-muted px-4 py-8 md:col-span-4">
+            <TitleTile
+              title={contribute.title}
+              subtitle={contribute.subtitle}
+            />
+            <DonationForm />
           </div>
-          <div className="w-2/6 rounded-lg bg-muted p-4">
-            Questions
+          <div className="col-span-1 md:col-span-2">
+            <div className="rounded-lg bg-muted  p-4">Questions</div>
           </div>
         </div>
       </div>

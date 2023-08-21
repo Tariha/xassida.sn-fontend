@@ -3,6 +3,8 @@ import clipboardCopy from "clipboard-copy"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
+import { DONATIONS } from "./constants"
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
@@ -32,4 +34,17 @@ export function copyText(text: string[]) {
     // otherwise fallback to use clipboardCopy library
     return clipboardCopy(toCopy)
   }
+}
+
+export function extractZodValuesForTypes() {
+  // Nous devons extraire les valeurs de l'array `DONATIONS.types`
+  type DTypes = (typeof DONATIONS.types)[number]["value"]
+  // z.enum attend un tableau non vide, donc pour contourner cela
+  // nous extrayons explicitement la première valeur
+  const TYPES: [DTypes, ...DTypes[]] = [
+    DONATIONS.types[0].value,
+    // Puis nous mergons les valeurs restantes de `types`
+    ...DONATIONS.types.slice(1).map((p) => p.value),
+  ]
+  return TYPES
 }

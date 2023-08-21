@@ -10,10 +10,10 @@ export const about = {
 }
 
 export const contribute = {
-  title : "The Quran transforms lives.\
-  Help us spread its light.",
-  subtitle: "<strong>Tout don que vous ferez par charité vous sera remplacé par votre Seigneur,\
+  title: "Donation",
+  subtitle:
+    "<strong>Tout don que vous ferez par charité vous sera remplacé par votre Seigneur,\
    le plus généreux des pourvoyeurs, </strong><em>Coran (34:39)</em>. Votre don nous permettra d'atteindre plus de personnes,\
     de continuer à améliorer l'expérience utilisateur, de collecter plus de xassidas,\
-     d'accroître le contenu éducatif et de permettre à la communauté d'en profiter."
+     d'accroître le contenu éducatif et de permettre à la communauté d'en profiter.",
 }

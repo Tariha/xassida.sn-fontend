@@ -1,52 +1,70 @@
-import { IAmount, IDonationType } from '@/types/donation'
-import React, { useEffect, useState } from 'react'
-import { cn } from '@/lib/utils'
+import React, { useEffect, useState } from "react"
+import { RadioGroupItem } from "@radix-ui/react-radio-group"
+
+import { IAmount } from "@/types/donation"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup } from "@/components/ui/radio-group"
 
 interface Props {
-    amounts: IAmount[]
-    frequency?: string |undefined
+  amounts: IAmount[]
+  frequency?: string | undefined
+  handleAmount: (value: IAmount) => void
 }
 
-function PaymentOptions({ amounts, frequency }: Props) {
-    const [selectedAmount, setAmount] = useState(5000);
-    const handleDonationPrice = (value: any) => {
-        return setAmount(parseInt(value))
-    }
+function PaymentOptions({ amounts, frequency, handleAmount }: Props) {
+  const [selectedAmount, setAmount] = useState<IAmount>(amounts[1])
+  const handleDonationPrice = (value: IAmount) => {
+    setAmount(value)
+    handleAmount(value)
+  }
 
-    useEffect(() => {
-        handleDonationPrice(selectedAmount)
-    }, [selectedAmount]);
-    return (
-        <>
-            <p className="mb-4 mt-6 text-base">Choisissez un montant pour <b>contribuer</b> au projet {frequency && frequency} 💙. </p>
-            <div className='flex'>
-                <div className="flex items-center w-7/12 gap-3">
-                    {amounts.map((amount, index) => (
-                        <label key={index} className={cn(
-                            "flex-1 rounded-lg p-3 border-2 border-vert cursor-pointer text-center ",
-                            selectedAmount === amount.price && "bg-vert text-white font-semibold"
-                        )}>
-                            {amount.label}
-                            <input key={index}
-                                className="hidden"
-                                name="amount"
-                                type="radio"
-                                checked={selectedAmount == amount.price}
-                                onChange={e => handleDonationPrice(e.target.value)}
-                                value={amount.price}
-                            />
-                        </label>
-                    ))}
-                </div>
-                <div className="flex items-center w-5/12 px-3">
-                    <input 
-                    type="number" 
-                    placeholder='8000 Fcfa'
-                    className='w-full px-3 h-full rounded-lg border-2 bg-transparent border-vert outline-none'
-                    />
-                </div>
-            </div>
-        </>)
+  const handleOtherPrices = (value: number) => {
+    const amount: IAmount = { label: "Autre", price: value, ref: "mnt-0" }
+    setAmount(amount)
+    handleAmount(amount)
+  }
+  useEffect(() => {
+    setAmount(selectedAmount)
+  }, [selectedAmount])
+
+  return (
+    <>
+      <p className="mb-4 mt-6 text-base capitalize">
+        Choisissez un montant pour <b>contribuer</b> au projet{" "}
+        {frequency && frequency} 💙.
+      </p>
+      <RadioGroup
+        onValueChange={(a) =>
+          handleDonationPrice(amounts.find((t) => t.price === Number(a))!)
+        }
+        defaultValue={selectedAmount.price.toString()}
+        className={`grid grid-cols-2 gap-4 md:grid-cols-6`}
+      >
+        {amounts.map((amount, index) => (
+          <div className="col-span-1 " key={index}>
+            <RadioGroupItem
+              value={amount.price.toString()}
+              id={amount.ref}
+              className="peer sr-only"
+            />
+            <Label
+              htmlFor={amount.ref}
+              className="flex cursor-pointer flex-col items-center justify-between rounded-md border-2 border-vert bg-vert-50 p-4 hover:text-accent-foreground peer-data-[state=checked]:bg-vert [&:has([data-state=checked])]:border-vert"
+            >
+              {amount.label}
+            </Label>
+          </div>
+        ))}
+        <Input
+          onChange={(e) => handleOtherPrices(Number(e.target.value))}
+          className="col-span-2 h-full border-2 border-vert"
+          placeholder="Autre"
+          type="number"
+        />
+      </RadioGroup>
+    </>
+  )
 }
 
 export default React.memo(PaymentOptions)
