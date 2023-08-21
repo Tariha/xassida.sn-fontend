@@ -57,6 +57,10 @@ export default function DonationForm() {
       ipn_url: `${process.env.NEXT_PUBLIC_API_URL}/ipn`,
       success_url: `${process.env.NEXT_PUBLIC_HOST}/success`,
       cancel_url: `${process.env.NEXT_PUBLIC_HOST}/cancel`,
+      custom_field:JSON.stringify({
+        custom_fiel1: data.email,
+        custom_fiel2: data.name,
+     })
     }
 
     await fetch(process.env.NEXT_PUBLIC_PAYTECH_PAYMENT_URL!, {
@@ -83,7 +87,7 @@ export default function DonationForm() {
             form.setValue("type", donation.value)
           }}
         />
-        
+
         {/* Le composant ci-dessous retourne la fréquence de
         donations si le type de donation selectioné est réguliers */}
         {isRecurring && (

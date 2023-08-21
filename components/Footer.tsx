@@ -23,7 +23,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-2">
-          <h3 className="text-lg font-bold">Naviguation</h3>
+          <h3 className="text-lg font-bold">Navigation</h3>
           <div className="grid grid-cols-2 md:grid-cols-1">
             <Link href="/" passHref>
               <span>Acceuil</span>

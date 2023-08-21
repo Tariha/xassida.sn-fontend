@@ -30,9 +30,9 @@ function PaymentOptions({ amounts, frequency, handleAmount }: Props) {
 
   return (
     <>
-      <p className="mb-4 mt-6 text-base capitalize">
-        Choisissez un montant pour <b>contribuer</b> au projet{" "}
-        {frequency && frequency} 💙.
+      <p className="mb-4 mt-6 text-base">
+        Choisissez un montant pour <b>contribuer</b> au projet
+        <span className="lowercase"> {frequency && frequency} 💙.</span>
       </p>
       <RadioGroup
         onValueChange={(a) =>

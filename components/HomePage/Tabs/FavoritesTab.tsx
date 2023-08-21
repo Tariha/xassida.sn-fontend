@@ -11,7 +11,7 @@ const FavoriteTab = () => {
     <div>
       <div className="flex justify-end">
         <button className="border-b border-gray-500" onClick={clearFavorites}>
-          Effacer Favories
+          Effacer Favoris
         </button>
       </div>
       <div className="scrollbar-hide flex space-x-3 overflow-x-scroll p-2">

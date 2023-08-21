@@ -18,7 +18,7 @@ const ContributorInfos = ({ handleContributorInfos }: Props) => {
   handleContributorInfos({ name, email })
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-      <div className="grid w-full max-w-sm items-center gap-2">
+      <div className="grid w-full max-w-sm items-center gap-2 mb-2">
         <Label htmlFor="name">Name</Label>
         <Input
           onChange={(e) => setName(e.target.value)}
@@ -28,7 +28,7 @@ const ContributorInfos = ({ handleContributorInfos }: Props) => {
           placeholder="Email"
         />
       </div>
-      <div className="grid w-full max-w-sm items-center gap-2">
+      <div className="grid w-full max-w-sm items-center gap-2 mb-2">
         <Label htmlFor="email">Email</Label>
         <Input
           onChange={(e) => setEmail(e.target.value)}
