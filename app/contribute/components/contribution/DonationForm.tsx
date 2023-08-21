@@ -11,7 +11,6 @@ import { extractZodValuesForTypes } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 import { Separator } from "@/components/ui/separator"
-import { toast } from "@/components/ui/use-toast"
 
 import ContributorInfos from "../contributor/ContributorInfos"
 import DonationFrequency from "./DonationFrequency"
@@ -57,10 +56,10 @@ export default function DonationForm() {
       ipn_url: `${process.env.NEXT_PUBLIC_API_URL}/ipn`,
       success_url: `${process.env.NEXT_PUBLIC_HOST}/success`,
       cancel_url: `${process.env.NEXT_PUBLIC_HOST}/cancel`,
-      custom_field:JSON.stringify({
+      custom_field: JSON.stringify({
         custom_fiel1: data.email,
         custom_fiel2: data.name,
-     })
+      }),
     }
 
     await fetch(process.env.NEXT_PUBLIC_PAYTECH_PAYMENT_URL!, {
