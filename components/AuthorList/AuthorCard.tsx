@@ -11,12 +11,11 @@ import {
 } from "@/components/ui/card"
 
 interface Props {
-  data: Author | Reciter
-  link?: string
+  data: Author
 }
 
-const AuthorCard: React.FC<Props> = ({ data, link = "author" }) => (
-  <Link href={`/${link}/${data.id}`} passHref>
+const AuthorCard: React.FC<Props> = ({ data }) => (
+  <Link href={`/author/${data.id}`} passHref>
     <Card className="max-h-18 group cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
       <CardHeader className="p-3">
         <CardTitle className="flex items-center justify-center">
@@ -25,7 +24,7 @@ const AuthorCard: React.FC<Props> = ({ data, link = "author" }) => (
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </CardTitle>
-        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize group-hover:text-vert">
+        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize text-foreground group-hover:text-vert">
           {unslugify(data.name)}
         </CardDescription>
       </CardHeader>

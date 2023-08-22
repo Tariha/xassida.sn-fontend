@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-contradicting-classname */
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { Xassida } from "@/types"
 import { playerStore } from "@/zustand/playerStore"
 import { navbarSelector } from "@/zustand/slices/navbar"
@@ -26,7 +26,13 @@ const Reader = ({ xassida }: Props) => {
   // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
-  const audioService = playerStore((store) => store)
+  const audioService = playerStore((state) => state)
+
+  // add xassida to reading history
+  const addToHistory = useStore((state) => state.addToHistory)
+  useEffect(() => {
+    addToHistory(xassida)
+  }, [addToHistory, xassida])
 
   const { reciters } = xassida
   const currentPlaying = audioService.isCurrentPlaying(

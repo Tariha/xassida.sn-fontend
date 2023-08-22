@@ -23,11 +23,7 @@ const AuthorTab = () => {
           />
         </div>
       </div>
-      <InfiniteList
-        params={{ tariha }}
-        getFunction={getAuthor}
-        Component={AuthorList}
-      />
+      <InfiniteList params={{ tariha }} Component={AuthorList} type="author" />
     </div>
   )
 }

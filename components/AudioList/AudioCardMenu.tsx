@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Audio } from "@/types"
+import { useStore } from "@/zustand/store"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
 import { getSession } from "next-auth/react"
 
@@ -30,11 +31,15 @@ async function deleteAudio(id: number) {
 
 const AudioCardMenu: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState<boolean>(false)
+  const mutateAudios = useStore((state) => state.mutateAudios)
 
   async function handleDelete(e: any) {
     e.preventDefault()
     deleteAudio(data.id)
-      .then(() => setOpen(false))
+      .then(() => {
+        mutateAudios()
+        setOpen(false)
+      })
       .catch((err) => {
         console.log(err)
         return toast({

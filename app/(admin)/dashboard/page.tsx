@@ -1,30 +1,36 @@
-import { Plus } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import ReciterTab from "@/components/HomePage/Tabs/ReciterTab"
+import AudioDashboard from "./audios/AudioDashboard"
+import ReciterDashboard from "./reciters/ReciterDashboard"
 
-import ReciterModalForm from "./components/RecitateurModalForm"
+const TAB_ITEMS = ["recitateurs", "audios", "xassida"]
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Les Recitateurs</h3>
-        <div className="flex items-center justify-between">
-          <p className="text-sm text-muted-foreground">
-            Creer un nouveau recitateur grace au formulaire.
-          </p>
-          <ReciterModalForm>
-            <Button variant="outline" className="space-x-2">
-              <Plus size={14} />
-              <span>Recitateur</span>
-            </Button>
-          </ReciterModalForm>
-        </div>
+    <Tabs
+      defaultValue="recitateurs"
+      className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0"
+    >
+      <TabsList className="lg-mx-4 flex lg:h-full lg:w-1/5 lg:flex-col">
+        {TAB_ITEMS.map((item) => (
+          <TabsTrigger
+            className="py-2 capitalize lg:w-full lg:justify-start"
+            key={item}
+            value={item}
+          >
+            {item}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+      <div className="flex-1">
+        <TabsContent value="recitateurs">
+          <ReciterDashboard />
+        </TabsContent>
+        <TabsContent value="audios">
+          <AudioDashboard />
+        </TabsContent>
+        <TabsContent value="xassidas"></TabsContent>
       </div>
-      <Separator />
-      <ReciterTab />
-    </div>
+    </Tabs>
   )
 }

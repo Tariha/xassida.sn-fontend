@@ -1,3 +1,5 @@
+"use client"
+
 import { Xassida } from "@/types"
 
 import { XassidaHor, XassidaVer } from "./Xassida"

@@ -31,6 +31,7 @@ const AudioPlayer = () => {
     audioPlayer,
     visible,
     setElapsed,
+    setPlaying,
     setDuration,
     setAudioPlayer,
     setDownloadProgress,
@@ -65,6 +66,8 @@ const AudioPlayer = () => {
           onDurationChange={onDurationChange}
           onTimeUpdate={onTimeUpdate}
           onProgress={onProgress}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
         />
         {visible && <AudioPlayerBody />}
       </div>

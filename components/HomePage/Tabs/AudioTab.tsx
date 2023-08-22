@@ -2,7 +2,6 @@
 
 import React, { useState } from "react"
 
-import { getAudio } from "@/lib/api"
 import { TARIHA } from "@/lib/constants"
 import AudioList from "@/components/AudioList"
 import InfiniteList from "@/components/InfiniteList"
@@ -25,8 +24,8 @@ const AudioTab = () => {
       </div>
       <InfiniteList
         params={{ reciter__tariha: tariha }}
-        getFunction={getAudio}
         Component={AudioList}
+        type="audio"
       />
     </div>
   )

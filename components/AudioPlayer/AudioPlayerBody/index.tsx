@@ -1,5 +1,3 @@
-"use client"
-
 import AudioKeyboardListeners from "./AudioKeyboardListeners"
 import AudioPlayerSlider from "./AudioPlayerSlider"
 import PlayerControls from "./PlayerControls"

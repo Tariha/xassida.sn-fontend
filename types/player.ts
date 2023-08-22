@@ -23,7 +23,6 @@ export interface PlayerActions {
   toggle: () => void
   playXassida: (data: Audio) => void
   seek: ({ type, time }: SeekProps) => void
-  isPlaying: () => boolean
   isCurrentPlaying: (id: number, type: playingType) => boolean
 }
 
@@ -32,6 +31,7 @@ export interface StateActions {
   setAudioPlayer: (ref: HTMLAudioElement) => void
   setAudioSrc: (src: string) => void
   setVisible: (val: boolean) => void
+  setPlaying: (val: boolean) => void
   setReciterId: (id: number) => void
   setVerseNumber: (num: number) => void
   setAudioData: (data: any) => void
@@ -46,6 +46,7 @@ export interface StateActions {
 export interface AudioPlayerContext extends PlayerActions, StateActions {
   audioPlayer: HTMLAudioElement
   visible: boolean
+  playing: boolean
   reciterId: number | null
   verseNumber: number
   audioData: any

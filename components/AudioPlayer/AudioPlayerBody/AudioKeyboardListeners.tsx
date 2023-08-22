@@ -1,3 +1,5 @@
+"use client"
+
 import { useCallback } from "react"
 import { playerStore } from "@/zustand/playerStore"
 import { Options, useHotkeys } from "react-hotkeys-hook"

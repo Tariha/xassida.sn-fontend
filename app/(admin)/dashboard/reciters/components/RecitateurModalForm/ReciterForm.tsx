@@ -1,4 +1,5 @@
 import React, { SetStateAction, useState } from "react"
+import { useStore } from "@/zustand/store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
 import { getSession } from "next-auth/react"
@@ -52,6 +53,8 @@ async function postReciter(data: FormData, id: number | string = "") {
 
 export default function ReciterForm({ setOpen, init }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const mutateReciters = useStore((state) => state.mutateReciters)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: init,
@@ -62,6 +65,7 @@ export default function ReciterForm({ setOpen, init }: Props) {
     const form_values = toFormData(data)
     postReciter(form_values, init?.id)
       .then(() => {
+        mutateReciters()
         setOpen(false)
       })
       .catch((err) => {

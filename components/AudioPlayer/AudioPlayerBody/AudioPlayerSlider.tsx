@@ -1,3 +1,5 @@
+"use client"
+
 import { playerStore } from "@/zustand/playerStore"
 
 import { secondsFormatter } from "@/lib/utils"

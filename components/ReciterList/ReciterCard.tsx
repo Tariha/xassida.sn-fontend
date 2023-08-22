@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Author, Reciter } from "@/types"
+import { useStore } from "@/zustand/store"
 import { Edit, MoreHorizontal } from "lucide-react"
 import { getSession } from "next-auth/react"
 
@@ -19,7 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { toast } from "@/components/ui/use-toast"
 import Confirm from "@/components/Confirm"
-import ReciterModalForm from "@/app/(admin)/dashboard/components/RecitateurModalForm"
+import ReciterModalForm from "@/app/(admin)/dashboard/reciters/components/RecitateurModalForm"
 
 interface Props {
   data: Author | Reciter
@@ -38,7 +39,7 @@ const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => (
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </CardTitle>
-      <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize group-hover:text-vert">
+      <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize text-foreground group-hover:text-vert">
         {unslugify(data.name)}
       </CardDescription>
     </CardHeader>
@@ -58,10 +59,15 @@ async function deleteReciter(id: number) {
 
 const ReciterCardMenu: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState<boolean>(false)
+  const mutateReciters = useStore((state) => state.mutateReciters)
+
   async function handleDelete(e: any) {
     e.preventDefault()
     deleteReciter(data.id)
-      .then(() => setOpen(false))
+      .then(() => {
+        mutateReciters()
+        setOpen(false)
+      })
       .catch((err) => {
         console.log(err)
         return toast({

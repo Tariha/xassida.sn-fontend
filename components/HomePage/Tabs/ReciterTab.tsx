@@ -2,7 +2,6 @@
 
 import React, { useState } from "react"
 
-import { getReciter } from "@/lib/api"
 import { TARIHA } from "@/lib/constants"
 import InfiniteList from "@/components/InfiniteList"
 import ReciterList from "@/components/ReciterList"
@@ -25,8 +24,8 @@ const ReciterTab = () => {
       </div>
       <InfiniteList
         params={{ tariha }}
-        getFunction={getReciter}
         Component={ReciterList}
+        type="reciter"
       />
     </div>
   )

@@ -45,6 +45,7 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
   },
   playXassida: (data) => {
     const prevData = get().audioData
+    get().setVisible(true) // Set player to visible
     get().setAudioData(data)
     if (get().isCurrentPlaying(prevData?.id, playingType.Audio)) get().pause()
     else if (get().audioPlayer.src == data.file) get().play()
@@ -57,17 +58,16 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
   setAudioSrc: (src) => {
     const player = get().audioPlayer
     player.src = src
-    get().setVisible(true) // Set player to visible
     player.play()
   },
   setVisible: (val) => {
     if (val == false) get().pause()
     set({ visible: val })
   },
-  isPlaying: () => !get().audioPlayer.paused,
+  setPlaying: (val) => set({ playing: val }),
   isCurrentPlaying: (id, type) => {
     const audioData = get().audioData
-    if (!audioData || !get().isPlaying()) return false
+    if (!audioData || !get().playing) return false
     const matching_id =
       type == playingType.Audio ? audioData.id : audioData.xassida_info.id
     return id == matching_id

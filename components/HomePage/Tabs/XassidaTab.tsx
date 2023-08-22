@@ -30,11 +30,7 @@ const XassidaTab = () => {
           />
         </div>
       </div>
-      <InfiniteList
-        params={params}
-        getFunction={getXassida}
-        Component={XassidaList}
-      />
+      <InfiniteList params={params} Component={XassidaList} type="xassida" />
     </div>
   )
 }

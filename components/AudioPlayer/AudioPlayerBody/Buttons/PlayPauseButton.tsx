@@ -12,7 +12,7 @@ const PlayPauseButton = () => {
       variant="outline"
       tooltip="Demarrer/Arreter"
     >
-      {!audioService.audioPlayer.paused ? (
+      {audioService.playing ? (
         <Pause className="fill-primary text-primary" />
       ) : (
         <Play className="fill-primary text-primary" />

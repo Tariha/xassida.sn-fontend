@@ -1,34 +1,42 @@
 "use client"
 
-import { APIResponse } from "@/types"
+import { useStore } from "@/zustand/store"
 import useSWRInfinite from "swr/infinite"
 
-import { fetcher } from "@/lib/api"
+import { fetcher, getAudio, getAuthor, getReciter, getXassida } from "@/lib/api"
 import { flattenResult } from "@/lib/utils"
-
-interface FunctionArgs {
-  id?: number | string
-  params?: any
-  prevData?: APIResponse | null
-}
 
 interface InfiniteListProps {
   params: any
   Component: React.ComponentType<React.ComponentProps<any>>
-  getFunction: (params: FunctionArgs) => string | null
+  type: "audio" | "xassida" | "reciter" | "author"
+}
+
+const FUNCTIONS = {
+  audio: getAudio,
+  xassida: getXassida,
+  reciter: getReciter,
+  author: getAuthor,
 }
 
 const InfiniteList: React.FC<InfiniteListProps> = ({
   params,
   Component,
-  getFunction,
+  type,
 }) => {
-  const { data, error, isLoading, size, setSize } = useSWRInfinite(
-    (ind, prevData) =>
+  const getFunction = FUNCTIONS[type]
+  const { data, mutate, error, isLoading, size, setSize } = useSWRInfinite(
+    (ind, prevData) => [
       getFunction({ prevData, params: { page: ind + 1, ...params } }),
-    fetcher,
-    { revalidateOnFocus: true }
+      type,
+    ],
+    (url: string, type: string) => fetcher(url),
+    { revalidateOnFocus: false }
   )
+  //The only way i found to update the list after form submit
+  //The global mutator did not work
+  const setMutator = useStore((state) => state.setMutator)
+  setMutator(type, mutate)
 
   const loadMore = () => setSize(size + 1)
   if (isLoading || error) return null

@@ -1,3 +1,5 @@
+"use client"
+
 import { MoreHorizontal } from "lucide-react"
 
 import CloseButton from "./Buttons/CloseButton"

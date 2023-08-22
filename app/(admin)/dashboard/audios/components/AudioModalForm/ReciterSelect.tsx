@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-import SelectCommand from "./SelectCommand"
+import SelectCommand from "./SelectInputCommand"
 
 interface Props {
   field: any

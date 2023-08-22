@@ -88,22 +88,15 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl)
-        ? Promise.resolve(url)
-        : Promise.resolve(baseUrl)
-    },
     async jwt({ token, user, account }) {
       // initial signin
       if (account && user) {
         return user as JWT
       }
-
       // Return previous token if the access token has not expired
-      if (Date.now() < token.exp * 100) {
+      if (Date.now() < token.exp * 1000) {
         return token
       }
-
       // refresh token
       return (await refreshAccessToken(token)) as JWT
     },
