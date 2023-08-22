@@ -15,16 +15,15 @@ import {
 
 import ReciterForm from "./ReciterForm"
 
-const ReciterModalForm = () => {
+interface Props extends React.PropsWithChildren {
+  init?: any
+}
+
+const ReciterModalForm: React.FC<Props> = ({ init, children }) => {
   const [open, setOpen] = useState<boolean>(false)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="space-x-2">
-          <Plus size={14} />
-          <span>Recitateur</span>
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Recitateur</DialogTitle>
@@ -32,7 +31,7 @@ const ReciterModalForm = () => {
             Creer ou modifier les informations d&apos;un recitateur.
           </DialogDescription>
         </DialogHeader>
-        <ReciterForm setOpen={setOpen} />
+        <ReciterForm init={init} setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   )

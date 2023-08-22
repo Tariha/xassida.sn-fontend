@@ -23,38 +23,45 @@ import { toast } from "@/components/ui/use-toast"
 
 import TarihaSelect from "./TarihaSelect"
 
-interface Props {
-  setOpen: React.Dispatch<SetStateAction<boolean>>
-}
-
 const formSchema = z.object({
   name: z.string().min(4),
   picture: z.any(),
   tariha: z.string().min(4),
 })
 
-async function postReciter(data: FormData) {
+interface Init extends z.infer<typeof formSchema> {
+  id: number | string
+}
+
+interface Props {
+  setOpen: React.Dispatch<SetStateAction<boolean>>
+  init?: Init
+}
+
+async function postReciter(data: FormData, id: number | string = "") {
   const session: any = await getSession()
-  const resp = await fetcher(BASE_URL + "reciters/", {
-    method: "POST",
+  const method = id ? "PUT" : "POST"
+  const url = `${BASE_URL}reciters/` + (id ? `${id}/` : "")
+  const resp = await fetcher(url, {
+    method,
     body: data,
     headers: { Authorization: `Bearer ${session?.access}` },
   })
   return resp
 }
 
-export default function ReciterForm({ setOpen }: Props) {
+export default function ReciterForm({ setOpen, init }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: init,
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     const form_values = toFormData(data)
-    postReciter(form_values)
+    postReciter(form_values, init?.id)
       .then(() => {
-        setIsLoading(false)
         setOpen(false)
       })
       .catch((err) => {
@@ -64,6 +71,7 @@ export default function ReciterForm({ setOpen }: Props) {
           variant: "destructive",
         })
       })
+      .finally(() => setIsLoading(false))
   }
 
   return (

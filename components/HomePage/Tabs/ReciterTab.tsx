@@ -4,8 +4,8 @@ import React, { useState } from "react"
 
 import { getReciter } from "@/lib/api"
 import { TARIHA } from "@/lib/constants"
-import ReciterList from "@/components/AuthorList/ReciterList"
 import InfiniteList from "@/components/InfiniteList"
+import ReciterList from "@/components/ReciterList"
 
 import { Filter } from "./MultiFilter"
 

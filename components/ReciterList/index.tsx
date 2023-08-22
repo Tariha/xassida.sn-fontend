@@ -1,6 +1,6 @@
 import { Reciter } from "@/types"
 
-import AuthorCard from "./AuthorCard"
+import AuthorCard from "../AuthorList/AuthorCard"
 import ReciterCard from "./ReciterCard"
 
 interface ReciterListProps {

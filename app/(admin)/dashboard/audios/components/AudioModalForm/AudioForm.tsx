@@ -24,43 +24,49 @@ import { toast } from "@/components/ui/use-toast"
 import ReciterSelect from "./ReciterSelect"
 import XassidaSelect from "./XassidaSelect"
 
-interface Props {
-  setOpen: React.Dispatch<SetStateAction<boolean>>
-}
-
 const formSchema = z.object({
   reciter: z.number(),
   xassida: z.number(),
   file: z.any(),
 })
 
-async function postAudio(data: FormData) {
+interface Init extends z.infer<typeof formSchema> {
+  id: number | string
+}
+
+interface Props {
+  setOpen: React.Dispatch<SetStateAction<boolean>>
+  init?: Init
+}
+
+async function postAudio(data: FormData, id: number | string = "") {
   const session: any = await getSession()
-  const resp = await fetcher(BASE_URL + "audios/", {
-    method: "POST",
+  const method = id ? "PUT" : "POST"
+  const url = `${BASE_URL}audios/` + (id ? `${id}/` : "")
+  const resp = await fetcher(url, {
+    method,
     body: data,
     headers: { Authorization: `Bearer ${session?.access}` },
   })
   return resp
 }
 
-export default function AudioForm({ setOpen }: Props) {
+export default function AudioForm({ setOpen, init }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: init,
   })
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     const form_values = toFormData(data)
-    postAudio(form_values)
+    postAudio(form_values, init?.id)
       .then(() => {
-        setIsLoading(false)
         setOpen(false)
         setIsLoading(false)
       })
       .catch((err) => {
-        setIsLoading(false)
         console.log(err)
         return toast({
           title: "Quelque chose s'est mal passé",
@@ -68,6 +74,7 @@ export default function AudioForm({ setOpen }: Props) {
           variant: "destructive",
         })
       })
+      .finally(() => setIsLoading(false))
   }
 
   return (

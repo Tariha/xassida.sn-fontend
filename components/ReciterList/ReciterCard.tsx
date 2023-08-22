@@ -1,10 +1,9 @@
 import { useState } from "react"
-import Link from "next/link"
 import { Author, Reciter } from "@/types"
-import { Edit, MoreHorizontal, Trash } from "lucide-react"
+import { Edit, MoreHorizontal } from "lucide-react"
 import { getSession } from "next-auth/react"
 
-import { BASE_URL, fetcher } from "@/lib/api"
+import { BASE_URL } from "@/lib/api"
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -16,10 +15,11 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { toast } from "@/components/ui/use-toast"
+import Confirm from "@/components/Confirm"
+import ReciterModalForm from "@/app/(admin)/dashboard/components/RecitateurModalForm"
 
 interface Props {
   data: Author | Reciter
@@ -29,7 +29,7 @@ interface Props {
 const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => (
   <Card className="max-h-18 group relative cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
     <div className="absolute right-2 top-1">
-      <ReciterCardMenu id={data.id} />
+      <ReciterCardMenu data={data} />
     </div>
     <CardHeader className="p-3">
       <CardTitle className="flex items-center justify-center">
@@ -56,11 +56,11 @@ async function deleteReciter(id: number) {
   return resp
 }
 
-const ReciterCardMenu = ({ id }: { id: number }) => {
+const ReciterCardMenu: React.FC<Props> = ({ data }) => {
   const [open, setOpen] = useState<boolean>(false)
   async function handleDelete(e: any) {
     e.preventDefault()
-    deleteReciter(id)
+    deleteReciter(data.id)
       .then(() => setOpen(false))
       .catch((err) => {
         console.log(err)
@@ -77,17 +77,16 @@ const ReciterCardMenu = ({ id }: { id: number }) => {
         <MoreHorizontal size={18} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-22">
-        <DropdownMenuItem className="flex cursor-pointer justify-between text-xs focus:bg-yellow-500">
-          <Edit size={14} />
-          <span>Modifier</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={handleDelete}
-          className="flex cursor-pointer justify-between text-xs focus:bg-red-500"
-        >
-          <Trash size={14} />
-          <span>Supprimer</span>
-        </DropdownMenuItem>
+        <ReciterModalForm init={data}>
+          <div className="flex cursor-pointer items-center justify-between rounded-md px-2 py-1 hover:bg-yellow-500">
+            <Edit size={14} />
+            <span>Modifier</span>
+          </div>
+        </ReciterModalForm>
+        <Confirm
+          message="Cette action va causer la supression du récitateur"
+          callback={handleDelete}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -1,3 +1,6 @@
+import { Plus } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import ReciterTab from "@/components/HomePage/Tabs/ReciterTab"
 
@@ -12,7 +15,12 @@ export default function DashboardPage() {
           <p className="text-sm text-muted-foreground">
             Creer un nouveau recitateur grace au formulaire.
           </p>
-          <ReciterModalForm />
+          <ReciterModalForm>
+            <Button variant="outline" className="space-x-2">
+              <Plus size={14} />
+              <span>Recitateur</span>
+            </Button>
+          </ReciterModalForm>
         </div>
       </div>
       <Separator />

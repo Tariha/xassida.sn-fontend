@@ -9,7 +9,8 @@ import { useStore } from "@/zustand/store"
 import { Download, Pause, Play } from "lucide-react"
 import { Virtuoso } from "react-virtuoso"
 
-import { BASE_URL } from "@/lib/api"
+import { playingType } from "@/types/player"
+import { BASE_URL, fetcher, getAudio } from "@/lib/api"
 import { cn, unslugify } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { BismillahVariant } from "@/components/Bismillah"
@@ -25,21 +26,30 @@ const Reader = ({ xassida }: Props) => {
   // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
-
-  const player_xass = { id: xassida.id, file: "" }
   const audioService = playerStore((store) => store)
-  const currentPlaying = audioService.isCurrentPlaying(player_xass)
 
-  const handlePlay = () => {
+  const { reciters } = xassida
+  const currentPlaying = audioService.isCurrentPlaying(
+    xassida.id,
+    playingType.Xassida
+  )
+  const playDisabled = reciters.length ? false : true
+
+  const handlePlay = async () => {
     if (currentPlaying) audioService.pause()
-    else audioService.playXassida(player_xass)
+    else {
+      const audio = await fetcher(
+        getAudio({ params: { reciter: reciters[0], xassida: xassida.id } })
+      )
+      audioService.playXassida(audio[0])
+    }
   }
 
   return (
     <div>
       <div
         className={cn(
-          "animate sticky z-30 flex w-full items-center justify-between bg-background p-1 px-4 shadow-md duration-200 dark:bg-muted",
+          "sticky z-30 flex w-full items-center justify-between bg-background p-1 px-4 shadow-md duration-200 dark:bg-muted",
           visible ? "top-[56px]" : "top-0"
         )}
       >
@@ -59,8 +69,17 @@ const Reader = ({ xassida }: Props) => {
           <h3 className="text-2xl capitalize">{unslugify(xassida.name)}</h3>
           <div className="flex w-full flex-col items-center py-4">
             <BismillahVariant />
-            <div className="flex w-full items-end justify-end pt-4">
-              <Button onClick={handlePlay} variant="outline">
+            <div className="flex w-full items-center justify-between pt-4">
+              <div>
+                <p className="text-muted-foreground">xassida par:</p>
+                <p className="capitalize">{unslugify(xassida.author.name)}</p>
+              </div>
+              <Button
+                disabled={playDisabled}
+                className="text-vert"
+                onClick={handlePlay}
+                variant="outline"
+              >
                 {currentPlaying ? (
                   <Pause className="mr-2 h-4 w-4" />
                 ) : (

@@ -1,5 +1,6 @@
 "use client"
 
+import { get } from "http"
 import * as React from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -37,7 +38,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
-  const router = useRouter()
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -45,7 +45,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const signInResult = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: searchParams.get("from") || "/dashboard",
     })
 
     setIsLoading(false)
@@ -58,13 +59,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         variant: "destructive",
       })
     }
-
-    toast({
-      title: "Connexion Réussie",
-      description: "Vous êtes bien connecté",
-    })
-
-    router.replace(searchParams?.get("from") || "/dashboard")
   }
 
   return (

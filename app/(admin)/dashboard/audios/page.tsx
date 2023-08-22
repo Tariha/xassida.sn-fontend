@@ -1,3 +1,6 @@
+import { Plus } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import AudioTab from "@/components/HomePage/Tabs/AudioTab"
 
@@ -12,7 +15,12 @@ export default function AudioPage() {
           <p className="text-sm text-muted-foreground">
             Creer un nouveau audio grace au formulaire.
           </p>
-          <AudioModalForm />
+          <AudioModalForm>
+            <Button variant="outline" className="space-x-2">
+              <Plus size={14} />
+              <span>Audio</span>
+            </Button>
+          </AudioModalForm>
         </div>
       </div>
       <Separator />

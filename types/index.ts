@@ -10,10 +10,9 @@ export interface Xassida {
   author: Author
   name: string
   slug: string
-  created: string
-  modified: string
-  translated_names: string[]
   chapters: number[]
+  reciters: number[]
+  translated_names: string[]
 }
 
 export interface Chapter {
@@ -69,8 +68,8 @@ export interface Audio {
   id: number
   reciter: number
   xassida: number
-  reciter_info?: Reciter
-  xassida_info?: Xassida
+  reciter_info: Reciter
+  xassida_info: Xassida
   file: string
   duration?: number | null
 }

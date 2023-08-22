@@ -45,15 +45,15 @@ const NavigationLinks = () => (
     <Separator />
     <ul className="flex flex-col">
       {siteConfig.nav.map((link) => (
-        <>
-          <Link href={link.href} key={link.href} passHref>
+        <div key={link.href}>
+          <Link href={link.href} passHref>
             <li className="flex cursor-pointer items-center space-x-3 py-2 hover:text-vert">
               {link.icon}
               <span>{link.title}</span>
             </li>
           </Link>
           <Separator />
-        </>
+        </div>
       ))}
     </ul>
   </div>

@@ -1,12 +1,11 @@
 import { create } from "zustand"
 
-import { AudioPlayerContext, SeekType } from "@/types/player"
+import { AudioPlayerContext, SeekType, playingType } from "@/types/player"
 
 const initialState = {
   audioPlayer: {} as HTMLAudioElement,
   visible: false,
   playing: false,
-  xassida: null,
   reciterId: null,
   verseNumber: 0,
   audioData: null,
@@ -44,12 +43,13 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
       player.currentTime = to
     }
   },
-  playXassida: (xassida) => {
-    if (get().isCurrentPlaying(xassida)) get().pause()
-    else if (get().audioPlayer.src == xassida.file) get().play()
+  playXassida: (data) => {
+    const prevData = get().audioData
+    get().setAudioData(data)
+    if (get().isCurrentPlaying(prevData?.id, playingType.Audio)) get().pause()
+    else if (get().audioPlayer.src == data.file) get().play()
     else {
-      set({ xassida })
-      get().setAudioSrc(xassida.file)
+      get().setAudioSrc(data.file)
     }
   },
   // setters
@@ -64,11 +64,13 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
     if (val == false) get().pause()
     set({ visible: val })
   },
-  setXassida: (data) => set({ xassida: data }),
   isPlaying: () => !get().audioPlayer.paused,
-  isCurrentPlaying: (xassida) => {
-    const match = xassida.id == get().xassida?.id
-    return get().isPlaying() && match
+  isCurrentPlaying: (id, type) => {
+    const audioData = get().audioData
+    if (!audioData || !get().isPlaying()) return false
+    const matching_id =
+      type == playingType.Audio ? audioData.id : audioData.xassida_info.id
+    return id == matching_id
   },
   setReciterId: (id) => set({ reciterId: id }),
   setVerseNumber: (num) => set({ verseNumber: num }),
