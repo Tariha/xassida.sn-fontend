@@ -16,7 +16,7 @@ const AuthorTab = () => {
       <div className="flex justify-end">
         <div className="flex items-center space-x-2">
           <Filter
-            name="Tariha"
+            name="Confréries"
             list={TARIHA}
             selected={tariha}
             setSelected={setTariha}

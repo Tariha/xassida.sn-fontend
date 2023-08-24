@@ -6,6 +6,7 @@ const initialState = {
   audioPlayer: {} as HTMLAudioElement,
   visible: false,
   playing: false,
+  waiting: true,
   reciterId: null,
   verseNumber: 0,
   audioData: null,
@@ -54,7 +55,6 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
     }
   },
   // setters
-  setAudioPlayer: (ref) => set({ audioPlayer: ref }),
   setAudioSrc: (src) => {
     const player = get().audioPlayer
     player.src = src
@@ -64,7 +64,6 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
     if (val == false) get().pause()
     set({ visible: val })
   },
-  setPlaying: (val) => set({ playing: val }),
   isCurrentPlaying: (id, type) => {
     const audioData = get().audioData
     if (!audioData || !get().playing) return false
@@ -72,7 +71,10 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
       type == playingType.Audio ? audioData.id : audioData.xassida_info.id
     return id == matching_id
   },
+  setPlaying: (val) => set({ playing: val }),
+  setWaiting: (val) => set({ waiting: val }),
   setReciterId: (id) => set({ reciterId: id }),
+  setAudioPlayer: (ref) => set({ audioPlayer: ref }),
   setVerseNumber: (num) => set({ verseNumber: num }),
   setAudioData: (data) => set({ audioData: data }),
   setVerseCount: (count) => set({ verseCount: count }),

@@ -26,7 +26,11 @@ const Reader = ({ xassida }: Props) => {
   // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
-  const audioService = playerStore((state) => state)
+  const [isCurrentPlaying, playXassida, pause] = playerStore((state) => [
+    state.isCurrentPlaying,
+    state.playXassida,
+    state.pause,
+  ])
 
   // add xassida to reading history
   const addToHistory = useStore((state) => state.addToHistory)
@@ -35,19 +39,16 @@ const Reader = ({ xassida }: Props) => {
   }, [addToHistory, xassida])
 
   const { reciters } = xassida
-  const currentPlaying = audioService.isCurrentPlaying(
-    xassida.id,
-    playingType.Xassida
-  )
+  const currentPlaying = isCurrentPlaying(xassida.id, playingType.Xassida)
   const playDisabled = reciters.length ? false : true
 
   const handlePlay = async () => {
-    if (currentPlaying) audioService.pause()
+    if (currentPlaying) pause()
     else {
       const audio = await fetcher(
         getAudio({ params: { reciter: reciters[0], xassida: xassida.id } })
       )
-      audioService.playXassida(audio[0])
+      playXassida(audio[0])
     }
   }
 

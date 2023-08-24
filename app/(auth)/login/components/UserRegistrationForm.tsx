@@ -66,6 +66,7 @@ export function UserRegisterForm({
       })
     }
 
+    form.reset()
     return toast({
       title: "Inscription Réussie",
       description: "Un mail de confirmation vous a été envoyé",

@@ -1,3 +1,4 @@
+import { usePathname } from "next/navigation"
 import { Audio } from "@/types"
 import { playerStore } from "@/zustand/playerStore"
 import { Download, Pause, Play } from "lucide-react"
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const AudioCard: React.FC<Props> = ({ data }) => {
+  const pathname = usePathname()
   return (
     <div className="group relative flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-3 px-2 font-mono hover:border-0 hover:ring-1 hover:ring-[#2ca4ab]">
       <div className="flex items-center space-x-2">
@@ -30,22 +32,28 @@ const AudioCard: React.FC<Props> = ({ data }) => {
           </span>
         </div>
       </div>
-      <div className="flex items-center space-x-1">
-        <Controls data={data} />
-      </div>
+      {pathname === "/dashboard" && (
+        <div className="flex items-center space-x-1">
+          <Controls data={data} />
+        </div>
+      )}
     </div>
   )
 }
 
 const Controls: React.FC<Props> = ({ data }) => {
-  const audioService = playerStore((state) => state)
+  const [isCurrentPlaying, playXassida] = playerStore((state) => [
+    state.isCurrentPlaying,
+    state.playXassida,
+  ])
+
   return (
     <>
       <TooltipButton
-        onClick={() => audioService.playXassida(data)}
+        onClick={() => playXassida(data)}
         tooltip="Demarrer/Arreter"
       >
-        {audioService.isCurrentPlaying(data.id, playingType.Audio) ? (
+        {isCurrentPlaying(data.id, playingType.Audio) ? (
           <Pause className="h-4 w-4 fill-primary text-primary" />
         ) : (
           <Play className="h-4 w-4 fill-primary text-primary" />

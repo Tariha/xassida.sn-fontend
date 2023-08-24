@@ -28,9 +28,11 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   export interface RefreshedToken {
     access: string
+    access_expiration: string
   }
   export interface Token extends RefreshedToken {
     refresh: string
+    refresh_expiration: string
   }
   /**
    * Returned by the `jwt` callback and `getToken`, when using JWT sessions

@@ -1,8 +1,7 @@
 "use client"
 
-import { get } from "http"
 import * as React from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
 import { signIn } from "next-auth/react"
@@ -20,7 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { toast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -36,29 +35,27 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     resolver: zodResolver(userAuthSchema),
   })
 
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const searchParams = useSearchParams()
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
-
-    const signInResult = await signIn("credentials", {
+    signIn("credentials", {
       email: data.email,
       password: data.password,
       redirect: true,
       callbackUrl: searchParams.get("from") || "/dashboard",
     })
-
-    setIsLoading(false)
-
-    if (signInResult?.error) {
-      return toast({
-        title: "Quelque chose s'est mal passé",
-        description:
-          "Votre connexion a échoué, assurez vous d'avoir activer le compte",
-        variant: "destructive",
+      .then()
+      .catch((err) => {
+        return toast({
+          title: "Quelque chose s'est mal passé",
+          description: "Votre connexion a échoué, merci de réessayer",
+          variant: "destructive",
+        })
       })
-    }
+      .finally(() => setIsLoading(false))
   }
 
   return (

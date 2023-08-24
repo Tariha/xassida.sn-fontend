@@ -15,11 +15,9 @@ async function refreshAccessToken(token: JWT): Promise<JWT | null> {
     )
     const refreshedToken: RefreshedToken = await response.json()
     if (response.status !== 200) throw refreshedToken
-    const { exp }: DecodedJWT = jwtDecode(refreshedToken.access)
     return {
       ...token,
       ...refreshedToken,
-      exp,
     }
   } catch (error) {
     return {
@@ -33,6 +31,12 @@ async function refreshAccessToken(token: JWT): Promise<JWT | null> {
 // https://next-auth.js.org/configuration/options
 export const authOptions: AuthOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
+  pages: {
+    signIn: "/login",
+  },
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -65,14 +69,14 @@ export const authOptions: AuthOptions = {
             username,
             email,
             user_id,
-            exp,
             is_superuser,
             is_staff,
           }: DecodedJWT = jwtDecode(token.access)
 
+          if (!(is_staff || is_superuser)) return null
+
           return {
             ...token,
-            exp,
             user: {
               username,
               email,
@@ -94,9 +98,18 @@ export const authOptions: AuthOptions = {
         return user as JWT
       }
       // Return previous token if the access token has not expired
-      if (Date.now() < token.exp * 1000) {
+      token.exp = new Date(token.access_expiration).getTime()
+      console.log(
+        "IS True ?",
+        Date.now() < token.exp,
+        "Diff:",
+        token.exp - Date.now()
+      )
+      console.log(token.access)
+      if (Date.now() < token.exp) {
         return token
       }
+
       // refresh token
       return (await refreshAccessToken(token)) as JWT
     },
@@ -108,5 +121,4 @@ export const authOptions: AuthOptions = {
       return session
     },
   },
-  session: { strategy: "jwt" },
 }

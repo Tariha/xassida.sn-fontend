@@ -21,7 +21,7 @@ const XassidaTab = () => {
             setSelected={(val) => setParams({ ...params, author: val })}
           />
           <Filter
-            name="Tariha"
+            name="Confréries"
             list={TARIHA}
             selected={params.author__tariha}
             setSelected={(val) =>

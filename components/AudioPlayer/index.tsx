@@ -1,7 +1,5 @@
 "use client"
 
-/* eslint-disable max-lines */
-/* eslint-disable react/no-multi-comp */
 import React, { useEffect, useRef } from "react"
 import dynamic from "next/dynamic"
 import { playerStore } from "@/zustand/playerStore"
@@ -27,15 +25,25 @@ const getDownloadProgress = (audioPlayer: HTMLAudioElement): number => {
 
 const AudioPlayer = () => {
   const audioPlayerRef = useRef<HTMLAudioElement>({} as HTMLAudioElement)
-  const {
+  const [
     audioPlayer,
     visible,
     setElapsed,
     setPlaying,
+    setWaiting,
     setDuration,
     setAudioPlayer,
     setDownloadProgress,
-  } = playerStore((state) => state)
+  ] = playerStore((state) => [
+    state.audioPlayer,
+    state.visible,
+    state.setElapsed,
+    state.setPlaying,
+    state.setWaiting,
+    state.setDuration,
+    state.setAudioPlayer,
+    state.setDownloadProgress,
+  ])
 
   useEffect(() => {
     setAudioPlayer(audioPlayerRef.current)
@@ -68,6 +76,8 @@ const AudioPlayer = () => {
           onProgress={onProgress}
           onPlay={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
+          onWaiting={() => setWaiting(true)}
+          onCanPlay={() => setWaiting(false)}
         />
         {visible && <AudioPlayerBody />}
       </div>

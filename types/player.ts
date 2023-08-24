@@ -32,6 +32,7 @@ export interface StateActions {
   setAudioSrc: (src: string) => void
   setVisible: (val: boolean) => void
   setPlaying: (val: boolean) => void
+  setWaiting: (val: boolean) => void
   setReciterId: (id: number) => void
   setVerseNumber: (num: number) => void
   setAudioData: (data: any) => void
@@ -47,6 +48,7 @@ export interface AudioPlayerContext extends PlayerActions, StateActions {
   audioPlayer: HTMLAudioElement
   visible: boolean
   playing: boolean
+  waiting: boolean
   reciterId: number | null
   verseNumber: number
   audioData: any

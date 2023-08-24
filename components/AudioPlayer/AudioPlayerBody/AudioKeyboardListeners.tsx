@@ -12,8 +12,11 @@ type AudioKeyBoardListenersProps = {
 }
 
 const AudioKeyBoardListeners = () => {
-  const audioService = playerStore((state) => state)
-  const { toggle } = audioService
+  const [seek, visible, toggle] = playerStore((state) => [
+    state.seek,
+    state.visible,
+    state.toggle,
+  ])
 
   const toggleAudioPlayer = useCallback(
     (event: KeyboardEvent) => {
@@ -25,15 +28,15 @@ const AudioKeyBoardListeners = () => {
   const seekForward = (event: KeyboardEvent) => {
     event.preventDefault()
     // seek forward
-    audioService.seek({ type: SeekType.Forward, time: 10 })
+    seek({ type: SeekType.Forward, time: 10 })
   }
   const seekBackwards = (event: KeyboardEvent) => {
     event.preventDefault()
     // seek backword
-    audioService.seek({ type: SeekType.Backward, time: 10 })
+    seek({ type: SeekType.Backward, time: 10 })
   }
 
-  const options = { enabled: audioService.visible } as Options
+  const options = { enabled: visible } as Options
   useHotkeys("space", toggleAudioPlayer, options, [toggle])
   useHotkeys("right", seekForward, options)
   useHotkeys("left", seekBackwards, options)

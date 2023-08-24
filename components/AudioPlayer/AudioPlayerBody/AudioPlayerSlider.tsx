@@ -6,18 +6,25 @@ import { secondsFormatter } from "@/lib/utils"
 import { AudioSlider } from "@/components/ui/audio-slider"
 
 const AudioPlayerSlider = () => {
-  const audioService = playerStore((state) => state)
+  const [elapsed, downloadProgress, audioPlayer, seek] = playerStore(
+    (state) => [
+      state.elapsed,
+      state.downloadProgress,
+      state.audioPlayer,
+      state.seek,
+    ]
+  )
 
   return (
     <div className="relative w-full">
       <span className="absolute left-0 top-5 px-3 text-xs text-muted-foreground md:text-sm">
-        {secondsFormatter(audioService.elapsed)}
+        {secondsFormatter(elapsed)}
       </span>
       <div className="absolute inset-0">
         <AudioSlider
           rangeColor="bg-gray-200 dark:bg-gray-700"
-          value={[audioService.downloadProgress]}
-          max={audioService.audioPlayer.duration}
+          value={[downloadProgress]}
+          max={audioPlayer.duration}
         />
       </div>
       <div className="absolute inset-0">
@@ -25,15 +32,15 @@ const AudioPlayerSlider = () => {
           showThumb
           trackColor="bg-transparent"
           className="cursor-pointer"
-          value={[audioService.elapsed]}
-          max={audioService.audioPlayer.duration}
+          value={[elapsed]}
+          max={audioPlayer.duration}
           onValueChange={(e: any) => {
-            audioService.seek({ time: e[0] })
+            seek({ time: e[0] })
           }}
         />
       </div>
       <span className="absolute right-0 top-5 px-3 text-xs text-muted-foreground md:text-sm">
-        {secondsFormatter(audioService.audioPlayer.duration)}
+        {secondsFormatter(audioPlayer.duration)}
       </span>
     </div>
   )

@@ -1,4 +1,6 @@
+import path from "path"
 import { useState } from "react"
+import { usePathname } from "next/navigation"
 import { Author, Reciter } from "@/types"
 import { useStore } from "@/zustand/store"
 import { Edit, MoreHorizontal } from "lucide-react"
@@ -27,24 +29,29 @@ interface Props {
   link?: string
 }
 
-const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => (
-  <Card className="max-h-18 group relative cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
-    <div className="absolute right-2 top-1">
-      <ReciterCardMenu data={data} />
-    </div>
-    <CardHeader className="p-3">
-      <CardTitle className="flex items-center justify-center">
-        <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
-          <AvatarImage src={data.picture} />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </CardTitle>
-      <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize text-foreground group-hover:text-vert">
-        {unslugify(data.name)}
-      </CardDescription>
-    </CardHeader>
-  </Card>
-)
+const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => {
+  const pathname = usePathname()
+  return (
+    <Card className="max-h-18 group relative cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
+      {pathname === "/dashboard" && (
+        <div className="absolute right-2 top-1">
+          <ReciterCardMenu data={data} />
+        </div>
+      )}
+      <CardHeader className="p-3">
+        <CardTitle className="flex items-center justify-center">
+          <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
+            <AvatarImage src={data.picture} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </CardTitle>
+        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize text-foreground group-hover:text-vert">
+          {unslugify(data.name)}
+        </CardDescription>
+      </CardHeader>
+    </Card>
+  )
+}
 
 async function deleteReciter(id: number) {
   const session: any = await getSession()

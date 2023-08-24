@@ -49,7 +49,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center space-x-4 text-xl font-bold">
-        {data && <UserAccount user={data?.user} />}
+        {data?.user && <UserAccount user={data?.user} />}
         <a
           target="_blank"
           href="https://github.com/orgs/Tariha/repositories"
