@@ -1,7 +1,7 @@
 import { usePathname } from "next/navigation"
 import { Audio } from "@/types"
 import { playerStore } from "@/zustand/playerStore"
-import { Download, Pause, Play } from "lucide-react"
+import { Download, Loader, Pause, Play } from "lucide-react"
 
 import { playingType } from "@/types/player"
 import { unslugify } from "@/lib/utils"
@@ -15,7 +15,6 @@ interface Props {
 }
 
 const AudioCard: React.FC<Props> = ({ data }) => {
-  const pathname = usePathname()
   return (
     <div className="group relative flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-3 px-2 font-mono hover:border-0 hover:ring-1 hover:ring-[#2ca4ab]">
       <div className="flex items-center space-x-2">
@@ -25,27 +24,49 @@ const AudioCard: React.FC<Props> = ({ data }) => {
         </Avatar>
         <div>
           <p className="truncate text-xs font-bold capitalize">
-            {unslugify(data.xassida_info?.name || "")}
+            {unslugify(data.xassida_info.name)}
           </p>
           <span className="text-xs capitalize text-gray-500 group-hover:text-[#2ca4ab]">
-            {unslugify(data.reciter_info?.name || "")}
+            {unslugify(data.reciter_info.name)}
           </span>
         </div>
       </div>
-      {pathname === "/dashboard" && (
-        <div className="flex items-center space-x-1">
-          <Controls data={data} />
-        </div>
-      )}
+      <div className="flex items-center space-x-1">
+        <Controls data={data} />
+      </div>
     </div>
   )
 }
 
 const Controls: React.FC<Props> = ({ data }) => {
-  const [isCurrentPlaying, playXassida] = playerStore((state) => [
-    state.isCurrentPlaying,
-    state.playXassida,
-  ])
+  const pathname = usePathname()
+  const [isCurrentPlaying, playXassida, downloading, setDownloading] =
+    playerStore((state) => [
+      state.isCurrentPlaying,
+      state.playXassida,
+      state.downloading,
+      state.setDownloading,
+    ])
+
+  const handleDownload = (id: number) => {
+    setDownloading(id)
+    const file = data.file
+    const splits = file.substring(file.lastIndexOf("/") + 1).split("?")
+    const [filename] = splits
+    const xhr = new XMLHttpRequest()
+    xhr.responseType = "blob"
+    xhr.onload = () => {
+      const a = document.createElement("a")
+      a.href = window.URL.createObjectURL(xhr.response)
+      a.download = filename
+      a.style.display = "none"
+      document.body.appendChild(a)
+      a.click()
+      setDownloading(null)
+    }
+    xhr.open("GET", file)
+    xhr.send()
+  }
 
   return (
     <>
@@ -59,10 +80,17 @@ const Controls: React.FC<Props> = ({ data }) => {
           <Play className="h-4 w-4 fill-primary text-primary" />
         )}
       </TooltipButton>
-      <TooltipButton tooltip="Telecharger">
-        <Download size={16} />
-      </TooltipButton>
-      <AudioCardMenu data={data} />
+      {downloading == data.id ? (
+        <Loader size={16} className="animate-spin" />
+      ) : (
+        <TooltipButton
+          onClick={() => handleDownload(data.id)}
+          tooltip="Telecharger"
+        >
+          <Download size={16} />
+        </TooltipButton>
+      )}
+      {pathname === "/dashboard" && <AudioCardMenu data={data} />}
     </>
   )
 }

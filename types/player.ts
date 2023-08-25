@@ -42,6 +42,7 @@ export interface StateActions {
   setDownloadProgress: (val: number) => void
   setPlaybackRate: (rate: number) => void
   setRecitersList: (data: any) => void
+  setDownloading: (id: number | null) => void
 }
 
 export interface AudioPlayerContext extends PlayerActions, StateActions {
@@ -49,6 +50,7 @@ export interface AudioPlayerContext extends PlayerActions, StateActions {
   visible: boolean
   playing: boolean
   waiting: boolean
+  downloading: number | null
   reciterId: number | null
   verseNumber: number
   audioData: any

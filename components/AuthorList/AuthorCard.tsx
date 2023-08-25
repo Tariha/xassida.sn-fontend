@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Author, Reciter } from "@/types"
+import { Author } from "@/types"
 
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"

@@ -6,6 +6,7 @@ const initialState = {
   audioPlayer: {} as HTMLAudioElement,
   visible: false,
   playing: false,
+  downloading: null,
   waiting: true,
   reciterId: null,
   verseNumber: 0,
@@ -83,4 +84,5 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
   setDownloadProgress: (val) => set({ downloadProgress: val }),
   setPlaybackRate: (rate) => set({ playbackRate: rate }),
   setRecitersList: (data) => set({ recitersList: data }),
+  setDownloading: (id) => set({ downloading: id }),
 }))

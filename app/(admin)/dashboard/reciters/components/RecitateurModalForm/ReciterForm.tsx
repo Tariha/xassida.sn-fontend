@@ -41,7 +41,7 @@ interface Props {
 
 async function postReciter(data: FormData, id: number | string = "") {
   const session: any = await getSession()
-  const method = id ? "PUT" : "POST"
+  const method = id ? "PATCH" : "POST"
   const url = `${BASE_URL}reciters/` + (id ? `${id}/` : "")
   const resp = await fetcher(url, {
     method,
@@ -62,6 +62,7 @@ export default function ReciterForm({ setOpen, init }: Props) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
+    if (!(data.picture instanceof File)) delete data.picture
     const form_values = toFormData(data)
     postReciter(form_values, init?.id)
       .then(() => {

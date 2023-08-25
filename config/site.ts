@@ -4,7 +4,7 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
   name: "Xassida.sn",
-  description: "Lire et ecouter les xassidas des differents tariha",
+  description: "Lire et écouter les xassidas des differents confréries",
   nav: [
     {
       title: "Acceuil",

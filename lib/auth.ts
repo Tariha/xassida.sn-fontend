@@ -56,7 +56,7 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         try {
           const response = await fetch(
-            process.env.NEXTAUTH_BACKEND_URL + "auth/login/",
+            process.env.NEXT_PUBLIC_API_URL + "auth/login/",
             {
               method: "POST",
               body: JSON.stringify(credentials),
@@ -99,13 +99,6 @@ export const authOptions: AuthOptions = {
       }
       // Return previous token if the access token has not expired
       token.exp = new Date(token.access_expiration).getTime()
-      console.log(
-        "IS True ?",
-        Date.now() < token.exp,
-        "Diff:",
-        token.exp - Date.now()
-      )
-      console.log(token.access)
       if (Date.now() < token.exp) {
         return token
       }

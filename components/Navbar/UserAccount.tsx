@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { User } from "lucide-react"
 import { UserObject } from "next-auth"
 import { signOut } from "next-auth/react"
 
@@ -9,7 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { UserAvatar } from "@/components/ui/user-avatar"
 
 export interface AccountNavProps {
   user: UserObject | any
@@ -19,7 +19,7 @@ export function UserAccount({ user }: AccountNavProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
-        <UserAvatar user={{ name: user.username }} />
+        <User size={22} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-background" align="end">
         <div className="flex items-center justify-start gap-2 p-2">

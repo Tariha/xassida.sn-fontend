@@ -23,6 +23,7 @@ module.exports = {
       },
       backgroundImage: {
         'bismillah': "url('/images/background.jpg')",
+        'logo': "url('/images/logo.png')",
       },
       colors: {
         border: "hsl(var(--border))",

@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { persist, createJSONStorage } from "zustand/middleware"
 
 import { favoriteSlice } from "./slices/favorites"
 import { historySlice } from "./slices/history"

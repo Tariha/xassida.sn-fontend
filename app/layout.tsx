@@ -26,7 +26,32 @@ export const metadata: Metadata = {
   },
   applicationName: "xassida.sn",
   category: "technology",
+  manifest: "/manifest.json",
   description: siteConfig.description,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: `%s - ${siteConfig.name}`,
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: {
+      default: siteConfig.name,
+      template: `%s - ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: siteConfig.name,
+      template: `%s - ${siteConfig.name}`,
+    },
+  },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },

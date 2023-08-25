@@ -2,7 +2,6 @@
 
 import React, { useState } from "react"
 import { CheckIcon } from "lucide-react"
-import { ControllerRenderProps } from "react-hook-form"
 import useSWR from "swr"
 
 import { fetcher } from "@/lib/api"
@@ -22,7 +21,7 @@ interface Props {
   getFunction: (params: any) => string | null
 }
 
-const SelectCommand: React.FC<Props> = ({
+const SelectInputCommand: React.FC<Props> = ({
   placeholder,
   field,
   getFunction,
@@ -55,7 +54,8 @@ const SelectCommand: React.FC<Props> = ({
             className="m-0 p-0 text-xs"
           >
             <div className="flex flex-1 items-center rounded-md p-2 hover:bg-background">
-              {unslugify(res.name)}
+              <span className="mr-2">{unslugify(res.name)}</span>
+              <span className="italic">{res.author?.tariha}</span>
               <CheckIcon
                 className={cn(
                   "ml-auto h-4 w-4",
@@ -70,4 +70,4 @@ const SelectCommand: React.FC<Props> = ({
   )
 }
 
-export default SelectCommand
+export default SelectInputCommand

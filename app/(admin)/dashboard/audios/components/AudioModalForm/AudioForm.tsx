@@ -42,7 +42,7 @@ interface Props {
 
 async function postAudio(data: FormData, id: number | string = "") {
   const session: any = await getSession()
-  const method = id ? "PUT" : "POST"
+  const method = id ? "PATCH" : "POST"
   const url = `${BASE_URL}audios/` + (id ? `${id}/` : "")
   const resp = await fetcher(url, {
     method,
@@ -63,6 +63,7 @@ export default function AudioForm({ setOpen, init }: Props) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
+    if (!(data.file instanceof File)) delete data.file
     const form_values = toFormData(data)
     postAudio(form_values, init?.id)
       .then(() => {

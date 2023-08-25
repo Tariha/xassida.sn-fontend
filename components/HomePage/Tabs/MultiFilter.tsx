@@ -50,7 +50,7 @@ const Filter: React.FC<FilterProps> = ({
           {list.map((obj: any) => (
             <DropdownMenuRadioItem
               key={obj.id}
-              className="cursor-pointer text-xs font-bold capitalize"
+              className="cursor-pointer text-sm font-bold capitalize"
               value={obj.id}
             >
               {unslugify(obj?.name || obj?.value)}

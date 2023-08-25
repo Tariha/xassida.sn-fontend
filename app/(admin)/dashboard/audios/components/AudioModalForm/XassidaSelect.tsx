@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-import SelectCommand from "./SelectInputCommand"
+import SelectInputCommand from "./SelectInputCommand"
 
 interface Props {
   field: any
@@ -39,7 +39,7 @@ const XassidaSelect = ({ field }: Props) => {
           </FormControl>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
-          <SelectCommand
+          <SelectInputCommand
             placeholder="chercher xassida"
             field={field}
             getFunction={getXassida}
