@@ -10,6 +10,7 @@ module.exports = {
       padding: {
         DEFAULT: '.8rem',
         sm: '1rem',
+        md: '2rem',
         lg: '4rem',
         xl: '5rem',
         '2xl': '6rem',
@@ -22,6 +23,7 @@ module.exports = {
       },
       backgroundImage: {
         'bismillah': "url('/images/background.jpg')",
+        'logo': "url('/images/logo.png')",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -92,5 +94,6 @@ module.exports = {
   plugins: [
     require("tailwindcss-animate"),
     require('@tailwindcss/typography'),
+    require('tailwind-scrollbar-hide'),
   ],
 }

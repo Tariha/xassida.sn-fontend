@@ -33,3 +33,28 @@ export function copyText(text: string[]) {
     return clipboardCopy(toCopy)
   }
 }
+
+export function toFormData(item: any) {
+  const form_data = new FormData()
+  for (let key in item) {
+    form_data.append(key, item[key])
+  }
+  return form_data
+}
+
+export const milliSecondsToSeconds = (milliSeconds: number): number =>
+  milliSeconds / 1000
+export const secondsToMilliSeconds = (seconds: number): number => seconds * 1000
+
+export const secondsFormatter = (seconds: number) => {
+  if (!seconds || Number.isNaN(seconds)) {
+    return ""
+  }
+  return new Date(seconds * 1000).toLocaleTimeString("fr", {
+    timeZone: "Etc/UTC",
+    hour12: false,
+    minute: "2-digit",
+    second: "2-digit",
+    ...(seconds >= 3600 && { hour: "2-digit" }), // only include hours if the duration is more than 60 minutes
+  })
+}

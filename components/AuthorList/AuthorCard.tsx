@@ -24,7 +24,7 @@ const AuthorCard: React.FC<Props> = ({ data }) => (
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </CardTitle>
-        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize group-hover:text-vert">
+        <CardDescription className="mt-2 truncate text-center font-keania text-xs font-bold capitalize text-foreground group-hover:text-vert">
           {unslugify(data.name)}
         </CardDescription>
       </CardHeader>

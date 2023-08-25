@@ -12,10 +12,12 @@ import {
   keania,
 } from "@/lib/fonts"
 import { Toaster } from "@/components/ui/toaster"
+import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
+
+import { NextAuthProvider } from "./provider"
 
 export const metadata: Metadata = {
   title: {
@@ -24,7 +26,32 @@ export const metadata: Metadata = {
   },
   applicationName: "xassida.sn",
   category: "technology",
+  manifest: "/manifest.json",
   description: siteConfig.description,
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: `%s - ${siteConfig.name}`,
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: {
+      default: siteConfig.name,
+      template: `%s - ${siteConfig.name}`,
+    },
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: "summary",
+    title: {
+      default: siteConfig.name,
+      template: `%s - ${siteConfig.name}`,
+    },
+  },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -52,7 +79,7 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="fr" suppressHydrationWarning>
@@ -71,13 +98,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           `}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <Navbar />
-              <div className="flex-1">{children}</div>
-              <Footer />
-            </div>
-            <Toaster />
-            <TailwindIndicator />
+            <NextAuthProvider>
+              <div className="relative flex min-h-screen flex-col pb-12">
+                <Navbar />
+                <div className="flex-1">{children}</div>
+                <Footer />
+              </div>
+              <Toaster />
+              <AudioPlayer />
+            </NextAuthProvider>
           </ThemeProvider>
         </body>
       </html>
