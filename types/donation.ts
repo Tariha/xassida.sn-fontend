@@ -5,7 +5,7 @@ export interface IDonation {
 }
 
 export interface IAmount {
-  price: number
+  price: string
   label: string
   ref: string
 }

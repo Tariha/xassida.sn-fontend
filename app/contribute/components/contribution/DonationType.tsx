@@ -1,42 +1,44 @@
 import React, { useState } from "react"
 
 import { IDonationType } from "@/types/donation"
-import { Label } from "@/components/ui/label"
+import { DONATIONS } from "@/lib/constants"
+import { FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 interface TypeProps {
   handleDonationType: (value: IDonationType) => void
-  types: IDonationType[]
+  field: any
 }
 
-const DonationTypes = ({ types, handleDonationType }: TypeProps) => {
-  const [donationType, setDonationType] = useState<IDonationType>(types[0])
-  handleDonationType(donationType)
+const DonationTypes = ({ handleDonationType, field }: TypeProps) => {
+  const types: IDonationType[] = DONATIONS.types
 
   return (
     <RadioGroup
-      defaultValue={donationType.value}
+      defaultValue={field.value}
       className="p- grid h-12 grid-cols-2 rounded-lg border-2 border-vert"
-      onValueChange={(value) =>
-        setDonationType(types.find((t) => t.value === value)!)
-      }
+      onValueChange={(value) => {
+        field.onChange(value)
+        handleDonationType(types.find((t) => t.value === value)!)
+      }}
     >
       {types.map((type, index) => (
-        <div key={index}>
+        <FormItem key={index} className="space-y-0">
           <RadioGroupItem
             value={type.value}
             id={`donation-type-${index}`}
             className="peer sr-only"
             disabled={false}
           />
-          <Label
-            className="flex h-full cursor-pointer items-center justify-center rounded-sm text-base font-normal peer-data-[state=checked]:bg-vert [&:has([data-state=checked])]:border-vert"
+          <FormLabel
+            className="mt-0 flex h-full cursor-pointer items-center justify-center rounded-sm text-base font-normal peer-data-[state=checked]:bg-vert [&:has([data-state=checked])]:border-vert"
             htmlFor={`donation-type-${index}`}
           >
             {type.label}
-          </Label>
-        </div>
+          </FormLabel>
+        </FormItem>
       ))}
+      <FormMessage />
     </RadioGroup>
   )
 }

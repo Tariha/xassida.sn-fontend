@@ -1,43 +1,61 @@
-import React, { useState } from "react"
+import React from "react"
+import { Control } from "react-hook-form"
 
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 interface Props {
-  handleContributorInfos: (value: ContributorInfos) => void
+  formControl: Control<any, any>
 }
 
-interface ContributorInfos {
-  name: string
-  email: string
-}
-
-const ContributorInfos = ({ handleContributorInfos }: Props) => {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  handleContributorInfos({ name, email })
+const ContributorInfos = ({ formControl }: Props) => {
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-      <div className="mb-2 grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="name">Name</Label>
-        <Input
-          onChange={(e) => setName(e.target.value)}
-          className="border-2 border-vert"
-          type="text"
-          id="name"
-          placeholder="Email"
-        />
-      </div>
-      <div className="mb-2 grid w-full max-w-sm items-center gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          onChange={(e) => setEmail(e.target.value)}
-          className="border-2 border-vert"
-          type="email"
-          id="email"
-          placeholder="Email"
-        />
-      </div>
+      <FormField
+        name="name"
+        control={formControl}
+        render={({ field }) => (
+          <FormItem className="mb-2 grid w-full max-w-sm items-center gap-2">
+            <FormLabel htmlFor="name">Nom</FormLabel>
+            <FormControl>
+              <Input
+                className="border-2 border-vert"
+                placeholder="Nom"
+                type="text"
+                id="name"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        name="email"
+        control={formControl}
+        render={({ field }) => (
+          <FormItem className="mb-2 grid w-full max-w-sm items-center gap-2">
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormControl>
+              <Input
+                className="border-2 border-vert"
+                type="email"
+                id="email"
+                placeholder="Email"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   )
 }

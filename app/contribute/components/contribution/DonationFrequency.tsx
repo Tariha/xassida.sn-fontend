@@ -11,18 +11,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { DONATIONS } from "@/lib/constants"
+import { FormField, FormItem } from "@/components/ui/form"
 
-interface FrequencyProps {
-  frequencies: IDonationFrequency[]
+interface Props {
+  formControl: any
   handleFrequency: (value: IDonationFrequency) => void
 }
 const DonationFrequency = ({
-  frequencies,
+  formControl,
   handleFrequency,
-}: FrequencyProps) => {
-  const [selectedfrequency, setSelectedFrequency] =
-    useState<IDonationFrequency>(frequencies[0])
-  handleFrequency(selectedfrequency)
+}: Props) => {
+
+  const frequencies: IDonationFrequency[] = DONATIONS.frequency;
+
   return (
     <div className="my-4">
       <DropdownMenu>
@@ -36,18 +38,26 @@ const DonationFrequency = ({
             <em>Choisissez: </em>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup
-            value={selectedfrequency.label}
-            onValueChange={(value) =>
-              setSelectedFrequency(frequencies.find((f) => f.value === value)!)
-            }
-          >
-            {frequencies.map((freq, index) => (
-              <DropdownMenuRadioItem key={index} value={freq.value}>
-                {freq.label}
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
+          <FormField
+            name="frequency"
+            control={formControl}
+            render={({ field }) => (
+              <DropdownMenuRadioGroup
+                value={field.value}
+                onValueChange={(value) => {
+                  field.onChange(value)
+                  handleFrequency(frequencies.find((f) => f.value === value)!)
+                }}
+              >
+                {frequencies.map((freq, index) => (
+                  <FormItem key={index}>
+                    <DropdownMenuRadioItem value={freq.value}>
+                      {freq.label}
+                    </DropdownMenuRadioItem>
+                  </FormItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            )} />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
