@@ -1,4 +1,3 @@
-import path from "path"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { Author, Reciter } from "@/types"
@@ -26,10 +25,10 @@ import ReciterModalForm from "@/app/(admin)/dashboard/reciters/components/Recita
 
 interface Props {
   data: Author | Reciter
-  link?: string
+  setOpen?: () => void
 }
 
-const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => {
+const ReciterCard: React.FC<Props> = ({ data, setOpen }) => {
   const pathname = usePathname()
   return (
     <Card className="max-h-18 group relative cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
@@ -38,7 +37,7 @@ const ReciterCard: React.FC<Props> = ({ data, link = "author" }) => {
           <ReciterCardMenu data={data} />
         </div>
       )}
-      <CardHeader className="p-3">
+      <CardHeader onClick={setOpen} className="p-3">
         <CardTitle className="flex items-center justify-center">
           <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
             <AvatarImage src={data.picture} />
@@ -76,7 +75,6 @@ const ReciterCardMenu: React.FC<Props> = ({ data }) => {
         setOpen(false)
       })
       .catch((err) => {
-        console.log(err)
         return toast({
           title: "Quelque chose s'est mal passé",
           description: "",

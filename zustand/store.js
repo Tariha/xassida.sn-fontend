@@ -14,7 +14,7 @@ export const useStore = create(
       ...favoriteSlice(...a),
       ...historySlice(...a),
       ...navbarSlice(...a),
-      ...mutatorSlice(...a)
+      ...mutatorSlice(...a),
     }),
     {
       name: "xassida-app",
