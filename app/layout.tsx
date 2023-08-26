@@ -15,6 +15,7 @@ import { Toaster } from "@/components/ui/toaster"
 import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
+import AudioListSheet from "@/components/ReciterList/AudioListSheet"
 import { ThemeProvider } from "@/components/theme-provider"
 
 import { NextAuthProvider } from "./provider"

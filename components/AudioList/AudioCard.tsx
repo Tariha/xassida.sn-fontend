@@ -1,3 +1,5 @@
+"use client"
+
 import { usePathname } from "next/navigation"
 import { Audio } from "@/types"
 import { playerStore } from "@/zustand/playerStore"

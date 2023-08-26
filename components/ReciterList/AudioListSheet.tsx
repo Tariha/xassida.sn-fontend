@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Reciter } from "@/types"
 
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -7,19 +8,23 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet"
 import AudioList from "@/components/AudioList"
 import InfiniteList from "@/components/InfiniteList"
+
+import ReciterCard from "./ReciterCard"
 
 interface Props extends React.PropsWithChildren {
   reciter: Reciter
 }
 
 const AudioListSheet: React.FC<Props> = ({ children, reciter }) => {
+  const [open, setOpen] = useState<boolean>(false)
   return (
-    <Sheet>
-      <SheetTrigger>{children}</SheetTrigger>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <div>
+        <ReciterCard setOpen={() => setOpen(true)} data={reciter} />
+      </div>
       <SheetContent
         autoFocus={false}
         className="h-1/2 rounded-t-lg"
