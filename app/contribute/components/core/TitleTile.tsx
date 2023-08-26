@@ -13,7 +13,7 @@ const TitleTile = ({ title, subtitle }: Props) => {
   return (
     <>
       <div className="mb-6 text-4xl">{title}</div>
-      <ReactMarkdown linkTarget="_blank">{subtitle}</ReactMarkdown>
+      <ReactMarkdown className="mb-8" linkTarget="_blank">{subtitle}</ReactMarkdown>
     </>
   )
 }
