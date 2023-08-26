@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 import { IDonationFrequency } from "@/types/donation"
+import { DONATIONS } from "@/lib/constants"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,19 +12,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { DONATIONS } from "@/lib/constants"
 import { FormField, FormItem } from "@/components/ui/form"
 
 interface Props {
   formControl: any
   handleFrequency: (value: IDonationFrequency) => void
 }
-const DonationFrequency = ({
-  formControl,
-  handleFrequency,
-}: Props) => {
-
-  const frequencies: IDonationFrequency[] = DONATIONS.frequency;
+const DonationFrequency = ({ formControl, handleFrequency }: Props) => {
+  const frequencies: IDonationFrequency[] = DONATIONS.frequency
 
   return (
     <div className="my-4">
@@ -57,7 +53,8 @@ const DonationFrequency = ({
                   </FormItem>
                 ))}
               </DropdownMenuRadioGroup>
-            )} />
+            )}
+          />
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

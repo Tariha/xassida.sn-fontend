@@ -1,9 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
 import { RadioGroupItem } from "@radix-ui/react-radio-group"
 
 import { IAmount } from "@/types/donation"
 import { DONATIONS } from "@/lib/constants"
-import { FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RadioGroup } from "@/components/ui/radio-group"
 
@@ -40,8 +45,14 @@ function PaymentOptions({ frequency, field }: Props) {
             </FormLabel>
           </FormItem>
         ))}
+        <FormItem className="sr-only">
+          <RadioGroupItem value="" id="other" className="peer" />
+        </FormItem>
         <Input
-          onChange={field.onChange}
+          onChange={(e) => {
+            document.getElementById("other")?.click()
+            field.onChange(e.target.value)
+          }}
           className="col-span-2 h-full border-2 border-vert"
           placeholder="Autre"
           type="number"
@@ -51,5 +62,4 @@ function PaymentOptions({ frequency, field }: Props) {
     </>
   )
 }
-
 export default React.memo(PaymentOptions)

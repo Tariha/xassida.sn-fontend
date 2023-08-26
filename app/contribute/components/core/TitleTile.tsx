@@ -1,4 +1,5 @@
 import React from "react"
+import { ReactMarkdown } from "react-markdown/lib/react-markdown"
 
 interface Props {
   title: string
@@ -12,10 +13,7 @@ const TitleTile = ({ title, subtitle }: Props) => {
   return (
     <>
       <div className="mb-6 text-4xl">{title}</div>
-      <div
-        className="mb-8"
-        dangerouslySetInnerHTML={{ __html: subtitle }}
-      ></div>
+      <ReactMarkdown linkTarget="_blank">{subtitle}</ReactMarkdown>
     </>
   )
 }
