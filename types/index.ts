@@ -68,6 +68,7 @@ export interface Audio {
   id: number
   reciter: number
   xassida: number
+  reciters: Reciter[]
   reciter_info: Reciter
   xassida_info: Xassida
   file: string

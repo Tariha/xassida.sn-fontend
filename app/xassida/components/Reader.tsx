@@ -1,7 +1,7 @@
 /* eslint-disable tailwindcss/no-contradicting-classname */
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef } from "react"
 import { Xassida } from "@/types"
 import { playerStore } from "@/zustand/playerStore"
 import { navbarSelector } from "@/zustand/slices/navbar"
@@ -26,14 +26,15 @@ const Reader = ({ xassida }: Props) => {
   // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
-  const [isCurrentPlaying, playXassida, pause] = playerStore((state) => [
+  const [isCurrentPlaying, playXassida, toggle, data] = playerStore((state) => [
     state.isCurrentPlaying,
     state.playXassida,
-    state.pause,
+    state.toggle,
+    state.audioData,
   ])
 
-  // add xassida to reading history
   const addToHistory = useStore((state) => state.addToHistory)
+  // add xassida to reading history
   useEffect(() => {
     addToHistory(xassida)
   }, [addToHistory, xassida])
@@ -43,12 +44,12 @@ const Reader = ({ xassida }: Props) => {
   const playDisabled = reciters.length ? false : true
 
   const handlePlay = async () => {
-    if (currentPlaying) pause()
+    if (data?.xassida == xassida.id) toggle()
     else {
-      const audio = await fetcher(
+      const [audio] = await fetcher(
         getAudio({ params: { reciter: reciters[0], xassida: xassida.id } })
       )
-      playXassida(audio[0])
+      playXassida(audio)
     }
   }
 

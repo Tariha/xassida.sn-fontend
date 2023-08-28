@@ -30,6 +30,8 @@ export interface StateActions {
   // setters
   setAudioPlayer: (ref: HTMLAudioElement) => void
   setAudioSrc: (src: string) => void
+  setSpeed: (val: number) => void
+  setLoop: (val: boolean) => void
   setVisible: (val: boolean) => void
   setPlaying: (val: boolean) => void
   setWaiting: (val: boolean) => void
@@ -47,6 +49,8 @@ export interface StateActions {
 
 export interface AudioPlayerContext extends PlayerActions, StateActions {
   audioPlayer: HTMLAudioElement
+  speed: number
+  loop: boolean
   visible: boolean
   playing: boolean
   waiting: boolean

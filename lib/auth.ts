@@ -6,7 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 async function refreshAccessToken(token: JWT): Promise<JWT | null> {
   try {
     const response = await fetch(
-      process.env.NEXTAUTH_BACKEND_URL + "auth/token/refresh/",
+      process.env.NEXT_PUBLIC_API_URL + "auth/token/refresh/",
       {
         method: "POST",
         body: JSON.stringify({ refresh: token.refresh }),
