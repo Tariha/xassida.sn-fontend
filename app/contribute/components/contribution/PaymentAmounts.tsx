@@ -44,7 +44,7 @@ function PaymentOptions({ frequency, field }: Props) {
           </FormItem>
         ))}
         <FormItem className="sr-only">
-          <RadioGroupItem value="" id="other" className="peer" />
+          <RadioGroupItem value="other" id="other" className="peer" />
         </FormItem>
         <Input
           onChange={(e) => {
