@@ -29,7 +29,7 @@ const VerseAndTranslation: React.FC<Props> = ({ verse, font, last, more }) => {
   }, [ref])
 
   return (
-    <div ref={last ? elemRef : null} className="flex flex-col py-4 md:flex-row">
+    <div ref={last ? elemRef : null} className="flex flex-col py-8 md:flex-row">
       <div className="flex flex-row items-center justify-end gap-3 md:flex-col md:items-center md:justify-center">
         <span className="font-sans font-bold">{verse.key}</span>
         <Play size={18} />
@@ -39,7 +39,10 @@ const VerseAndTranslation: React.FC<Props> = ({ verse, font, last, more }) => {
       <div className="flex-1 space-y-4 md:px-4">
         <VerseText verse={verse} font={font} />
         {translation && (
-          <p className="font-sans" style={{ fontSize: translationFontScale }}>
+          <p
+            className="mt-4 font-sans"
+            style={{ fontSize: translationFontScale }}
+          >
             {verse.translations?.text}
           </p>
         )}

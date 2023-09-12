@@ -17,7 +17,7 @@ const DonationTypes = ({ handleDonationType, field }: TypeProps) => {
     <RadioGroup
       defaultValue={field.value}
       className="p- grid h-12 grid-cols-2 rounded-lg border-2 border-vert"
-      onValueChange={(value) => {
+      onValueChange={(value:string) => {
         field.onChange(value)
         handleDonationType(types.find((t) => t.value === value)!)
       }}
@@ -28,7 +28,7 @@ const DonationTypes = ({ handleDonationType, field }: TypeProps) => {
             value={type.value}
             id={`donation-type-${index}`}
             className="peer sr-only"
-            disabled={false}
+            disabled={type.disabled}
           />
           <FormLabel
             className="mt-0 flex h-full cursor-pointer items-center justify-center rounded-sm text-base font-normal peer-data-[state=checked]:bg-vert [&:has([data-state=checked])]:border-vert"

@@ -35,7 +35,7 @@ const SearchCommand = () => {
       />
       <CommandList>
         <CommandEmpty>Pas de résultat</CommandEmpty>
-        {data?.results.map((sug: any) => (
+        {data?.map((sug: any) => (
           <CommandItem key={sug.id}>
             <div className="flex-1 cursor-pointer rounded-md p-2 hover:bg-vert">
               <Link

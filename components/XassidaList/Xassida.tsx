@@ -45,18 +45,15 @@ const XassidaVer: React.FC<Props> = ({ data }) => {
 const XassidaHor: React.FC<Props> = ({ data }) => {
   const router = useRouter()
   const { toggleFavorite, favorites } = useStore(favoriteSelector)
-  const { addToHistory } = useStore(historySelector)
-  const onClick = () => {
-    router.push(`/xassida/${data.id}`)
-    addToHistory(data)
-  }
+
   const onHeartClick = (e: any) => {
     e.stopPropagation()
     toggleFavorite(data)
   }
+
   return (
     <div
-      onClick={onClick}
+      onClick={() => router.push(`/xassida/${data.id}`)}
       className="group relative flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-3 px-2 font-mono hover:border-0 hover:ring-1 hover:ring-[#2ca4ab]"
     >
       <div className="flex items-center space-x-2">

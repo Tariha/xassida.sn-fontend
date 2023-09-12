@@ -1,16 +1,14 @@
-import React, { useState } from "react"
-import { RadioGroupItem } from "@radix-ui/react-radio-group"
+import React from "react"
 
 import { IAmount } from "@/types/donation"
 import { DONATIONS } from "@/lib/constants"
 import {
-  FormControl,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { RadioGroup } from "@/components/ui/radio-group"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 interface Props {
   field: any
@@ -50,8 +48,8 @@ function PaymentOptions({ frequency, field }: Props) {
         </FormItem>
         <Input
           onChange={(e) => {
-            document.getElementById("other")?.click()
             field.onChange(e.target.value)
+            document.getElementById("other")?.click()
           }}
           className="col-span-2 h-full border-2 border-vert"
           placeholder="Autre"

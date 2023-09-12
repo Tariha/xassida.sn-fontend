@@ -2,6 +2,7 @@ import { IDonation } from "@/types/donation"
 import AuthorTab from "@/components/HomePage/Tabs/AuthorTab"
 import FavoritesTab from "@/components/HomePage/Tabs/FavoritesTab"
 import HistoryTab from "@/components/HomePage/Tabs/HistoryTab"
+import ReciterTab from "@/components/HomePage/Tabs/ReciterTab"
 import XassidaTab from "@/components/HomePage/Tabs/XassidaTab"
 
 export const TABS = {
@@ -12,7 +13,7 @@ export const TABS = {
   bottom: {
     Xassidas: XassidaTab,
     Auteurs: AuthorTab,
-    Recitateurs: "div",
+    Recitateurs: ReciterTab,
   },
 }
 

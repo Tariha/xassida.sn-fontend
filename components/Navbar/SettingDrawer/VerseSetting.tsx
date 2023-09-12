@@ -87,7 +87,7 @@ const VerseSetting = () => {
         <Slider
           defaultValue={[translationFontScale]}
           onValueChange={(e) => setTranslationFontScale(e[0])}
-          min={14}
+          min={12}
           max={30}
           step={1}
         />

@@ -15,7 +15,7 @@ interface Props {
 const Biography = ({ data }: Props) => {
   const [plus, setPlus] = useState(false)
   return (
-    <div className="scrollbar-hide min-h-[330px] overflow-y-scroll bg-vert py-2 md:py-4">
+    <div className="min-h-[330px] overflow-y-scroll bg-vert py-2 scrollbar-hide md:py-4">
       <div className="container">
         <Avatar className="float-right m-2 h-32 w-32 rounded-lg shadow md:h-40 md:w-40 lg:m-4">
           <AvatarImage src={data?.picture} />

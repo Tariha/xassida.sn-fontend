@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
+import { siteConfig } from "@/config/site"
 import { Separator } from "@/components/ui/separator"
 
 const Footer = () => {
@@ -23,14 +24,13 @@ const Footer = () => {
           </div>
         </div>
         <div className="space-y-2">
-          <h3 className="text-lg font-bold">Navigation</h3>
-          <div className="grid grid-cols-2 md:grid-cols-1">
-            <Link href="/" passHref>
-              <span>Acceuil</span>
-            </Link>
-            <Link href="/about" passHref>
-              <span>A Propos</span>
-            </Link>
+          <h3 className="text-lg font-bold">Naviguation</h3>
+          <div className="grid grid-cols-2 gap-1 md:grid-cols-1">
+            {siteConfig.nav.map((link) => (
+              <Link href={link.href} key={link.href} passHref>
+                <span>{link.title}</span>
+              </Link>
+            ))}
           </div>
         </div>
         <div className="space-y-2">

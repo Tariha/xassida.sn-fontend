@@ -1,3 +1,5 @@
+"use client"
+
 import { Xassida } from "@/types"
 
 import { XassidaHor, XassidaVer } from "./Xassida"
@@ -12,7 +14,7 @@ const XassidaList: React.FC<Props> = ({ data, grid = true }) => {
 }
 
 const GridList: React.FC<Props> = ({ data }) => (
-  <div className="scrollbar-hide grid grid-cols-1 gap-4 overflow-x-scroll px-1 py-2 sm:grid-cols-2 lg:grid-cols-3 lg:px-2">
+  <div className="grid grid-cols-1 gap-4 overflow-x-scroll px-1 py-2 scrollbar-hide sm:grid-cols-2 lg:grid-cols-3 lg:px-2">
     {data.map((xas) => (
       <XassidaHor data={xas} key={xas.id} />
     ))}
@@ -20,7 +22,7 @@ const GridList: React.FC<Props> = ({ data }) => (
 )
 
 const FlexList: React.FC<Props> = ({ data }) => (
-  <div className="scrollbar-hide flex space-x-3 overflow-x-scroll p-2">
+  <div className="flex space-x-3 overflow-x-scroll p-2 scrollbar-hide">
     {data.map((xas) => (
       <XassidaVer data={xas} key={xas.id} />
     ))}

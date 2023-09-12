@@ -14,7 +14,7 @@ const FavoriteTab = () => {
           Effacer Favoris
         </button>
       </div>
-      <div className="scrollbar-hide flex space-x-3 overflow-x-scroll p-2">
+      <div className="flex space-x-3 overflow-x-scroll p-2 scrollbar-hide">
         <XassidaList grid={false} data={favorites} />
       </div>
     </div>

@@ -8,12 +8,13 @@ module.exports = {
     container: {
       center: true,
       padding: {
-        DEFAULT: ".8rem",
-        sm: "1rem",
-        lg: "4rem",
-        xl: "5rem",
-        "2xl": "6rem",
-      },
+        DEFAULT: '.8rem',
+        sm: '1rem',
+        md: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      }
     },
     extend: {
       lineClamp: {
@@ -21,7 +22,8 @@ module.exports = {
         15: "15",
       },
       backgroundImage: {
-        bismillah: "url('/images/background.jpg')",
+        'bismillah': "url('/images/background.jpg')",
+        'logo': "url('/images/logo.png')",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -100,5 +102,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require('@tailwindcss/typography'),
+    require('tailwind-scrollbar-hide'),
+  ],
 }
