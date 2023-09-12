@@ -17,7 +17,7 @@ const DonationTypes = ({ handleDonationType, field }: TypeProps) => {
     <RadioGroup
       defaultValue={field.value}
       className="p- grid h-12 grid-cols-2 rounded-lg border-2 border-vert"
-      onValueChange={(value:string) => {
+      onValueChange={(value: string) => {
         field.onChange(value)
         handleDonationType(types.find((t) => t.value === value)!)
       }}

@@ -2,11 +2,7 @@ import React from "react"
 
 import { IAmount } from "@/types/donation"
 import { DONATIONS } from "@/lib/constants"
-import {
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
