@@ -1,16 +1,10 @@
-import dynamic from "next/dynamic"
 import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-
-//import AudioTab from "@/components/HomePage/Tabs/AudioTab"
+import AudioTab from "@/components/HomePage/Tabs/AudioTab"
 
 import AudioModalForm from "./components/AudioModalForm"
-
-const AudioTab = dynamic(() => import("@/components/HomePage/Tabs/AudioTab"), {
-  ssr: true,
-})
 
 const AudioDashboard = () => {
   return (

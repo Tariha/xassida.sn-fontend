@@ -82,19 +82,21 @@ const Reader = ({ xassida }: Props) => {
                 <p className="text-muted-foreground">xassida par:</p>
                 <p className="capitalize">{unslugify(xassida.author.name)}</p>
               </div>
-              <Button
-                disabled={playDisabled}
-                className="text-vert"
-                onClick={handlePlay}
-                variant="outline"
-              >
-                {currentPlaying ? (
-                  <Pause className="mr-2 h-4 w-4" />
-                ) : (
-                  <Play className="mr-2 h-4 w-4" />
-                )}
-                <span>{currentPlaying ? "Arreter" : "Demarrer"} Audio</span>
-              </Button>
+              {!playDisabled && (
+                <Button
+                  disabled={playDisabled}
+                  className="text-vert"
+                  onClick={handlePlay}
+                  variant="outline"
+                >
+                  {currentPlaying ? (
+                    <Pause className="mr-2 h-4 w-4" />
+                  ) : (
+                    <Play className="mr-2 h-4 w-4" />
+                  )}
+                  <span>{currentPlaying ? "Arreter" : "Demarrer"} Audio</span>
+                </Button>
+              )}
             </div>
           </div>
         </header>

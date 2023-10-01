@@ -1,6 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
+import { footer } from "@/config/pages"
 import { siteConfig } from "@/config/site"
 import { Separator } from "@/components/ui/separator"
 
@@ -15,12 +16,7 @@ const Footer = () => {
             <p className="font-bold text-primary">
               Une expérience de lecture conviviale
             </p>
-            <p className="text-justify">
-              Notre application permet la lecture des versions numériques des
-              xassidas classés par Tariha et Auteur avec transcription
-              automatique. Les utilisateurs peuvent télécharger les xassidas au
-              format PDF et bientôt profiter d&#39;audios des récitations.
-            </p>
+            <p className="text-justify">{footer.para1}</p>
           </div>
         </div>
         <div className="space-y-2">
@@ -39,12 +35,7 @@ const Footer = () => {
             <p className="font-bold text-primary">
               Aidez-nous à collecter des xassidas
             </p>
-            <p className="text-justify">
-              Nous sommes ravis que vous souhaitiez aider à collecter des
-              Xassidas pour notre application. Votre contribution est précieuse
-              pour nous aider à offrir une collection complète de Xassidas pour
-              les utilisateurs de l’application
-            </p>
+            <p className="text-justify">{footer.para2}</p>
           </div>
         </div>
       </div>
