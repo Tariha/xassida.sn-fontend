@@ -4,7 +4,6 @@ import React, { useState } from "react"
 import { CheckIcon } from "lucide-react"
 import useSWR from "swr"
 
-import { fetcher } from "@/lib/api"
 import { cn, unslugify } from "@/lib/utils"
 import { useDebounce } from "@/hooks/useDebounce"
 import {
@@ -16,23 +15,24 @@ import {
 } from "@/components/ui/command"
 
 interface Props {
-  placeholder: string
+  key: string
   field: any
-  getFunction: (params: any) => string | null
+  getter: (params?: any) => Promise<any>
+  placeholder: string
 }
 
 const SelectInputCommand: React.FC<Props> = ({
-  placeholder,
+  key,
   field,
-  getFunction,
+  getter,
+  placeholder,
 }) => {
   const [search, setSearch] = useState<string>("")
   const debouncedSearch = useDebounce(search, 1000)
 
-  const key = debouncedSearch
-    ? getFunction({ params: { search: debouncedSearch } })
-    : null
-  const { data, error, isLoading } = useSWR(key, fetcher)
+  const { data } = useSWR(`${key}_${debouncedSearch}`, () =>
+    getter(debouncedSearch)
+  )
 
   return (
     <Command shouldFilter={false}>
@@ -58,7 +58,7 @@ const SelectInputCommand: React.FC<Props> = ({
               <span className="italic">{res.author?.tariha}</span>
               <CheckIcon
                 className={cn(
-                  "ml-auto h-4 w-4",
+                  "ml-auto size-4",
                   res.id === field.value ? "opacity-100" : "opacity-0"
                 )}
               />

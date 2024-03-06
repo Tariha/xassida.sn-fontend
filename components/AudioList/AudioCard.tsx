@@ -1,11 +1,12 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { Audio } from "@/types"
 import { playerStore } from "@/zustand/playerStore"
 import { Download, Loader, Pause, Play } from "lucide-react"
 
 import { playingType } from "@/types/player"
+import { Audio } from "@/types/supabase"
+import { audioUrl, imageUrl } from "@/lib/constants"
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -21,15 +22,15 @@ const AudioCard: React.FC<Props> = ({ data }) => {
     <div className="group relative flex cursor-pointer items-center justify-between rounded-md border border-gray-500 p-3 px-2 font-mono hover:border-0 hover:ring-1 hover:ring-[#2ca4ab]">
       <div className="flex items-center space-x-2">
         <Avatar className="ring-[#2ca4ab] group-hover:ring-2">
-          <AvatarImage src={data.reciter_info?.picture} />
+          <AvatarImage src={`${imageUrl}${data.reciter.picture}`} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>
           <p className="truncate text-xs font-bold capitalize">
-            {unslugify(data.xassida_info.name)}
+            {unslugify(data.xassida.name)}
           </p>
           <span className="text-xs capitalize text-gray-500 group-hover:text-[#2ca4ab]">
-            {unslugify(data.reciter_info.name)}
+            {unslugify(data.reciter.name)}
           </span>
         </div>
       </div>
@@ -53,8 +54,7 @@ const Controls: React.FC<Props> = ({ data }) => {
   const handleDownload = (id: number) => {
     setDownloading(id)
     const file = data.file
-    const splits = file.substring(file.lastIndexOf("/") + 1).split("?")
-    const [filename] = splits
+    const filename = data.xassida.name
     const xhr = new XMLHttpRequest()
     xhr.responseType = "blob"
     xhr.onload = () => {
@@ -66,7 +66,7 @@ const Controls: React.FC<Props> = ({ data }) => {
       a.click()
       setDownloading(null)
     }
-    xhr.open("GET", file)
+    xhr.open("GET", `${audioUrl}${file}`)
     xhr.send()
   }
 
@@ -77,9 +77,9 @@ const Controls: React.FC<Props> = ({ data }) => {
         tooltip="Demarrer/Arreter"
       >
         {isCurrentPlaying(data.id, playingType.Audio) ? (
-          <Pause className="h-4 w-4 fill-primary text-primary" />
+          <Pause className="size-4 fill-primary text-primary" />
         ) : (
-          <Play className="h-4 w-4 fill-primary text-primary" />
+          <Play className="size-4 fill-primary text-primary" />
         )}
       </TooltipButton>
       {downloading == data.id ? (

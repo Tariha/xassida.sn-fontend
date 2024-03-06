@@ -1,7 +1,7 @@
 import { create } from "zustand"
 
 import { AudioPlayerContext, SeekType, playingType } from "@/types/player"
-import AudioPlayer from "@/components/AudioPlayer"
+import { audioUrl } from "@/lib/constants"
 
 const initialState = {
   audioPlayer: {} as HTMLAudioElement,
@@ -52,7 +52,7 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
     const prevData = get().audioData
     get().setVisible(true) // Set player to visible
     if (prevData?.id !== data.id) {
-      get().setAudioSrc(data.file)
+      get().setAudioSrc(`${audioUrl}${data.file}`)
       get().setAudioData(data)
     } else get().toggle()
   },
@@ -69,8 +69,8 @@ export const playerStore = create<AudioPlayerContext>()((set, get) => ({
   isCurrentPlaying: (id, type) => {
     const audioData = get().audioData
     if (!audioData || !get().playing) return false
-    const matching_id =
-      type == playingType.Audio ? audioData.id : audioData.xassida_info.id
+    const matching_id: number =
+      type == playingType.Audio ? audioData.id : audioData.xassida.id
     return id == matching_id
   },
   setSpeed: (val) => {

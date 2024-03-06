@@ -1,46 +1,26 @@
-import { NextResponse } from "next/server"
-import { getToken } from "next-auth/jwt"
-import { withAuth } from "next-auth/middleware"
+import { NextRequest, NextResponse } from "next/server"
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs"
 
-export default withAuth(
-  async function middleware(req) {
-    const token = await getToken({ req })
-    const isAuth = !!token
-    const isAuthPage =
-      req.nextUrl.pathname.startsWith("/login") ||
-      req.nextUrl.pathname.startsWith("/register")
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next()
+  const supabase = createMiddlewareClient({ req, res })
 
-    if (isAuthPage) {
-      if (isAuth) {
-        return NextResponse.redirect(new URL("/", req.url))
-      }
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-      return null
-    }
-
-    if (!isAuth) {
-      let from = req.nextUrl.pathname
-      if (req.nextUrl.search) {
-        from += req.nextUrl.search
-      }
-
-      return NextResponse.redirect(
-        new URL(`/login?from=${encodeURIComponent(from)}`, req.url)
-      )
-    }
-  },
-  {
-    callbacks: {
-      async authorized() {
-        // This is a work-around for handling redirect on auth pages.
-        // We return true here so that the middleware function above
-        // is always called.
-        return true
-      },
-    },
+  // if user is signed in and the current path is /login redirect the user to /dashboard
+  if (user && req.nextUrl.pathname === "/login") {
+    return NextResponse.redirect(new URL("/dashboard", req.url))
   }
-)
+
+  if (!user && req.nextUrl.pathname === "/dashboard") {
+    return NextResponse.redirect(new URL("/login", req.url))
+  }
+
+  return res
+}
 
 export const config = {
-  matcher: ["/dashboard", "/login", "/register"],
+  matcher: ["/dashboard", "/login"],
 }

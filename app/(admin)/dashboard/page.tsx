@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import AudioDashboard from "./audios/AudioDashboard"
-import ReciterDashboard from "./reciters/ReciterDashboard"
+import AudioDashboard from "./audios/Dashboard"
+import ReciterDashboard from "./reciters/Dashboard"
 
 const TAB_ITEMS = ["recitateurs", "audios", "xassida"]
 

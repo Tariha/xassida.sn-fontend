@@ -1,8 +1,8 @@
 import React from "react"
+import { getAuthors } from "@/actions/api/client"
 import { Filter as FilterIcon } from "lucide-react"
 import useSWRImmutable from "swr/immutable"
 
-import { fetcher, getAuthor } from "@/lib/api"
 import { unslugify } from "@/lib/utils"
 import {
   DropdownMenu,
@@ -41,16 +41,16 @@ const Filter: React.FC<FilterProps> = ({
         <DropdownMenuRadioGroup value={selected} onValueChange={setSelected}>
           {name == "Auteurs" && (
             <DropdownMenuRadioItem
-              className="cursor-pointer text-sm font-bold capitalize"
+              className="cursor-pointer text-sm font-bold capitalize hover:!bg-background"
               value=""
             >
               Tous
             </DropdownMenuRadioItem>
           )}
-          {list.map((obj: any) => (
+          {list?.map((obj: any) => (
             <DropdownMenuRadioItem
               key={obj.id}
-              className="cursor-pointer text-sm font-bold capitalize"
+              className="cursor-pointer text-sm font-semibold capitalize hover:!bg-background"
               value={obj.id}
             >
               {unslugify(obj?.name || obj?.value)}
@@ -72,18 +72,16 @@ const SubFilter: React.FC<SubFilterProps> = ({
   selected,
   setSelected,
 }) => {
-  const key = getAuthor({ params: { tariha } })
-  const { data, error, isLoading } = useSWRImmutable(key, fetcher)
+  const key = "authors_" + tariha
+  const { data } = useSWRImmutable(key, () => getAuthors({ tariha }))
   return (
     <div className="flex items-center space-x-2">
-      {data && (
-        <Filter
-          name="Auteurs"
-          list={data}
-          selected={selected}
-          setSelected={setSelected}
-        />
-      )}
+      <Filter
+        name="Auteurs"
+        list={data}
+        selected={selected}
+        setSelected={setSelected}
+      />
     </div>
   )
 }

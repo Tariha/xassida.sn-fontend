@@ -1,9 +1,13 @@
 "use client"
 
-import { useStore } from "@/zustand/store"
+import {
+  getAudios,
+  getAuthors,
+  getReciters,
+  getXassidas,
+} from "@/actions/api/client"
 import useSWRInfinite from "swr/infinite"
 
-import { fetcher, getAudio, getAuthor, getReciter, getXassida } from "@/lib/api"
 import { flattenResult } from "@/lib/utils"
 
 interface InfiniteListProps {
@@ -12,11 +16,11 @@ interface InfiniteListProps {
   type: "audio" | "xassida" | "reciter" | "author"
 }
 
-const FUNCTIONS = {
-  audio: getAudio,
-  xassida: getXassida,
-  reciter: getReciter,
-  author: getAuthor,
+const FUNCTIONS: Record<InfiniteListProps["type"], any> = {
+  audio: getAudios,
+  xassida: getXassidas,
+  reciter: getReciters,
+  author: getAuthors,
 }
 
 const InfiniteList: React.FC<InfiniteListProps> = ({
@@ -25,20 +29,12 @@ const InfiniteList: React.FC<InfiniteListProps> = ({
   type,
 }) => {
   const getFunction = FUNCTIONS[type]
-  const { data, mutate, error, isLoading, size, setSize } = useSWRInfinite(
-    (ind, prevData) => [
-      getFunction({ prevData, params: { page: ind + 1, ...params } }),
-      type,
-    ],
-    (url: string, type: string) => fetcher(url),
-    { revalidateOnFocus: false }
+  const { data, error, isLoading, size, setSize } = useSWRInfinite(
+    (idx, prev) =>
+      prev && !prev.length ? null : { ...params, page: idx, type },
+    ({ page }) => getFunction(params, page)
   )
-  //The only way i found to update the list after form submit
-  //The global mutator did not work
-  const setMutator = useStore((state) => state.setMutator)
-  setMutator(type, mutate)
 
-  const loadMore = () => setSize(size + 1)
   if (isLoading || error) return null
 
   const flattened = flattenResult(data)
@@ -50,7 +46,7 @@ const InfiniteList: React.FC<InfiniteListProps> = ({
       {data && data[0]?.count != len && (
         <button
           className="border-b border-gray-500 font-bold"
-          onClick={loadMore}
+          onClick={() => setSize(size + 1)}
         >
           Afficher +
         </button>

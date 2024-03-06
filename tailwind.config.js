@@ -8,22 +8,22 @@ module.exports = {
     container: {
       center: true,
       padding: {
-        DEFAULT: '.8rem',
-        sm: '1rem',
-        md: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
-      }
+        DEFAULT: ".8rem",
+        sm: "1rem",
+        md: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
     },
     extend: {
       lineClamp: {
-         8: '8',
-        15: '15',
+        8: "8",
+        15: "15",
       },
       backgroundImage: {
-        'bismillah': "url('/images/background.jpg')",
-        'logo': "url('/images/logo.png')",
+        bismillah: "url('/images/background.jpg')",
+        logo: "url('/images/logo.png')",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -73,7 +73,7 @@ module.exports = {
         warsh: ["var(--font-warsh)"],
         scheherazade: ["var(--font-scheherazade)"],
         amiri: ["var(--font-amiri)"],
-        lateef: ["var(--font-lateef)"]
+        lateef: ["var(--font-lateef)"],
       },
       keyframes: {
         "accordion-down": {
@@ -93,7 +93,7 @@ module.exports = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    require('@tailwindcss/typography'),
-    require('tailwind-scrollbar-hide'),
+    require("@tailwindcss/typography"),
+    require("tailwind-scrollbar-hide"),
   ],
 }

@@ -1,7 +1,8 @@
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { signOut } from "@/actions/api/client"
 import { User } from "lucide-react"
 import { UserObject } from "next-auth"
-import { signOut } from "next-auth/react"
 
 import {
   DropdownMenu,
@@ -16,6 +17,7 @@ export interface AccountNavProps {
 }
 
 export function UserAccount({ user }: AccountNavProps) {
+  const router = useRouter()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
@@ -39,11 +41,10 @@ export function UserAccount({ user }: AccountNavProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
-          onSelect={(event) => {
+          onSelect={async (event) => {
             event.preventDefault()
-            signOut({
-              callbackUrl: "/login",
-            })
+            await signOut()
+            router.replace("/login")
           }}
         >
           Deconnexion

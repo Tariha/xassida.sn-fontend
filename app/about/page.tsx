@@ -1,5 +1,3 @@
-import { link } from "fs"
-
 import { about } from "@/config/pages"
 
 export default function About() {

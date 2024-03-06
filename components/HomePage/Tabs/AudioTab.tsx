@@ -23,7 +23,7 @@ const AudioTab = () => {
         </div>
       </div>
       <InfiniteList
-        params={{ reciter__tariha: tariha }}
+        params={{ "reciter.tariha": tariha }}
         Component={AudioList}
         type="audio"
       />

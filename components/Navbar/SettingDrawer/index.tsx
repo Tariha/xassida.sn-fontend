@@ -1,9 +1,8 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import { Settings } from "lucide-react"
 
-import useRouteChanged from "@/hooks/useRouteChanged"
 import { Separator } from "@/components/ui/separator"
 import {
   Sheet,
@@ -18,12 +17,10 @@ import ThemeToggle from "./ThemeToggle"
 import VerseSetting from "./VerseSetting"
 
 const SettingDrawer = () => {
-  const [open, setOpen] = useState(false)
-  useRouteChanged(() => setOpen(false))
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet>
       <SheetTrigger>
-        <Settings className="h-5 w-5 md:h-6 md:w-6" />
+        <Settings className="size-5 md:size-6" />
       </SheetTrigger>
       <SheetContent className="w-full md:max-w-sm">
         <SheetHeader>

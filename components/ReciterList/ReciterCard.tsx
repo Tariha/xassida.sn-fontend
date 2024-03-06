@@ -6,6 +6,7 @@ import { Edit, MoreHorizontal } from "lucide-react"
 import { getSession } from "next-auth/react"
 
 import { BASE_URL } from "@/lib/api"
+import { imageUrl } from "@/lib/constants"
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { toast } from "@/components/ui/use-toast"
 import Confirm from "@/components/Confirm"
-import ReciterModalForm from "@/app/(admin)/dashboard/reciters/components/RecitateurModalForm"
+import ReciterModalForm from "@/app/(admin)/dashboard/reciters/_components/Modal"
 
 interface Props {
   data: Author | Reciter
@@ -39,8 +40,8 @@ const ReciterCard: React.FC<Props> = ({ data, setOpen }) => {
       )}
       <CardHeader onClick={setOpen} className="p-3">
         <CardTitle className="flex items-center justify-center">
-          <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
-            <AvatarImage src={data.picture} />
+          <Avatar className="size-20 lg:size-32">
+            <AvatarImage src={`${imageUrl}${data.picture}`} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </CardTitle>

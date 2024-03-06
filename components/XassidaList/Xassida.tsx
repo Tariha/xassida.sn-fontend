@@ -1,10 +1,10 @@
 import { useRouter } from "next/navigation"
 import { Xassida } from "@/types"
 import { favoriteSelector } from "@/zustand/slices/favorites"
-import { historySelector } from "@/zustand/slices/history"
 import { useStore } from "@/zustand/store"
 import { Heart } from "lucide-react"
 
+import { imageUrl } from "@/lib/constants"
 import { isFavorite, unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -22,7 +22,7 @@ const XassidaVer: React.FC<Props> = ({ data }) => {
     >
       <div className="flex items-center space-x-2">
         <Avatar>
-          <AvatarImage src={data.author.picture} />
+          <AvatarImage src={`${imageUrl}${data.author.picture}`} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <h4 className="truncate text-xs font-medium">
@@ -32,7 +32,7 @@ const XassidaVer: React.FC<Props> = ({ data }) => {
       <div className="space-y-1">
         <p className="truncate text-xs font-bold">{unslugify(data.name)}</p>
       </div>
-      <div className="flex items-center justify-center rounded-md bg-gray-300 p-4 py-8 dark:bg-slate-700">
+      <div className="flex items-center justify-center rounded-md bg-vert p-4 py-8 text-white backdrop-blur">
         <span translate="no" className="text-lg">
           {" "}
           بِسْمِ ٱللَّهِ{" "}
@@ -58,7 +58,7 @@ const XassidaHor: React.FC<Props> = ({ data }) => {
     >
       <div className="flex items-center space-x-2">
         <Avatar className="ring-[#2ca4ab] group-hover:ring-2">
-          <AvatarImage src={data.author.picture} />
+          <AvatarImage src={`${imageUrl}${data.author.picture}`} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>

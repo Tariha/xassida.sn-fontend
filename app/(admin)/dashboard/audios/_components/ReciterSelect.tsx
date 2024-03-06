@@ -1,9 +1,8 @@
 "use client"
 
+import { searchReciter } from "@/actions/api/client"
 import { ChevronsUpDown } from "lucide-react"
-import { ControllerRenderProps } from "react-hook-form"
 
-import { getReciter } from "@/lib/api"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { FormControl } from "@/components/ui/form"
@@ -34,15 +33,16 @@ const ReciterSelect = ({ field }: Props) => {
               )}
             >
               Choisir Recitateur
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
             </Button>
           </FormControl>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
           <SelectCommand
-            placeholder="chercher recitateur"
+            key="rec"
             field={field}
-            getFunction={getReciter}
+            getter={searchReciter}
+            placeholder="chercher recitateur"
           />
         </PopoverContent>
       </Popover>

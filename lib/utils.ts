@@ -1,7 +1,8 @@
-import { APIResponse, Xassida } from "@/types"
 import clipboardCopy from "clipboard-copy"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+
+import { Xassida } from "@/types/supabase"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -11,11 +12,15 @@ export function unslugify(text: string) {
   return text?.replaceAll("_", " ")
 }
 
+export function slugify(text: string) {
+  return text?.replaceAll(" ", "_").toLowerCase()
+}
+
 export function flattenResult(data: any[] | undefined) {
   if (!data) return []
   const results: any = []
-  data.forEach((res) => results.push(res.results))
-  return results.flat()
+  data.forEach((res) => results.push(...res))
+  return results
 }
 
 export function isFavorite(favorites: Xassida[], id: number) {

@@ -1,15 +1,11 @@
-import React, { SetStateAction, useState } from "react"
-import { useStore } from "@/zustand/store"
+import React, { SetStateAction } from "react"
+import { createAudio, updateAudio, uploadFile } from "@/actions/api/client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
-import { getSession } from "next-auth/react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { BASE_URL, fetcher } from "@/lib/api"
-import { cn, toFormData } from "@/lib/utils"
-//import { toFormData } from "@/lib/utils"
-
+import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Form,
@@ -26,13 +22,13 @@ import ReciterSelect from "./ReciterSelect"
 import XassidaSelect from "./XassidaSelect"
 
 const formSchema = z.object({
-  reciter: z.number(),
-  xassida: z.number(),
+  reciter_id: z.number(),
+  xassida_id: z.number(),
   file: z.any(),
 })
 
 interface Init extends z.infer<typeof formSchema> {
-  id: number | string
+  id: number
 }
 
 interface Props {
@@ -40,45 +36,29 @@ interface Props {
   init?: Init
 }
 
-async function postAudio(data: FormData, id: number | string = "") {
-  const session: any = await getSession()
-  const method = id ? "PATCH" : "POST"
-  const url = `${BASE_URL}audios/` + (id ? `${id}/` : "")
-  const resp = await fetcher(url, {
-    method,
-    body: data,
-    headers: { Authorization: `Bearer ${session?.access}` },
-  })
-  return resp
-}
-
 export default function AudioForm({ setOpen, init }: Props) {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const mutateAudios = useStore((state) => state.mutateAudios)
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: init,
   })
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    if (!(data.file instanceof File)) delete data.file
-    const form_values = toFormData(data)
-    postAudio(form_values, init?.id)
-      .then(() => {
-        mutateAudios()
-        setOpen(false)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { reciter_id, xassida_id, file } = values
+    const name = `${reciter_id}_${xassida_id}`
+    try {
+      if (!init?.id) await createAudio({ reciter_id, xassida_id, file: name })
+      else await updateAudio(init.id, { reciter_id, xassida_id, file: name })
+
+      if (values.file instanceof File) await uploadFile(file, "audios", name)
+
+      setOpen(false)
+    } catch {
+      return toast({
+        title: "Quelque chose s'est mal passé",
+        description: "",
+        variant: "destructive",
       })
-      .catch((err) => {
-        console.log(err)
-        return toast({
-          title: "Quelque chose s'est mal passé",
-          description: "",
-          variant: "destructive",
-        })
-      })
-      .finally(() => setIsLoading(false))
+    }
   }
 
   return (
@@ -87,7 +67,7 @@ export default function AudioForm({ setOpen, init }: Props) {
         <div className="flex w-full justify-between pt-2">
           <FormField
             control={form.control}
-            name="reciter"
+            name="reciter_id"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Recitateur</FormLabel>
@@ -98,7 +78,7 @@ export default function AudioForm({ setOpen, init }: Props) {
           />
           <FormField
             control={form.control}
-            name="xassida"
+            name="xassida_id"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Xassida</FormLabel>
@@ -118,7 +98,7 @@ export default function AudioForm({ setOpen, init }: Props) {
                 <Input
                   type="file"
                   onChange={({ target }) =>
-                    form.setValue("file", target.files ? target.files[0] : null)
+                    field.onChange(target.files ? target.files[0] : null)
                   }
                 />
               </FormControl>
@@ -127,8 +107,13 @@ export default function AudioForm({ setOpen, init }: Props) {
           )}
         />
         <div className="flex justify-center">
-          <Button className={cn(buttonVariants())} disabled={isLoading}>
-            {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+          <Button
+            className={cn(buttonVariants())}
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting && (
+              <Loader className="mr-2 size-4 animate-spin" />
+            )}
             Soumettre
           </Button>
         </div>

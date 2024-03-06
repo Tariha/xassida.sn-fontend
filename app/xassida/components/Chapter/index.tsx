@@ -1,9 +1,9 @@
-import { Verse } from "@/types"
+import { getVersesByChapterId } from "@/actions/api/client"
 import { readerSelector } from "@/zustand/slices/reader"
 import { useStore } from "@/zustand/store"
 import useSWRInfinite from "swr/infinite"
 
-import { fetcher, getVerse } from "@/lib/api"
+import { Verse } from "@/types/supabase"
 import { flattenResult } from "@/lib/utils"
 
 import VerseAndTranslation from "../Verses/VerseAndTranslation"
@@ -16,15 +16,13 @@ interface Props {
 const Chapter = ({ chap }: Props) => {
   const { arabFontScale, arabFontFamily, translationLang } =
     useStore(readerSelector)
-  const key = (ind: number, prevData: any) =>
-    getVerse({
-      prevData,
-      params: { page: ind + 1, lang: translationLang },
-      id: chap,
-    })
-  const { data, isLoading, size, setSize } = useSWRInfinite(key, fetcher)
 
-  if (isLoading || !data) return <ChapterSkeleton count={5} />
+  const { data, isLoading, size, setSize } = useSWRInfinite(
+    (idx, prev) => (prev && !prev.length ? null : { chap, page: idx }),
+    ({ page }) => getVersesByChapterId(chap, page)
+  )
+
+  if (isLoading) return <ChapterSkeleton count={5} />
 
   const flattened = flattenResult(data)
   const len = flattened.length

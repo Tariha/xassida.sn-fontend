@@ -37,3 +37,9 @@ export const LANG = [
   { value: "en", label: "English" },
   { value: "es", label: "Spanish" },
 ]
+
+export const imageUrl =
+  "https://ahvinsybpljgkcomlksn.supabase.co/storage/v1/object/public/images/"
+
+export const audioUrl =
+  "https://ahvinsybpljgkcomlksn.supabase.co/storage/v1/object/public/audios/"
