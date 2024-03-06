@@ -20,7 +20,7 @@ const AuthorCard: React.FC<Props> = ({ data }) => (
     <Card className="max-h-18 group cursor-pointer border-gray-500 bg-transparent ring-[#2ca4ab] hover:border-0 hover:ring-1">
       <CardHeader className="p-3">
         <CardTitle className="flex items-center justify-center">
-          <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
+          <Avatar className="size-20 lg:size-32">
             <AvatarImage src={`${imageUrl}${data.picture}`} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>

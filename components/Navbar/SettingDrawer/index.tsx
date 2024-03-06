@@ -23,7 +23,7 @@ const SettingDrawer = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
-        <Settings className="h-5 w-5 md:h-6 md:w-6" />
+        <Settings className="size-5 md:size-6" />
       </SheetTrigger>
       <SheetContent className="w-full md:max-w-sm">
         <SheetHeader>

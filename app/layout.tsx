@@ -15,7 +15,6 @@ import { Toaster } from "@/components/ui/toaster"
 import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
-import SupabaseProvider from "@/components/SupabaseProvider"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {

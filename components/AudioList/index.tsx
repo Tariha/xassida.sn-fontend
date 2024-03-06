@@ -1,7 +1,6 @@
-import { Audio } from "@/types"
+import { Audio } from "@/types/supabase"
 
 import AudioCard from "./AudioCard"
-import AuthorCard from "./AudioCard"
 
 interface AuthorListProps {
   data: Audio[]

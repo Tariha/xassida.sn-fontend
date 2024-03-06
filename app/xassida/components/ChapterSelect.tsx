@@ -43,7 +43,7 @@ const ChapterSelect = ({ chapters, virtuoso }: Props) => {
           {value
             ? chapitres.find((chap) => chap.value === value)?.label
             : "Chapitres..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 scrollbar-hide">
@@ -62,7 +62,7 @@ const ChapterSelect = ({ chapters, virtuoso }: Props) => {
               >
                 <Check
                   className={cn(
-                    "mr-2 h-4 w-4",
+                    "mr-2 size-4",
                     value === chap.value ? "opacity-100" : "opacity-0"
                   )}
                 />
