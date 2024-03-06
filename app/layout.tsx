@@ -50,10 +50,6 @@ export const metadata: Metadata = {
       template: `%s - ${siteConfig.name}`,
     },
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   icons: {
     icon: "/icons/favicon.ico",
     shortcut: ["/icons/favicon-16x16.png", "/icons/favicon-32x32.png"],

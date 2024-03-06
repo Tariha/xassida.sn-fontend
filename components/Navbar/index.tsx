@@ -10,7 +10,6 @@ import {
 } from "@supabase/auth-helpers-nextjs"
 import { Github, Search } from "lucide-react"
 
-import useRouteChanged from "@/hooks/useRouteChanged"
 import useScrollDirection from "@/hooks/useScrollDirection"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import Command from "@/components/Command"
@@ -21,18 +20,12 @@ import { UserAccount } from "./UserAccount"
 
 const Navbar = () => {
   const [user, setUser] = useState<User | null>(null)
-  const [open, setOpen] = useState(false)
   const { setVisible, visible } = useStore(navbarSelector)
   const supabase = createClientComponentClient()
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user))
   }, [supabase])
-
-  useRouteChanged(() => {
-    setOpen(false)
-    setVisible(true)
-  })
 
   const onDirectionChange = useCallback(
     (direction: string, newYPosition: number) => {
@@ -65,7 +58,7 @@ const Navbar = () => {
         >
           <Github className="size-5 md:size-6" />
         </a>
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog>
           <DialogTrigger asChild>
             <Search className="size-5 cursor-pointer md:size-6" />
           </DialogTrigger>

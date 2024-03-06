@@ -1,10 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { Suspense } from "react"
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
-import useRouteChanged from "@/hooks/useRouteChanged"
 import { Separator } from "@/components/ui/separator"
 import {
   Sheet,
@@ -18,10 +17,8 @@ import CustomIcon from "@/components/icons"
 import DonationCard from "./DonationCard"
 
 const NavigationDrawer = () => {
-  const [open, setOpen] = useState(false)
-  useRouteChanged(() => setOpen(false))
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet>
       <SheetTrigger>
         <CustomIcon name="Menu" size={22} className="cursor-pointer" />
       </SheetTrigger>
