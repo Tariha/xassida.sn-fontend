@@ -1,11 +1,14 @@
 "use client"
 
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import Link from "next/link"
 import { navbarSelector } from "@/zustand/slices/navbar"
 import { useStore } from "@/zustand/store"
+import {
+  User,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs"
 import { Github, Search } from "lucide-react"
-import { useSession } from "next-auth/react"
 
 import useRouteChanged from "@/hooks/useRouteChanged"
 import useScrollDirection from "@/hooks/useScrollDirection"
@@ -17,9 +20,14 @@ import SettingDrawer from "./SettingDrawer"
 import { UserAccount } from "./UserAccount"
 
 const Navbar = () => {
+  const [user, setUser] = useState<User | null>(null)
   const [open, setOpen] = useState(false)
   const { setVisible, visible } = useStore(navbarSelector)
-  const { data } = useSession()
+  const supabase = createClientComponentClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+  }, [supabase])
 
   useRouteChanged(() => {
     setOpen(false)
@@ -40,7 +48,7 @@ const Navbar = () => {
     <div
       className={`${
         visible ? "translate-y-0" : "-translate-y-full"
-      } sticky inset-x-0 top-0 z-10 flex h-[56px] items-center justify-between bg-background px-4 shadow-md animate-out slide-in-from-top duration-200 dark:bg-muted`}
+      } sticky inset-x-0 top-0 z-10 flex h-[56px] items-center justify-between bg-background px-4 shadow-md duration-200 animate-out slide-in-from-top dark:bg-muted`}
     >
       <div className="flex items-center space-x-2 text-xl font-bold">
         <NavigationDrawer />
@@ -49,17 +57,17 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center space-x-4 text-xl font-bold">
-        {data?.user && <UserAccount user={data?.user} />}
+        {user && <UserAccount user={user} />}
         <a
           target="_blank"
           href="https://github.com/orgs/Tariha/repositories"
           rel="noreferrer"
         >
-          <Github className="h-5 w-5 md:h-6 md:w-6" />
+          <Github className="size-5 md:size-6" />
         </a>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Search className="h-5 w-5 cursor-pointer md:h-6 md:w-6" />
+            <Search className="size-5 cursor-pointer md:size-6" />
           </DialogTrigger>
           <DialogContent className="p-0">
             <Command />

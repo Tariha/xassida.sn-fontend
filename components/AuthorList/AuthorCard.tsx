@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Author } from "@/types"
 
+import { imageUrl } from "@/lib/constants"
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -20,7 +21,7 @@ const AuthorCard: React.FC<Props> = ({ data }) => (
       <CardHeader className="p-3">
         <CardTitle className="flex items-center justify-center">
           <Avatar className="h-20 w-20 lg:h-32 lg:w-32">
-            <AvatarImage src={data.picture} />
+            <AvatarImage src={`${imageUrl}${data.picture}`} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </CardTitle>

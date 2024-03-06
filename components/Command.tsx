@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, Search } from "lucide-react"
+import { searchXassida } from "@/actions/api/client"
+import { ArrowRight } from "lucide-react"
 import useSWR from "swr"
 
-import { fetcher, getXassida } from "@/lib/api"
 import { unslugify } from "@/lib/utils"
 import { useDebounce } from "@/hooks/useDebounce"
 import {
@@ -19,11 +19,9 @@ import {
 const SearchCommand = () => {
   const [search, setSearch] = useState("")
   const debouncedSearch = useDebounce(search, 1000)
+  const key = debouncedSearch ? `xas_${debouncedSearch}` : null
 
-  const key = debouncedSearch
-    ? getXassida({ params: { search: debouncedSearch } })
-    : null
-  const { data, error, isLoading } = useSWR(key, fetcher)
+  const { data } = useSWR(key, () => searchXassida(debouncedSearch))
 
   return (
     <Command shouldFilter={false}>
@@ -44,7 +42,7 @@ const SearchCommand = () => {
                 passHref
               >
                 {" "}
-                <ArrowRight className="mr-2 h-4 w-4" />
+                <ArrowRight className="mr-2 size-4" />
                 <div className="flex w-full items-center justify-between">
                   <span className="md:text-md text-sm font-bold capitalize">
                     {unslugify(sug.name)}

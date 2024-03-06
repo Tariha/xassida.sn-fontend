@@ -1,4 +1,4 @@
-import { fetcher, getXassida } from "@/lib/api"
+import { getXassidaById } from "@/actions/api/client"
 
 import Reader from "../components/Reader"
 
@@ -7,9 +7,10 @@ interface Props {
 }
 
 export default async function XassidaPage({ params }: Props) {
-  const data = await fetcher(getXassida({ id: params.id }), {
-    cache: "no-store",
-  })
+  const data = await getXassidaById(params.id)
+
+  if (!data) return null
+
   return (
     <div>
       <Reader xassida={data} />

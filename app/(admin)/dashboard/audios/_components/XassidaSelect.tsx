@@ -1,9 +1,8 @@
 "use client"
 
+import { searchXassida } from "@/actions/api/client"
 import { ChevronsUpDown } from "lucide-react"
-import { ControllerRenderProps } from "react-hook-form"
 
-import { getXassida } from "@/lib/api"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { FormControl } from "@/components/ui/form"
@@ -34,15 +33,16 @@ const XassidaSelect = ({ field }: Props) => {
               )}
             >
               Choisir Xassida
-              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
             </Button>
           </FormControl>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] p-0">
           <SelectInputCommand
-            placeholder="chercher xassida"
+            key="xas"
             field={field}
-            getFunction={getXassida}
+            getter={searchXassida}
+            placeholder="chercher xassida"
           />
         </PopoverContent>
       </Popover>

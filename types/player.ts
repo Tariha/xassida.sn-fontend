@@ -1,4 +1,4 @@
-import { Audio } from "./"
+import { Audio } from "./supabase"
 
 export enum SeekType {
   Forward = "Forward",

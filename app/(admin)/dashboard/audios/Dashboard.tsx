@@ -2,31 +2,31 @@ import { Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import ReciterTab from "@/components/HomePage/Tabs/ReciterTab"
+import AudioTab from "@/components/HomePage/Tabs/AudioTab"
 
-import ReciterModalForm from "./components/RecitateurModalForm"
+import AudioModalForm from "./_components/Modal"
 
-const ReciterDashboard = () => {
+const AudioDashboard = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Les Recitateurs</h3>
+        <h3 className="text-lg font-medium">Les Audios</h3>
         <div className="flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            Creer un nouveau recitateur grace au formulaire.
+            Creer un nouveau audio grace au formulaire.
           </p>
-          <ReciterModalForm>
+          <AudioModalForm>
             <Button variant="outline" className="space-x-2">
               <Plus size={14} />
-              <span>Recitateur</span>
+              <span>Audio</span>
             </Button>
-          </ReciterModalForm>
+          </AudioModalForm>
         </div>
       </div>
       <Separator />
-      <ReciterTab />
+      <AudioTab />
     </div>
   )
 }
 
-export default ReciterDashboard
+export default AudioDashboard

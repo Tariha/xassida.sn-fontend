@@ -15,10 +15,8 @@ import { Toaster } from "@/components/ui/toaster"
 import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
-import AudioListSheet from "@/components/ReciterList/AudioListSheet"
+import SupabaseProvider from "@/components/SupabaseProvider"
 import { ThemeProvider } from "@/components/theme-provider"
-
-import { NextAuthProvider } from "./provider"
 
 export const metadata: Metadata = {
   title: {
@@ -84,7 +82,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="fr" suppressHydrationWarning>
-        <head />
         <body
           // eslint-disable-next-line tailwindcss/classnames-order
           className={`
@@ -99,15 +96,13 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           `}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <NextAuthProvider>
-              <div className="relative flex min-h-screen flex-col pb-12">
-                <Navbar />
-                <div className="flex-1">{children}</div>
-                <Footer />
-              </div>
-              <Toaster />
-              <AudioPlayer />
-            </NextAuthProvider>
+            <div className="relative flex min-h-screen flex-col pb-12">
+              <Navbar />
+              <div className="flex-1">{children}</div>
+              <Footer />
+            </div>
+            <Toaster />
+            <AudioPlayer />
           </ThemeProvider>
         </body>
       </html>

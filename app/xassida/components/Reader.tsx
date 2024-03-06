@@ -1,8 +1,8 @@
 /* eslint-disable tailwindcss/no-contradicting-classname */
 "use client"
 
-import { useCallback, useEffect, useRef } from "react"
-import { Xassida } from "@/types"
+import { useEffect, useRef } from "react"
+import { getAudios } from "@/actions/api/client"
 import { playerStore } from "@/zustand/playerStore"
 import { navbarSelector } from "@/zustand/slices/navbar"
 import { useStore } from "@/zustand/store"
@@ -10,7 +10,8 @@ import { Download, Pause, Play } from "lucide-react"
 import { Virtuoso } from "react-virtuoso"
 
 import { playingType } from "@/types/player"
-import { BASE_URL, fetcher, getAudio } from "@/lib/api"
+import { Xassida } from "@/types/supabase"
+import { BASE_URL } from "@/lib/api"
 import { cn, unslugify } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { BismillahVariant } from "@/components/Bismillah"
@@ -23,9 +24,9 @@ interface Props {
 }
 
 const Reader = ({ xassida }: Props) => {
-  // add xassida to reading history
   const { visible } = useStore(navbarSelector)
   const virtuoso = useRef(null)
+
   const [isCurrentPlaying, playXassida, toggle, data] = playerStore((state) => [
     state.isCurrentPlaying,
     state.playXassida,
@@ -34,21 +35,27 @@ const Reader = ({ xassida }: Props) => {
   ])
 
   const addToHistory = useStore((state) => state.addToHistory)
+
   // add xassida to reading history
   useEffect(() => {
     addToHistory(xassida)
   }, [addToHistory, xassida])
 
-  const { reciters } = xassida
+  const reciters = xassida?.reciter || []
+  const chapters: any[] = xassida.chapter
+    .sort((a, b) => a.number - b.number)
+    .map((chp) => chp.id)
+
   const currentPlaying = isCurrentPlaying(xassida.id, playingType.Xassida)
   const playDisabled = reciters.length ? false : true
 
   const handlePlay = async () => {
     if (data?.xassida == xassida.id) toggle()
     else {
-      const [audio] = await fetcher(
-        getAudio({ params: { reciter: reciters[0], xassida: xassida.id } })
-      )
+      const [audio] = await getAudios({
+        reciter_id: reciters[0].id,
+        xassida_id: xassida.id,
+      })
       playXassida(audio)
     }
   }
@@ -61,7 +68,7 @@ const Reader = ({ xassida }: Props) => {
           visible ? "top-[56px]" : "top-0"
         )}
       >
-        <ChapterSelect virtuoso={virtuoso} chapters={xassida.chapters} />
+        <ChapterSelect virtuoso={virtuoso} chapters={chapters} />
         <div>
           <a
             target="_blank"
@@ -90,9 +97,9 @@ const Reader = ({ xassida }: Props) => {
                   variant="outline"
                 >
                   {currentPlaying ? (
-                    <Pause className="mr-2 h-4 w-4" />
+                    <Pause className="mr-2 size-4" />
                   ) : (
-                    <Play className="mr-2 h-4 w-4" />
+                    <Play className="mr-2 size-4" />
                   )}
                   <span>{currentPlaying ? "Arreter" : "Demarrer"} Audio</span>
                 </Button>
@@ -105,8 +112,8 @@ const Reader = ({ xassida }: Props) => {
             ref={virtuoso}
             useWindowScroll
             increaseViewportBy={1000}
-            data={xassida.chapters}
-            itemContent={(i, chap) => <Chapter chap={chap} />}
+            data={chapters}
+            itemContent={(_, chap) => <Chapter chap={chap} />}
           />
         </div>
       </div>

@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/popover"
 
 interface Props {
-  chapters: number[] | string[]
+  chapters: number[]
   virtuoso: any
 }
 

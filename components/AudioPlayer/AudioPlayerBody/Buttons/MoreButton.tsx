@@ -1,8 +1,10 @@
-import { Reciter } from "@/types"
+import { getAudioById } from "@/actions/api/client"
 import { playerStore } from "@/zustand/playerStore"
 import { Download, MoreHorizontal } from "lucide-react"
 
+import { Reciter } from "@/types/supabase"
 import { fetcher, getAudio } from "@/lib/api"
+import { audioUrl } from "@/lib/constants"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -40,17 +42,14 @@ const MoreButton = () => {
     ])
 
   const handlePlay = async (id: number) => {
-    const [audio] = await fetcher(
-      getAudio({ params: { reciter: id, xassida: data.xassida } })
-    )
+    const audio = await getAudioById(id)
     playXassida(audio)
   }
 
   const handleDownload = (id: number) => {
     setDownloading(id)
     const file = data.file
-    const splits = file.substring(file.lastIndexOf("/") + 1).split("?")
-    const [filename] = splits
+    const filename = data.xassida.name
     const xhr = new XMLHttpRequest()
     xhr.responseType = "blob"
     xhr.onload = () => {
@@ -62,7 +61,7 @@ const MoreButton = () => {
       a.click()
       setDownloading(null)
     }
-    xhr.open("GET", file)
+    xhr.open("GET", `${audioUrl}${file}`)
     xhr.send()
   }
 
@@ -99,11 +98,11 @@ const MoreButton = () => {
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>{"Recitateur"}</DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger>{"Récitateur"}</DropdownMenuSubTrigger>
           <DropdownMenuSubContent sideOffset={7}>
-            {data.reciters.map((item: Reciter) => (
+            {data.xassida.reciter.map((item: Reciter) => (
               <DropdownMenuCheckboxItem
-                checked={item.id == data.reciter}
+                checked={item.id == data.reciter.id}
                 onCheckedChange={() => {
                   handlePlay(item.id)
                 }}
