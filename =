@@ -15,8 +15,10 @@ import {
 } from "@/types/supabase"
 
 //const supabase = createClientComponentClient<Database>({})
+//
+const cookieStore = cookies()
 const supabase = createServerActionClient<Database>({
-  cookies: () => cookies(),
+  cookies: () => cookieStore,
 })
 
 const signInWithEmail = async (values: { email: string; password: string }) => {

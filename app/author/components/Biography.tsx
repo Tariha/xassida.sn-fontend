@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Author } from "@/types"
 import ReactMarkdown from "react-markdown"
 
-import { unslugify } from "@/lib/utils"
+import { Author } from "@/types/supabase"
+import { imageUrl } from "@/lib/constants"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
@@ -18,12 +18,12 @@ const Biography = ({ data }: Props) => {
     <div className="min-h-[330px] overflow-y-scroll bg-vert py-2 scrollbar-hide md:py-4">
       <div className="container">
         <Avatar className="float-right m-2 size-32 rounded-lg shadow md:size-40 lg:m-4">
-          <AvatarImage src={data?.picture} />
+          <AvatarImage src={`${imageUrl}${data.picture}`} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div>
           <div className="prose max-w-none text-justify text-sm text-white prose-h1:text-white prose-a:text-gray-200 prose-a:no-underline">
-            <ReactMarkdown linkTarget="_blank">{data?.info.text}</ReactMarkdown>
+            <ReactMarkdown linkTarget="_blank">{""}</ReactMarkdown>
           </div>
           <Button
             onClick={() => setPlus(!plus)}

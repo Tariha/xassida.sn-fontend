@@ -1,4 +1,5 @@
 import React, { SetStateAction } from "react"
+import { useRouter } from "next/navigation"
 import { createAudio, updateAudio, uploadFile } from "@/actions/api/client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
@@ -37,6 +38,7 @@ interface Props {
 }
 
 export default function AudioForm({ setOpen, init }: Props) {
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: init,
@@ -52,6 +54,7 @@ export default function AudioForm({ setOpen, init }: Props) {
       if (values.file instanceof File) await uploadFile(file, "audios", name)
 
       setOpen(false)
+      router.refresh()
     } catch {
       return toast({
         title: "Quelque chose s'est mal passé",

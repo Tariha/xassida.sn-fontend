@@ -31,9 +31,9 @@ const AudioListSheet: React.FC<Props> = ({ reciter }) => {
             <DrawerTitle className="capitalize">{reciter.name}</DrawerTitle>
             <DrawerDescription>Playlist</DrawerDescription>
           </DrawerHeader>
-          <ScrollArea className="h-full px-4 scrollbar-hide">
+          <ScrollArea className="h-full scrollbar-hide">
             <InfiniteList
-              params={{ "reciter.id": reciter.id }}
+              params={{ reciter_id: reciter.id }}
               Component={AudioList}
               type="audio"
             />
