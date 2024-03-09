@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useMemo } from "react"
 import { readerSelector } from "@/zustand/slices/reader"
 import { useStore } from "@/zustand/store"
 import { Play } from "lucide-react"
@@ -19,10 +19,16 @@ interface Props {
 }
 
 const VerseAndTranslation: React.FC<Props> = ({ verse, font, last, more }) => {
-  const { translation, translationFontScale } = useStore(readerSelector)
+  const { translation, translationFontScale, translationLang } =
+    useStore(readerSelector)
 
   const elemRef = React.useRef(null)
   const ref = useObserveElement(more)
+
+  const getTranslation = useMemo(() => {
+    const trans = verse.translations.filter((t) => t.lang === translationLang)
+    return trans?.[0]
+  }, [translationLang, verse.translations])
 
   React.useEffect(() => {
     ref(elemRef.current)
@@ -43,7 +49,7 @@ const VerseAndTranslation: React.FC<Props> = ({ verse, font, last, more }) => {
             className="mt-4 font-sans"
             style={{ fontSize: translationFontScale }}
           >
-            {verse.translations?.[0]?.text}
+            {getTranslation?.text}
           </p>
         )}
       </div>
