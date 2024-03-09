@@ -1,10 +1,10 @@
 export const about = [
   {
-    header: "A Propos",
+    header: "À Propos",
     text: "Bienvenue sur Xassida.sn, une application open source qui offre une expérience immersive en rassemblant les Xassidas au format numérique. Notre projet a pour vocation de faciliter l'accès aux Xassidas en proposant des versions textuelles avec une transcription automatique de qualité supérieure, ainsi que la possibilité de les télécharger au format PDF. Un lecteur audio y est intégré, pour permettre une immersion totale dans la poésie des Xassidas.",
   },
   {
-    header: "Qu'est ce que le xassida",
+    header: "Qu'est ce que le xassida?",
     text: "Le Xassida est un genre poétique; Il s'agit d'une forme de poésie islamique qui combine dévotion religieuse, enseignements moraux et imagerie vive pour transmettre une profonde signification spirituelle",
   },
   {
@@ -12,7 +12,7 @@ export const about = [
     text: "Nous serions ravis d'avoir de vos nouvelles ! Si vous avez des questions, des commentaires ou des suggestions, veuillez contacter nous contacter xassida.sn@gmail.com.",
   },
   {
-    header: "Rejoigne la communauté",
+    header: "Rejoignez la communauté",
     text: "",
     links: [
       {
