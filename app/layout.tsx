@@ -15,6 +15,7 @@ import { Toaster } from "@/components/ui/toaster"
 import AudioPlayer from "@/components/AudioPlayer"
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
+import RamadanButton from "@/components/Navbar/RamadanButton"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
@@ -92,6 +93,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="relative flex min-h-screen flex-col pb-12">
+              <div className="flex justify-center py-2 md:hidden md:py-0">
+                <RamadanButton />
+              </div>
               <Navbar />
               <div className="flex-1">{children}</div>
               <Footer />

@@ -15,6 +15,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import Command from "@/components/Command"
 
 import NavigationDrawer from "./NavigationDrawer"
+import RamadanButton from "./RamadanButton"
 import SettingDrawer from "./SettingDrawer"
 import { UserAccount } from "./UserAccount"
 
@@ -48,6 +49,9 @@ const Navbar = () => {
         <Link href="/" passHref>
           <h2 className="font-keania">Xassida.sn</h2>
         </Link>
+      </div>
+      <div className="hidden md:block">
+        <RamadanButton />
       </div>
       <div className="flex items-center space-x-4 text-xl font-bold">
         {user && <UserAccount user={user} />}

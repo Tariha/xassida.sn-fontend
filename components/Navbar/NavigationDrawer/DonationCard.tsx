@@ -20,15 +20,15 @@ const DonationCard = () => (
       </p>
     </CardContent>
     <CardFooter>
-      <Button size="lg" className="text-md bg-vert hover:bg-vert/90">
-        <a
-          href="https://koparexpress.com/apps/collectes/r830jt9qe"
-          target="_blank"
-          rel="noreferrer"
-        >
+      <a
+        href="https://koparexpress.com/apps/collectes/r830jt9qe"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Button size="lg" className="text-md bg-vert hover:bg-vert/90">
           Contribuer
-        </a>
-      </Button>
+        </Button>
+      </a>
     </CardFooter>
   </Card>
 )
