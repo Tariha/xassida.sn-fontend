@@ -180,6 +180,12 @@ const updateReciter = async (id: number, values: TablesUpdate<"reciter">) => {
   return data as any
 }
 
+const deleteReciter = async (id: number) => {
+  const { error } = await supabase.from("reciter").delete().eq("id", id)
+
+  if (error) throw error
+}
+
 const getAudios = async (
   filters = {},
   offset = 0,
@@ -189,7 +195,7 @@ const getAudios = async (
   const to = from + page_size - 1
   let query = supabase
     .from("audio")
-    .select("*, reciter(*), xassida(id, name, reciter(id, name))")
+    .select("*, reciter!inner(*), xassida(id, name, reciter(id, name))")
     .order("id")
   // apply filters
   Object.entries(filters).forEach(([k, v]) => {
@@ -232,6 +238,12 @@ const updateAudio = async (id: number, values: TablesUpdate<"audio">) => {
   return data as any
 }
 
+const deleteAudio = async (id: number) => {
+  const { error } = await supabase.from("audio").delete().eq("id", id)
+
+  if (error) throw error
+}
+
 const uploadFile = async (file: File, path: string, name: string) => {
   const { error } = await supabase.storage.from(path).upload(name, file, {
     upsert: true,
@@ -252,10 +264,12 @@ export {
   getReciterById,
   createReciter,
   updateReciter,
+  deleteReciter,
   getAudios,
   getAudioById,
   createAudio,
   updateAudio,
+  deleteAudio,
   signInWithEmail,
   signOut,
   uploadFile,

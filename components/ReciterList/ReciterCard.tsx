@@ -1,11 +1,9 @@
 import { useState } from "react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
+import { deleteReciter } from "@/actions/api/client"
 import { Author, Reciter } from "@/types"
-import { useStore } from "@/zustand/store"
 import { Edit, MoreHorizontal } from "lucide-react"
-import { getSession } from "next-auth/react"
 
-import { BASE_URL } from "@/lib/api"
 import { imageUrl } from "@/lib/constants"
 import { unslugify } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -53,29 +51,17 @@ const ReciterCard: React.FC<Props> = ({ data, setOpen }) => {
   )
 }
 
-async function deleteReciter(id: number) {
-  const session: any = await getSession()
-  const resp = await fetch(`${BASE_URL}reciters/${id}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${session?.access}` },
-    cache: "no-cache",
-  })
-  if (!resp.ok) throw new Error("Suppression échoué")
-  return resp
-}
-
 const ReciterCardMenu: React.FC<Props> = ({ data }) => {
+  const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
-  const mutateReciters = useStore((state) => state.mutateReciters)
 
   async function handleDelete(e: any) {
     e.preventDefault()
     deleteReciter(data.id)
       .then(() => {
-        mutateReciters()
-        setOpen(false)
+        router.refresh()
       })
-      .catch((err) => {
+      .catch(() => {
         return toast({
           title: "Quelque chose s'est mal passé",
           description: "",
@@ -83,6 +69,7 @@ const ReciterCardMenu: React.FC<Props> = ({ data }) => {
         })
       })
   }
+
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>

@@ -1,12 +1,14 @@
-import React, { SetStateAction } from "react"
+"use client"
+
 import { useRouter } from "next/navigation"
-import { createAudio, updateAudio, uploadFile } from "@/actions/api/client"
+import { createAudio, updateAudio } from "@/actions/api/client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { cn } from "@/lib/utils"
+import uploadFile from "@/hooks/useUpload"
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Form,
@@ -33,11 +35,10 @@ interface Init extends z.infer<typeof formSchema> {
 }
 
 interface Props {
-  setOpen: React.Dispatch<SetStateAction<boolean>>
   init?: Init
 }
 
-export default function AudioForm({ setOpen, init }: Props) {
+export default function AudioForm({ init }: Props) {
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,7 +54,6 @@ export default function AudioForm({ setOpen, init }: Props) {
 
       if (values.file instanceof File) await uploadFile(file, "audios", name)
 
-      setOpen(false)
       router.refresh()
     } catch {
       return toast({

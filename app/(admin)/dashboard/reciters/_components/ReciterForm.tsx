@@ -1,12 +1,15 @@
+"use client"
+
 import React, { SetStateAction } from "react"
 import { useRouter } from "next/navigation"
-import { createReciter, updateReciter, uploadFile } from "@/actions/api/client"
+import { createReciter, updateReciter } from "@/actions/api/client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Loader } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { slugify } from "@/lib/utils"
+import uploadFile from "@/hooks/useUpload"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -32,11 +35,10 @@ interface Init extends z.infer<typeof formSchema> {
 }
 
 interface Props {
-  setOpen: React.Dispatch<SetStateAction<boolean>>
   init?: Init
 }
 
-export default function ReciterForm({ setOpen, init }: Props) {
+export default function ReciterForm({ init }: Props) {
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -55,7 +57,6 @@ export default function ReciterForm({ setOpen, init }: Props) {
       if (values.picture instanceof File)
         await uploadFile(picture, "images/reciters", slug)
 
-      setOpen(false)
       router.refresh()
     } catch {
       return toast({

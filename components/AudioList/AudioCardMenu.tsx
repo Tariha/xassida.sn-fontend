@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { useRouter } from "next/navigation"
+import { deleteAudio } from "@/actions/api/client"
 import { Edit, MoreHorizontal } from "lucide-react"
 
 import { Audio } from "@/types/supabase"
@@ -7,6 +9,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { toast } from "@/components/ui/use-toast"
 import Confirm from "@/components/Confirm"
 import AudioModalForm from "@/app/(admin)/dashboard/audios/_components/Modal"
 
@@ -15,10 +18,22 @@ interface Props {
 }
 
 const AudioCardMenu: React.FC<Props> = ({ data }) => {
+  const router = useRouter()
   const [open, setOpen] = useState<boolean>(false)
 
   async function handleDelete(e: any) {
     e.preventDefault()
+    deleteAudio(data.id)
+      .then(() => {
+        router.refresh()
+      })
+      .catch(() => {
+        return toast({
+          title: "Quelque chose s'est mal passé",
+          description: "",
+          variant: "destructive",
+        })
+      })
   }
 
   return (
