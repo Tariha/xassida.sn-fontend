@@ -207,6 +207,21 @@ const getAudios = async (
   return data as any
 }
 
+const getAudioByAuthorAndXassidaId = async (
+  xassida_id: number,
+  reciter_id: number
+): Promise<Audio> => {
+  const { data, error } = await supabase
+    .from("audio")
+    .select("*, reciter(*), xassida(id, name, reciter(id, name))")
+    .eq("xassida_id", xassida_id)
+    .eq("reciter_id", reciter_id)
+    .single()
+  if (error) throw error
+
+  return data as any
+}
+
 const getAudioById = async (id: number): Promise<Audio> => {
   const { data, error } = await supabase
     .from("audio")
@@ -267,6 +282,7 @@ export {
   deleteReciter,
   getAudios,
   getAudioById,
+  getAudioByAuthorAndXassidaId,
   createAudio,
   updateAudio,
   deleteAudio,

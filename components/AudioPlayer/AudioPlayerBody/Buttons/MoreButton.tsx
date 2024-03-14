@@ -1,10 +1,11 @@
-import { getAudioById } from "@/actions/api/client"
+import Link from "next/link"
+import { getAudioByAuthorAndXassidaId } from "@/actions/api/client"
 import { playerStore } from "@/zustand/playerStore"
-import { Download, MoreHorizontal } from "lucide-react"
+import { Download, Link as LinkIcon, MoreHorizontal } from "lucide-react"
 
 import { Reciter } from "@/types/supabase"
-import { fetcher, getAudio } from "@/lib/api"
 import { audioUrl } from "@/lib/constants"
+import { unslugify } from "@/lib/utils"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -41,8 +42,8 @@ const MoreButton = () => {
       state.setSpeed,
     ])
 
-  const handlePlay = async (id: number) => {
-    const audio = await getAudioById(id)
+  const handlePlay = async (xassida_id: number, reciter_id: number) => {
+    const audio = await getAudioByAuthorAndXassidaId(xassida_id, reciter_id)
     playXassida(audio)
   }
 
@@ -98,20 +99,29 @@ const MoreButton = () => {
           </DropdownMenuSubContent>
         </DropdownMenuSub>
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>{"Récitateur"}</DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger>{"Récitateurs"}</DropdownMenuSubTrigger>
           <DropdownMenuSubContent sideOffset={7}>
-            {data.xassida.reciter.map((item: Reciter) => (
+            {data.xassida.reciter.map((rec: Reciter) => (
               <DropdownMenuCheckboxItem
-                checked={item.id == data.reciter.id}
+                checked={rec.id == data.reciter.id}
                 onCheckedChange={() => {
-                  handlePlay(item.id)
+                  handlePlay(data.xassida.id, rec.id)
                 }}
               >
-                {item.name}
+                {rec.name}
               </DropdownMenuCheckboxItem>
             ))}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
+        <DropdownMenuSeparator className="dark:bg-background" />
+        <DropdownMenuItem>
+          <Link href={`/xassida/${data.xassida.id}`}>
+            <div className="flex cursor-pointer items-center space-x-4">
+              <LinkIcon size={16} />
+              <span>{unslugify(data.xassida.name)}</span>
+            </div>
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
